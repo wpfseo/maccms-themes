@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>充值记录 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-member-page">
+
+            <aside class="hl-member-sidebar hl-desktop-only">
+                <nav class="hl-member-nav">
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-user-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">个人中心</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-star-smile-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的收藏</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-play-circle-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">播放记录</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-file-list-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的订单</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false"}active{/if}" href="{{:url('user/buy')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-database-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">充值会员</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-settings-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">账户设置</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>️</span>
+                        <span class="hl-member-nav-text">安全中心</span>
+                    </a>
+                    <a class="hl-member-nav-link" href="{:url('user/logout')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-delete-bin-5-line right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">退出登录</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="hl-member-content">
+
+                <div class="hl-member-hero">
+                    <div class="hl-member-hero-left">
+                        <span class="hl-member-hero-badge">Order Details</span>
+                        <h1 class="hl-member-hero-title right-5">订单记录</h1>
+                        <p class="hl-member-hero-desc">查看你的在线充值和充值卡记录</p>
+                    </div>
+                    <a class="hl-member-hero-btn" href="{{:url('user/buy')}">积分充值</a>
+                </div>
+
+                <div class="hl-member-panel hl-member-list-panel">
+
+                    <div class="hl-member-tabs">
+                        <a class="hl-member-tab active" href="javascript:void(0)"><i class="fs12 icon-macbook-line right-5 iconfont"></i>在线充值记录</a>
+                        <a class="hl-member-tab" href="{:url('user/cards')}"><i class="fs12 icon-bank-card-line right-5 iconfont"></i>充值卡记录</a>
+                    </div>
+
+                    {if condition="count($list) gt 0"}
+                        <div class="hl-order-list">
+                            {volist name="list" id="vo"}
+                                <div class="hl-order-item">
+                                    <div class="hl-order-info">
+                                        <div class="hl-order-top">
+                                            {if condition="$vo.order_status eq 1"}
+                                                <span class="hl-order-status hl-status-ok">✅ 已支付</span>
+                                                <span class="hl-order-price">¥{$vo.order_price}</span>
+                                                <span class="hl-order-points">+{$vo.order_points} 积分</span>
+                                            {else/}
+                                                <span class="hl-order-status hl-status-wait">⏳ 待支付</span>
+                                                <span class="hl-order-price">¥{$vo.order_price}</span>
+                                            {/if}
+                                        </div>
+                                        <div class="hl-order-bottom">
+                                            <span class="hl-order-code">单号：{$vo.order_code}</span>
+                                            <span class="hl-order-time">{$vo.order_time|date='Y-m-d H:i',###}</span>
+                                        </div>
+                                        {if condition="$vo.order_status eq 0"}
+                                            <a class="hl-order-pay-btn" href="{:url('user/pay')}?order_code={$vo.order_code}">去支付</a>
+                                        {/if}
+                                    </div>
+                                </div>
+                            {/volist}
+                        </div>
+
+                        <div class="hl-pagination">
+                            {$__PAGING__.page_html}
+                        </div>
+
+                    {else/}
+                        <div class="hl-empty-state">
+                            <span class="hl-empty-icon"><i class="fs56 icon-cup-line right-5 iconfont"></i></span>
+                            <strong class="hl-empty-title">暂无充值记录</strong>
+                            <p class="hl-empty-desc">还没有充值记录，去充值吧。</p>
+                            <a class="hl-empty-btn" href="{{:url('user/buy')}">去充值</a>
+                        </div>
+                    {/if}
+
+                </div>
+
+            </section>
+        </main>
+
+        {include file="public/foot"}
+
+    </body>
+</html>

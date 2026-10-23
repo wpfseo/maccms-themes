@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        {include file="public/include"}
+        <style>.topic-editorial{font-size:14px;line-height:1.9;color:var(--text-secondary)}.topic-editorial p{margin:0 0 12px}.topic-editorial p:last-child{margin-bottom:0}</style>
+
+    </head>
+    <body>
+        {include file="public/head"}
+
+        <div class="special-detail-hero">
+            <div class="special-detail-hero-bg">
+                <img src="{$obj.topic_pic|mac_url_img}" alt="{$obj.topic_name}">
+            </div>
+            {maccms:vod num="18" ids="'.$obj['topic_rel_vod'].'" paging="yes" pageurl="detail" order="desc" by="time" id="vo"}{/maccms:vod}
+            <div class="special-detail-hero-inner">
+                <h1>{$obj.topic_name}</h1>
+                <div class="special-detail-meta-row">
+                    {if !empty($obj.topic_tag)}<span>{$obj.topic_tag}</span>{/if}
+                    <span>人气：{$obj.topic_hits}°C</span>
+                    <span>影片数量：{$__PAGING__.record_total}部</span>
+                    <span>更新时间：{$obj.topic_time|mac_friend_date}</span>
+                </div>
+                <div class="special-detail-desc">
+                    {$obj.topic_blurb}
+                </div>
+            </div>
+            <div class="topic-side-pic">
+                <img loading="lazy" decoding="async" src="{$obj.topic_pic|mac_url_img}" alt="{$obj.topic_name}">
+            </div>
+        </div>
+        {if condition="$obj['topic_content'] neq ''"}
+        <div class="card">
+            <div class="section-header"><h2>选片导读</h2></div>
+            <div class="topic-editorial">{$obj.topic_content|mac_url_content_img}</div>
+        </div>
+        {/if}
+        <div class="card">
+            <div class="sort-row"><div class="reset-link">共 {$__PAGING__.record_total} 部 - 第 {$__PAGING__.page_current}&nbsp;/&nbsp;{$__PAGING__.page_total} 页
+            </div></div>
+            <div class="movie-grid">
+
+                {maccms:vod num="18" ids="'.$obj['topic_rel_vod'].'" paging="yes" pageurl="detail" order="desc" by="time" id="vo"}
+                    {include file="block/vodbox2"}
+                {/maccms:vod}
+            </div>
+
+            {include file="block/page"}
+        </div>
+
+        {include file="public/foot"}
+    </body>
+</html>

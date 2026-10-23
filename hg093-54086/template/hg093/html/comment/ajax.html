@@ -1,0 +1,91 @@
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<div class="mac_comment comment-tl" data-id="{$obj.vod_id}" data-mid="1">
+    {maccms:comment num="5" paging="yes" order="desc" by="id"}{/maccms:comment}
+    {maccms:foreach name="__LIST__" id="vo"}
+        <div class="comment-item" data-comment-id="{$vo.comment_id}">
+            <div class="comment-header">
+                <div class="avatar"><img src="{$vo.user_id|mac_get_user_portrait}" alt="{$vo.comment_name}"></div>
+                <strong class="fs14">{$vo.comment_name}</strong>
+                <span class="comment-time">{$vo.comment_time|date='m-d H:i',###}</span>
+            </div>
+            <p class="comment-body">{$vo.comment_content|mac_em_replace}</p>
+            <div class="gw_action">
+                <a class="digg_link" data-id="{$vo.comment_id}" data-mid="4" data-type="up" href="javascript:;">
+                    <i class="icon-good iconfont"></i>
+                    <em class="digg_num icon-num">{$vo.comment_up}</em>
+                </a>
+                <a class="digg_link" data-id="{$vo.comment_id}" data-mid="4" data-type="down" href="javascript:;">
+                    <i class="icon-bad iconfont"></i>
+                    <em class="digg_num icon-num">{$vo.comment_down}</em>
+                </a>
+                <a class="comment_reply" data-id="{$vo.comment_id}" href="javascript:;">回复</a>
+                <a class="comment_report" data-id="{$vo.comment_id}" href="javascript:;">举报</a>
+            </div>
+
+            {maccms:foreach name="$vo.sub" id="child"}
+                <div class="sub-comment">
+                    <div class="comment-header">
+                        <div class="avatar"><img src="{$child.user_id|mac_get_user_portrait}" alt="{$child.comment_name}"></div>
+                        <strong class="fs14">{$child.comment_name}</strong>
+                        <span class="comment-time">{$child.comment_time|date='m-d H:i',###}</span>
+                        <div class="gw_action">
+                            <a class="digg_link" data-id="{$child.comment_id}" data-mid="4" data-type="up" href="javascript:;">
+                                <i class="icon-good iconfont"></i>
+                                <em class="digg_num icon-num">{$child.comment_up}</em>
+                            </a>
+                            <a class="digg_link" data-id="{$child.comment_id}" data-mid="4" data-type="down" href="javascript:;">
+                                <i class="icon-bad iconfont"></i>
+                                <em class="digg_num icon-num">{$child.comment_down}</em>
+                            </a>
+                            <a class="comment_report" data-id="{$child.comment_id}" href="javascript:;">举报</a>
+                        </div>
+                    </div>
+                    <p class="comment-body">{$child.comment_content|mac_em_replace}</p>
+                </div>
+            {/maccms:foreach}
+        </div>
+    {/maccms:foreach}
+
+    {empty name="$__PAGING__.record_total"}
+        <div class="comment-empty">
+            <i class="icon-wechat-line iconfont"></i>
+            <p>当前暂无评论，快来发表你的观后感吧！</p>
+        </div>
+    {/empty}
+
+    {include file="block/paging"}
+
+    <script type="text/javascript">
+        $('.mac_total').html('{$__PAGING__.record_total}');
+    </script>
+
+</div>
+
+<div class="comment-input-row">
+    <div class="emoji-picker">
+        <span class="emoji-btn" data-emoji-btn>😊</span>
+        <div class="emoji-box">
+
+        </div>
+    </div>
+    <div class="comment-editor" id="commentEditor" contenteditable="true" data-placeholder="写一句观后感..."></div>
+    <div id="verifyWrapper">
+        <input type="text" class="yanzheng" id="verifyCode" placeholder="  验证码">
+        <img id="verifyImg" class="yanzhengtu" src="{:mac_url('verify/index')}" data-captcha>
+    </div>
+    <a href="javascript:;" class="btn-primarys" id="submitBtn">发送</a>
+</div>
+
+{if condition="$GLOBALS['config']['comment']['status'] eq 1"}
+
+    <script type="text/javascript" src="{$maccms.path_tpl}static/js/comment-emoji.js?v={$version}"></script>
+
+{/if}

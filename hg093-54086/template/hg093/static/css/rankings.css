@@ -1,0 +1,39 @@
+/* Extend the existing Conch rank/filter components; do not change other pages. */
+.rankings-page .content{width:100%;box-sizing:border-box}
+.rankings-page .rank-intro{margin-bottom:20px;padding:22px}
+.rankings-page h1{font-size:25px;line-height:1.4;margin:8px 0 12px;color:var(--text-primary)}
+.rankings-page .rank-intro p{line-height:1.8;color:var(--text-secondary);margin:8px 0;font-size:14px;font-weight:400}
+.rankings-page .rank-intro .rank-note,.rankings-page .rank-breadcrumb{font-size:12px;color:var(--text-muted)}
+.rankings-page .rank-navigation{margin:24px 0;padding:14px 20px}
+.rankings-page .filter-row{align-items:flex-start;padding:8px 0;gap:10px;margin:0;min-height:0}
+.rankings-page .rank-navigation .filter-name{flex:0 0 40px;width:40px;padding-top:5px;line-height:1.5}
+.rankings-page .rank-navigation .filter-tag{margin:0;padding:6px 10px;min-height:0;font-size:12px}
+.rankings-page .filter-scroll{display:flex;flex-wrap:wrap !important;gap:8px;overflow:visible}
+.rankings-page .filter-tag{white-space:normal;line-height:1.5}
+.rankings-page .rank-cat-head h2{font-size:16px;font-weight:800;margin:0;line-height:1.5}
+.rankings-page .rank-cat-head h2>a{background:none;border:0;padding:0;font-size:inherit;color:var(--text-primary);transform:none}
+.rankings-page .rank-info h3{font-size:14px;line-height:1.5;margin:0 0 5px}
+.rankings-page .rank-info h3 a{color:var(--text-primary)}
+.rankings-page .rank-info{min-width:0;flex:1}
+.rankings-page .rank-info p{white-space:normal;line-height:1.6}
+.rankings-page .rank-reason{color:var(--text-secondary)}
+.rankings-page .rank-cat-grid .rank-reason{display:none}
+.rankings-page .rank-period-btn{display:block;text-decoration:none}
+.rankings-page .rank-detail-list .rank-row{padding:16px 10px;align-items:center;border-bottom:1px solid var(--border-light)}
+.rankings-page .rank-detail-list .rank-poster{flex:0 0 76px;width:76px;height:108px}
+.rankings-page .rank-detail-list .rank-info h3{font-size:18px}
+.rankings-page .rank-detail-list .rank-info p{font-size:13px}
+.rankings-page .rank-list-title,.rankings-page .rank-related h2{font-size:17px;margin:0 0 16px;color:var(--text-primary)}
+.rankings-page .rank-related{margin-top:24px;padding:20px}
+.rankings-page .rank-guide,.rankings-page .rank-method{margin-top:24px;padding:20px}
+.rankings-page .rank-guide>h2{font-size:18px;margin:0 0 16px;color:var(--text-primary)}
+.rankings-page .rank-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.rankings-page .rank-guide-card{border:1px solid var(--border-light);border-radius:12px;padding:16px;background:var(--bg-card);min-width:0}
+.rankings-page .rank-guide-card h3{font-size:15px;margin:0 0 10px;color:var(--text-primary);line-height:1.5}
+.rankings-page .rank-guide-card p,.rankings-page .rank-method p{font-size:13px;line-height:1.9;color:var(--text-secondary);margin:8px 0;font-weight:400}
+.rankings-page .rank-guide-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.rankings-page .rank-guide-links a{background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:8px;padding:5px 8px;font-size:12px;color:var(--text-primary)}
+.rankings-page .rank-method{font-size:12px;color:var(--text-muted)}
+.rankings-page .rank-method summary{cursor:pointer}
+@media(max-width:767px){.rankings-page .rank-guide-grid{grid-template-columns:1fr}.rankings-page .rank-guide,.rankings-page .rank-method{padding:16px}.rankings-page .rank-guide>h2{font-size:17px}}
+@media(max-width:640px){.rankings-page .rank-intro{padding:16px}.rankings-page h1{font-size:21px}.rankings-page .rank-navigation{padding:8px 12px}.rankings-page .rank-info h3{font-size:13px}.rankings-page .rank-detail-list .rank-row{gap:10px;padding:12px 0}.rankings-page .rank-detail-list .rank-poster{flex-basis:60px;width:60px;height:86px}.rankings-page .rank-detail-list .rank-info h3{font-size:15px}.rankings-page .rank-detail-list .rank-info p{font-size:12px;display:block}.rankings-page .rank-badge{display:none}}

@@ -1,0 +1,11 @@
+{php}$nfPage='ranks';{/php}{include file="public/boot"}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell"><header class="page-title"><span class="eyebrow">RANKINGS / 高分推荐</span><h1>按分类和年份<br>找到评分最高的那几部<span class="heading-dot">.</span></h1><p>每个榜单收录该分类该年份里口碑较好的作品，按豆瓣评分从高到低排列，可直接进入播放页。</p></header>
+{volist name="nfGroupList" id="g"}
+<section class="section"><div class="section-head"><div><span class="eyebrow">YEAR / {$g.year}</span><h2>{$g.year} 年榜单</h2></div></div><div class="rank-board-grid">
+{volist name="g.boards" id="b"}
+<a class="rank-board" href="{$b.url}"><span class="eyebrow">{$b.cnt} 部收录</span><h3>{$b.type_name}排行榜</h3><p>平均 {$b.avg} 分 · 最高 {$b.max} 分</p><span class="text-link">查看榜单 ↗</span></a>
+{/volist}
+</div></section>
+{/volist}
+{if empty($nfGroupList)}<section class="empty-state"><h2>榜单正在生成</h2><p>评分数据整理中，稍后再来看看。</p></section>{/if}
+</main>{include file="public/footer"}</body></html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        {if condition="$param.type eq 2"}
+            <title>我的收藏 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {elseif condition="$param.type eq 4"}
+            <title>播放记录 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {else/}
+            <title>全部记录 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {/if}
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-member-page hl-ulog-wrap" data-ulog-page data-del-url="{:url('user/ulog_del')}">
+
+            <aside class="hl-member-sidebar hl-desktop-only">
+                <nav class="hl-member-nav">
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-user-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">个人中心</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-star-smile-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的收藏</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-play-circle-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">播放记录</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-file-list-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的订单</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false"}active{/if}" href="{{:url('user/buy')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-database-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">充值会员</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-settings-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">账户设置</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>️</span>
+                        <span class="hl-member-nav-text">安全中心</span>
+                    </a>
+                    <a class="hl-member-nav-link" href="{:url('user/logout')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-delete-bin-5-line right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">退出登录</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="hl-member-content">
+
+                <div class="hl-member-hero">
+                    <div class="hl-member-hero-left">
+                        <span class="hl-member-hero-badge">
+                            {if condition="$param.type eq 2"}My Favorites
+                            {elseif condition="$param.type eq 4"}Play History
+                            {/if}
+                        </span>
+                        <h1 class="hl-member-hero-title left-10">
+                            {if condition="$param.type eq 2"}我的收藏
+                            {elseif condition="$param.type eq 4"}播放记录
+                            {/if}
+                        </h1>
+                        <p class="hl-member-hero-desc">
+                            {if condition="$param.type eq 2"}你收藏的影片都在这里，方便下次快速找到。
+                            {elseif condition="$param.type eq 4"}记录最近观看进度，继续看更省心。
+                            {else/}统一查看你的收藏和播放记录。
+                            {/if}
+                        </p>
+                    </div>
+                    {if condition="$param.type eq 4 && count($list) gt 0"}
+                        <button class="hl-member-hero-btn hl-member-hero-btn-danger" type="button" data-clear-ulog data-type="4"><i class="fs12 icon-delete-bin-5-line right-5 iconfont"></i>清空记录</button>
+                    {else/}
+                        <a class="hl-member-hero-btn" href="{:url('user/index')}">会员中心</a>
+                    {/if}
+                </div>
+
+                <div class="hl-member-panel hl-member-list-panel">
+
+                    <div class="hl-member-tabs">
+                        <a class="hl-member-tab {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2"><i class="fs14 icon-star-smile-line right-5 iconfont"></i>我的收藏</a>
+                        <a class="hl-member-tab {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4"><i class="fs14 icon-shijian right-5 iconfont"></i>播放记录</a>
+                    </div>
+
+                    {if condition="count($list) gt 0"}
+                        <div class="hl-ulog-list">
+                            {maccms:foreach name="list" id="vo"}
+                                <div class="hl-ulog-item" data-ulog-item data-id="{$vo.ulog_id}" data-type="{$vo.ulog_type}">
+
+                                    <a class="hl-ulog-pic" href="{$vo.data.link}">
+                                        <img loading="lazy" decoding="async" src="{$vo.data.pic}" alt="{$vo.data.name}">
+                                    </a>
+
+                                    <div class="hl-ulog-info">
+                                        <a class="hl-ulog-title" href="{$vo.data.link}">
+                                            <h2>{$vo.data.name}</h2>
+                                        </a>
+                                        <div class="hl-ulog-meta">
+                                            <span>{$vo.ulog_type|mac_get_ulog_type_text}</span>
+                                            <span>{$vo.data.type.type_name|mac_default='影视'}</span>
+                                            <span>{$vo.ulog_time|mac_day}</span>
+                                        </div>
+                                        {if condition="$vo.ulog_type eq 4"}
+                                            <p class="hl-ulog-progress">▶ 上次看到：{if condition="$vo.ulog_nid gt 0"}第 {$vo.ulog_nid} 集{else/}未记录集数{/if}</p>
+                                        {else/}
+                                            <p class="hl-ulog-progress"><i class="fs14 icon-shijian right-5 iconfont"></i>记录时间：{$vo.ulog_time|mac_day}</p>
+                                        {/if}
+                                    </div>
+
+                                    <div class="hl-ulog-actions">
+                                        <a class="hl-ulog-action-link" href="{$vo.data.link}">
+                                            {if condition="$vo.ulog_type eq 4"}▶ 继续观看{else/}<i class="fs12 icon-send-plane-line right-5 iconfont"></i>查看详情{/if}
+                                        </a>
+                                        <button class="hl-ulog-action-btn" type="button" data-delete-ulog data-id="{$vo.ulog_id}" data-type="{$vo.ulog_type}">✕ 删除</button>
+                                    </div>
+                                </div>
+                            {/maccms:foreach}
+                        </div>
+
+                        <div class="hl-pagination">
+                            {$__PAGING__.page_html}
+                        </div>
+
+                    {else/}
+                        <div class="hl-empty-state">
+                            <span class="hl-empty-icon"><i class="fs56 icon-clapperboard-line right-5 iconfont"></i></span>
+                            <strong class="hl-empty-title">还没有相关记录</strong>
+                            <p class="hl-empty-desc">去播放一部影片或收藏你喜欢的内容吧。</p>
+                            <a class="hl-empty-btn" href="{$maccms.path}">去首页看看</a>
+                        </div>
+                    {/if}
+
+                </div>
+
+            </section>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_ulog.js?v={$version}"></script>
+
+    </body>
+</html>

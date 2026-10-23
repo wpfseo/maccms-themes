@@ -1,0 +1,156 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>账户设置 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-member-page">
+
+            <aside class="hl-member-sidebar hl-desktop-only">
+                <nav class="hl-member-nav">
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-user-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">个人中心</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-star-smile-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的收藏</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-play-circle-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">播放记录</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-file-list-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的订单</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false"}active{/if}" href="{{:url('user/buy')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-database-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">充值会员</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-settings-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">账户设置</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>️</span>
+                        <span class="hl-member-nav-text">安全中心</span>
+                    </a>
+                    <a class="hl-member-nav-link" href="{:url('user/logout')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-delete-bin-5-line right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">退出登录</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="hl-member-content">
+
+                <div class="hl-member-hero">
+                    <div class="hl-member-hero-left">
+                        <span class="hl-member-hero-badge">Account Settings</span>
+                        <h1 class="hl-member-hero-title">管理个人资料</h1>
+                        <p class="hl-member-hero-desc">修改昵称、联系方式、安全问题和登录密码。</p>
+                    </div>
+                    <a class="hl-member-hero-btn" href="{:url('user/index')}">会员中心</a>
+                </div>
+
+                <div class="hl-member-form-layout">
+
+                    <form class="hl-member-form" method="post" action="{:url('user/info')}">
+
+                        <article class="hl-member-panel">
+                            <div class="hl-panel-head">
+                                <h2 class="hl-panel-title"><i class="fs18 icon-bill-line right-5 iconfont"></i>基本资料</h2>
+                            </div>
+                            <div class="hl-form-grid">
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">用户名</label>
+                                    <input class="hl-form-input" value="{$obj.user_name}" readonly>
+                                </div>
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">昵称</label>
+                                    <input class="hl-form-input" name="user_nick_name" value="{$obj.user_nick_name}" placeholder="输入昵称">
+                                </div>
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">QQ</label>
+                                    <input class="hl-form-input" name="user_qq" value="{$obj.user_qq}" placeholder="QQ 号">
+                                </div>
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">邮箱</label>
+                                    <div class="hl-form-inline">
+                                        <input class="hl-form-input" value="{$obj.user_email|mac_default='未绑定'}" readonly>
+                                        <a class="hl-form-inline-btn" href="{:url('user/bind')}?ac=email">绑定</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hl-member-panel">
+                            <div class="hl-panel-head">
+                                <h2 class="hl-panel-title"><i class="fs18 icon-checkbox-circle-line right-5 iconfont"></i>安全问题</h2>
+                            </div>
+                            <div class="hl-form-grid">
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">安全问题</label>
+                                    <input class="hl-form-input" name="user_question" value="{$obj.user_question}" placeholder="例如：你最喜欢的影片？">
+                                </div>
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">安全答案</label>
+                                    <input class="hl-form-input" name="user_answer" value="{$obj.user_answer}" placeholder="用于找回密码">
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hl-member-panel">
+                            <div class="hl-panel-head">
+                                <h2 class="hl-panel-title"><i class="fs18 icon-edit-2-line right-5 iconfont"></i>修改密码</h2>
+                            </div>
+                            <div class="hl-form-grid">
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">原密码</label>
+                                    <input class="hl-form-input" type="password" name="user_pwd" autocomplete="current-password" placeholder="不修改可留空">
+                                </div>
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">新密码</label>
+                                    <input class="hl-form-input" type="password" name="user_pwd1" autocomplete="new-password" placeholder="输入新密码">
+                                </div>
+                                <div class="hl-form-group">
+                                    <label class="hl-form-label">确认新密码</label>
+                                    <input class="hl-form-input" type="password" name="user_pwd2" autocomplete="new-password" placeholder="再输入一次">
+                                </div>
+                            </div>
+                            <p class="hl-form-note"> 只有填写原密码和新密码时才会修改密码。</p>
+                        </article>
+
+                        <div class="hl-form-submit-row">
+                            <button class="hl-form-submit-btn" type="submit">保存设置</button>
+                            <a class="hl-form-back-btn" href="{:url('user/index')}">取消</a>
+                        </div>
+
+                        <div class="hl-form-tip" id="formTip"></div>
+                    </form>
+
+                </div>
+
+            </section>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_info.js?v={$version}"></script>
+
+    </body>
+</html>

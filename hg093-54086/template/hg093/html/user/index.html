@@ -1,0 +1,333 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>个人中心 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-member-page">
+
+            <aside class="hl-member-sidebar hl-desktop-only">
+                <nav class="hl-member-nav">
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-user-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">个人中心</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-star-smile-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的收藏</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-play-circle-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">播放记录</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-file-list-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的订单</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false"}active{/if}" href="{{:url('user/buy')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-database-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">充值会员</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-settings-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">账户设置</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>️</span>
+                        <span class="hl-member-nav-text">安全中心</span>
+                    </a>
+                    <a class="hl-member-nav-link" href="{:url('user/logout')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-delete-bin-5-line right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">退出登录</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="hl-member-content">
+
+                <div class="hl-member-hero">
+                    <div class="hl-member-hero-avatar hl-desktop-only" id="hlAvatarBox" title="点击更换头像"><img id="hlAvatarImg" src="{:mac_get_user_portrait($obj.user_id)}" alt="头像"></div>
+                    <div class="hl-member-hero-copy">
+                        <div class="hl-member-hero-name">
+                            <h1>{$obj.user_nick_name|mac_default=$obj.user_name}</h1>
+                            <span class="hl-member-hero-badge">{if condition="$obj.group_id lt 3"}默认用户{else}VIP会员{/if}</span>
+                        </div>
+                        <p class="hl-member-hero-id">
+                            ID: {$obj.user_id}  -  欢迎加入{$conch_theme.site_name|mac_default=$maccms.site_name}
+                        </p>
+                        <p class="hl-member-hero-quote">愿我们在浩瀚的影视世界里，遇见更好的故事。</p>
+
+                    </div>
+                    <a class="hl-member-hero-edit" href="{:url('user/info')}">编辑资料</a>
+                </div>
+
+                <div class="hl-member-quick">
+                    <a class="hl-member-quick-item" href="{:url('user/orders')}">
+                        <span class="hl-member-quick-icon"><i class="fs36 icon-file-list-2-line right-5 iconfont"></i></span>
+                        <div class="hl-member-quick-info">
+                            <strong><span class="hl-desktop-only">我的</span>订单<b class="hl-mobile-only left--2">{:db('order')->where('user_id', $GLOBALS['user']['user_id'])->count()}</b></strong>
+                            <em class="hl-desktop-only">全部订单</em>
+                        </div>
+                        <b class="hl-desktop-only">{:db('order')->where('user_id', $GLOBALS['user']['user_id'])->count()}</b>
+                    </a>
+                    <a class="hl-member-quick-item" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-quick-icon"><i class="fs36 icon-star-smile-line right-5 iconfont"></i></span>
+                        <div class="hl-member-quick-info">
+                            <strong><span class="hl-desktop-only">我的</span>收藏<b class="hl-mobile-only left--2" data-fav-count>--</b></strong>
+                            <em class="hl-desktop-only">全部收藏</em>
+                        </div>
+                        <b class="hl-desktop-only" data-fav-count>--</b>
+                    </a>
+                    <a class="hl-member-quick-item" href="{{:url('user/buy')}">
+                        <span class="hl-member-quick-icon"><i class="fs36 icon-database-2-line right-5 iconfont"></i></span>
+                        <div class="hl-member-quick-info">
+                            <strong><span class="hl-desktop-only">积分</span>余额<b class="hl-mobile-only left--2">{$obj.user_points|mac_default='0'}</b></strong>
+                            <em class="hl-desktop-only">充值与消费</em>
+                        </div>
+                        <b class="hl-desktop-only">{$obj.user_points|mac_default='0'}</b>
+                    </a>
+                    <a class="hl-member-quick-item" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-quick-icon"><i class="fs36 icon-play-circle-line right-5 iconfont"></i></span>
+                        <div class="hl-member-quick-info">
+                            <strong><span class="hl-desktop-only">播放</span>记录<b class="hl-mobile-only left--2" data-history-count>--</b></strong>
+                            <em class="hl-desktop-only">继续观看</em>
+                        </div>
+                        <b class="hl-desktop-only" data-history-count>--</b>
+                    </a>
+                </div>
+
+                <section class="card history watch-history-section" id="watchHistorySection" style="display:none;">
+                    <div class="section-header">
+                        <div class="header-left">
+                            <h2><i class="fs24 icon-shijian right-5 iconfont"></i>继续观看</h2>
+                        </div>
+                        {if condition="$GLOBALS['user']['user_id']" gt 0}
+                            <span class="more-link"><a href="{:url('user/ulog')}?mid=1&type=4">更多记录 </a></span>
+                        {else}
+                            <span class="more-link"><a href="javascript:void(0)" data-clear-history><i class="fs14 icon-delete-bin-5-line right-5 iconfont"></i>清空记录</a></span>
+                        {/if}
+                    </div>
+                    <div class="watch-history-rail-wrapper">
+                        <div class="watch-history-rail-scroll" id="watchHistoryScroll">
+
+                        </div>
+                    </div>
+                </section>
+
+                <div class="hl-member-grid">
+
+                    <article class="hl-member-panel hl-desktop-only">
+                        <div class="hl-panel-head">
+                            <h2 class="hl-panel-title">个人资料</h2>
+                            <a class="hl-panel-link" href="{:url('user/info')}">编辑资料</a>
+                        </div>
+                        <div class="hl-info-list">
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">昵称</span>
+                                <b class="hl-info-value">{$obj.user_nick_name|mac_default=$obj.user_name}</b>
+                            </div>
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">用户名</span>
+                                <b class="hl-info-value">{$obj.user_name}</b>
+                            </div>
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">QQ</span>
+                                <b class="hl-info-value">{$obj.user_qq|mac_default='-'}</b>
+                            </div>
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">生日</span>
+                                <b class="hl-info-value">{$obj.user_birth|mac_default='-'}</b>
+                            </div>
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">安全问题</span>
+                                <b class="hl-info-value">{$obj.user_question|mac_default='-'}</b>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="hl-member-panel hl-desktop-only">
+                        <div class="hl-panel-head">
+                            <h2 class="hl-panel-title">账户信息</h2>
+                            <span class="hl-panel-link">登录次数：{$obj.user_login_num|mac_default='0'}</span>
+                        </div>
+                        <div class="hl-info-list">
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">邮箱</span>
+                                <b class="hl-info-value">{$obj.user_email|mac_default='-'}</b>
+                            </div>
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">手机</span>
+                                <b class="hl-info-value">{$obj.user_phone|mac_default='-'}</b>
+                            </div>
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">注册时间</span>
+                                <b class="hl-info-value">{$obj.user_reg_time|mac_day}</b>
+                            </div>
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">最近登录</span>
+                                <b class="hl-info-value">{$obj.user_last_login_time|mac_day=color}</b>
+                            </div>
+                            <div class="hl-info-item">
+                                <span class="hl-info-label">会员组</span>
+                                <b class="hl-info-value">{if condition="$obj.group_id lt 3"}默认用户{else}{$obj.group.group_name}{/if}</b>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="hl-member-panel hl-member-vip">
+                        <div class="hl-panel-head">
+                            <h2 class="hl-panel-title"><i class="fs18 icon-vip-diamond-line right-5 iconfont"></i>会员权益</h2>
+                            <a class="hl-panel-link">有效期：{if condition="$obj.group_id lt 3"}永久有效{else}{$obj.user_end_time|mac_day}{/if}</a>
+                        </div>
+                        <div class="hl-vip-benefits">
+                            <span class="hl-vip-benefit">高清画质</span>
+                            <span class="hl-vip-benefit">专属片库</span>
+                            <span class="hl-vip-benefit">快速追番</span>
+                            <span class="hl-vip-benefit">专属标识</span>
+                        </div>
+                        <div class="hl-vip-card {if condition="$obj.group_id lt 3"}{else}hl-svip{/if}">
+                            <strong>{if condition="$obj.group_id lt 3"}默认用户{else}{$obj.group.group_name}{/if}</strong>
+                            <a class="hl-vip-renew" href="{:url('user/upgrade')}">{if condition="$obj.group_id lt 3"}开通会员{else}立即续费{/if}</a>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+        </main>
+
+        <div class="hl-avatar-modal" id="hlAvatarModal" style="display:none;">
+            <div class="hl-avatar-modal-mask" id="hlAvatarMask"></div>
+            <div class="hl-avatar-modal-box">
+                <div class="hl-avatar-modal-head">
+                    <h3>更换头像</h3>
+                    <button class="hl-avatar-close" id="hlAvatarClose" type="button">&times;</button>
+                </div>
+                <div class="hl-avatar-modal-body">
+                    <div class="hl-avatar-preview" id="hlAvatarPreviewWrap"><img id="hlAvatarPreview" alt="头像预览"></div>
+                    <p class="hl-avatar-tip">支持 jpg / png / gif，大小不超过 2MB</p>
+                    <input type="file" id="hlAvatarFile" accept="image/*" style="display:none;">
+                    <div class="hl-avatar-modal-actions">
+                        <button class="hl-avatar-pick" id="hlAvatarPick" type="button">选择图片</button>
+                        <button class="hl-avatar-save" id="hlAvatarSave" type="button">上传保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {include file="public/foot"}
+
+        <script>
+            (function () {
+                function setText(sel, val) {
+                    document.querySelectorAll(sel).forEach(function (el) {
+                        el.textContent = String(val);
+                    });
+                }
+
+                function countFrom(res) {
+                    if (!res) return 0;
+                    if (res.total != null) return res.total;
+                    if (res.count != null) return res.count;
+                    if (res.data && res.data.total != null) return res.data.total;
+                    if (res.data && res.data.count != null) return res.data.count;
+                    if (Array.isArray(res.list)) return res.list.length;
+                    if (res.data && Array.isArray(res.data.list)) return res.data.list.length;
+                    if (Array.isArray(res.data)) return res.data.length;
+                    return 0;
+                }
+
+                function fetchCount(url, sel) {
+                    if (!window.fetch) {
+                        setText(sel, '0');
+                        return;
+                    }
+                    fetch(url, { credentials: 'same-origin' })
+                        .then(function (r) {
+                            return r.json();
+                        })
+                        .then(function (res) {
+                            setText(sel, countFrom(res));
+                        })
+                        .catch(function () {
+                            setText(sel, '0');
+                        });
+                }
+
+                fetchCount('{$maccms.path}index.php/user/ajax_ulog/?ac=list&mid=1&type=2&page=1&limit=1', '[data-fav-count]');
+
+                fetchCount('{$maccms.path}index.php/user/ajax_ulog/?ac=list&mid=1&type=4&page=1&limit=1', '[data-history-count]');
+            })();
+        </script>
+
+        <script>
+            (function() {
+                var box = document.getElementById('hlAvatarBox');
+                var modal = document.getElementById('hlAvatarModal');
+                if (!box || !modal) return;
+                var file = document.getElementById('hlAvatarFile');
+                var preview = document.getElementById('hlAvatarPreview');
+                var previewWrap = document.getElementById('hlAvatarPreviewWrap');
+                var img = document.getElementById('hlAvatarImg');
+                var pick = document.getElementById('hlAvatarPick');
+                var save = document.getElementById('hlAvatarSave');
+                var close = document.getElementById('hlAvatarClose');
+                var mask = document.getElementById('hlAvatarMask');
+                var uploading = false;
+                function show() { modal.style.display = 'block'; }
+                function hide() { modal.style.display = 'none'; preview.src = ''; previewWrap.className = 'hl-avatar-preview'; }
+                box.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); show(); });
+                close.addEventListener('click', hide);
+                mask.addEventListener('click', hide);
+                pick.addEventListener('click', function() { file.click(); });
+                file.addEventListener('change', function() {
+                    var f = file.files && file.files[0];
+                    if (!f) return;
+                    if (f.size > 2 * 1024 * 1024) { if (window.toastAlert) toastAlert('图片不能超过 2MB'); return; }
+                    var reader = new FileReader();
+                    reader.onload = function(ev) { preview.src = ev.target.result; previewWrap.className = 'hl-avatar-preview has-img'; };
+                    reader.readAsDataURL(f);
+                });
+                save.addEventListener('click', function() {
+                    var f = file.files && file.files[0];
+                    if (!f) { if (window.toastAlert) toastAlert('请先选择图片'); return; }
+                    if (uploading) return; uploading = true;
+                    var fd = new FormData();
+                    fd.append('input', 'file');
+                    fd.append('flag', 'user');
+                    fd.append('file', f);
+                    fetch('{:url('user/portrait')}', { method: 'POST', body: fd, credentials: 'same-origin' })
+                        .then(function(r) { return r.json(); })
+                        .then(function(res) {
+                            uploading = false;
+                            if (res && parseInt(res.code, 10) === 1) {
+                                img.src = res.file || img.src;
+                                hide();
+                                if (window.toastAlert) toastAlert('头像已更新');
+                            } else {
+                                if (window.toastAlert) toastAlert((res && res.msg) || '上传失败，请稍后');
+                            }
+                        })
+                        .catch(function() {
+                            uploading = false;
+                            if (window.toastAlert) toastAlert('上传失败，请稍后');
+                        });
+                });
+            })();
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{php}$nfPage='seriesindex';{/php}{include file="public/boot"}
+{php}
+$nf['title']='系列片单 - 同名多部影视合集（'.number_format($nfTotal).'个系列） - '.$nf['c']['brand'];
+$nf['heading']='系列片单';
+$nf['description']='同名多部的影视合集：短剧、电视剧、综艺和动漫里，同名作品达到 3 部以上就会自动整理成系列页，方便一次看完。';
+$nf['keywords']=implode(',',array_filter(['系列片单','同名影视','合集','连续剧全集',$nf['c']['brand']]));
+$nf['canonical']=\app\common\service\Nightfall::absolute($nfUrlFirst,$nf['c']);
+if($nfPageNum>1){
+    $nf['title'].=' - 第'.$nfPageNum.'页';
+    $nf['canonical']=\app\common\service\Nightfall::absolute(\app\common\service\Nightfall::seriesUrl('',$nfPageNum),$nf['c']);
+}
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<nav class="breadcrumbs"><a href="/">首页</a><span>/</span><span>系列片单</span></nav>
+<header class="page-title"><span class="eyebrow">SERIES</span><h1>系列片单<span class="heading-dot">.</span></h1><p>同名作品达到 3 部以上自动整理成系列页，按作品数量从多到少排列，当前共 {:number_format($nfTotal)} 个系列。</p></header>
+<section class="section"><div class="section-head"><div><span class="eyebrow">ALL SERIES</span><h2>全部系列</h2></div><span class="muted">共 {:number_format($nfTotal)} 个</span></div>
+<nav class="chip-nav" aria-label="系列列表">{volist name="nfRows" id="r"}<a class="chip" href="{$r.url}">{$r.name|htmlspecialchars}（{$r.vod_count}）</a>{/volist}</nav></section>
+{if $nfPageMax gt 1}<nav class="pagination" aria-label="分页"><a href="{$nfUrlFirst}" rel="first">首页</a>{if $nfPageCur gt 1}<a href="{$nfUrlPrev}" rel="prev">上一页</a>{/if}{volist name="nfPageList" id="pg"}{if $pg.cur}<span aria-current="page">{$pg.n}</span>{else}<a href="{$pg.url}">{$pg.n}</a>{/if}{/volist}{if $nfPageCur lt $nfPageMax}<a href="{$nfUrlNext}" rel="next">下一页</a>{/if}<a href="{$nfUrlLast}">末页</a><span class="muted">第 {$nfPageCur} / {$nfPageMax} 页</span></nav>{/if}
+<section class="section"><div class="section-head"><div><span class="eyebrow">MORE</span><h2>其他维度</h2></div></div>
+<nav class="chip-nav"><a class="chip" href="/genre.html">题材标签</a><a class="chip" href="/combo.html">标签组合</a><a class="chip" href="/year.html">年份片单</a><a class="chip" href="/duanju.html">短剧频道</a><a class="chip" href="/cast.html">演员库</a><a class="chip" href="/director.html">导演库</a></nav></section>
+</main>{include file="public/footer"}</body></html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>网站维护中 - 暂停访问</title>
+
+        <script>
+            (function () {
+                var theme = 'dark';
+                try {
+                    var stored = localStorage.getItem('myMovieTheme');
+                    if (stored === 'light' || stored === 'dark') theme = stored;
+                } catch (e) {}
+                document.documentElement.setAttribute('data-theme', theme);
+            })();
+        </script>
+
+        <style>
+            :root {
+                --bg-primary: #0a0e14;
+                --bg-secondary: #2d465e3b;
+                --bg-card: #101a225e;
+                --bg-elevated: #57becc1a;
+                --text-primary: #e8edf2;
+                --text-muted: #7a8a9a;
+                --accent: #67e8f9;
+                --accent-glow: rgba(90, 158, 255, 0.3);
+                --shadow-color: rgba(0, 0, 0, 0.4);
+                --gradient: linear-gradient(90deg, #67e8f9, #f3c969);
+                --border-light: #50677975;
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                padding: 24px;
+                color: var(--text-primary);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+                background: var(--bg-primary);
+            }
+            .card {
+                position: relative;
+                width: 100%;
+                max-width: 560px;
+                padding: 20px;
+                background: var(--bg-secondary);
+                border-radius: 12px;
+                box-shadow: 0 8px 24px var(--shadow-color);
+            }
+            .card::before {
+                position: absolute;
+                inset: -1px;
+                z-index: 0;
+                padding: 1px;
+                content: "";
+                border-radius: 13px;
+                background: var(--gradient);
+                opacity: 0.35;
+                -webkit-mask:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                pointer-events: none;
+            }
+            .card > * {
+                position: relative;
+                z-index: 1;
+            }
+            .site-tip {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                padding: 36px 16px;
+                text-align: center;
+            }
+            .site-tip-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 76px;
+                height: 76px;
+                margin-bottom: 6px;
+                color: var(--accent);
+                border-radius: 50%;
+                background: var(--bg-elevated);
+                box-shadow: 0 0 24px var(--accent-glow);
+            }
+            .site-tip-icon svg {
+                width: 36px;
+                height: 36px;
+            }
+            .site-tip h2 {
+                margin: 0;
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--text-primary);
+            }
+            .site-tip p {
+                margin: 0;
+                max-width: 480px;
+                font-size: 14px;
+                color: var(--text-muted);
+                line-height: 1.8;
+            }
+            [data-theme="light"] {
+                --bg-primary: #f0f4f8;
+                --bg-secondary: #ced7e35e;
+                --bg-card: #ffffffa3;
+                --bg-elevated: #f8fafc5e;
+                --text-primary: #1a2230;
+                --text-muted: #718096;
+                --shadow-color: rgba(0, 0, 0, 0.08);
+                --accent-glow: rgba(90, 158, 255, 0.2);
+                --border-light: #dce4ec;
+            }
+        </style>
+
+    </head><body>
+        <div class="card">
+            <div class="site-tip">
+                <div class="site-tip-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.08a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56h.08a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.08a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"/></svg>
+                </div>
+                <h2>本站维护中</h2>
+                <p>非常抱歉，网站正在维护中，暂时无法访问。</p>
+                <p>{$close_tip}</p>
+            </div>
+        </div>
+    </body>
+</html>

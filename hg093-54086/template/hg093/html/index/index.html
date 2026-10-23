@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+
+    <head>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {if $conch_theme.index_slider_1 == 1}
+            {include file="block/hero-slider"}
+        {/if}
+        
+        {include file="public/head"}
+        
+        {if $conch_theme.index_slider_2 == 1}
+            {include file="block/slider"}
+        {/if}
+        
+        {include file="block/history"}
+        
+        {if $conch_theme.index_week == 1}
+            {include file="block/weekbox"}
+        {/if}
+        
+        {if $conch_theme.index_rank == 1}
+            {include file="block/hotbox"}
+        {/if}
+
+        {include file="block/vodbox"}
+        
+        {if $conch_theme.index_topic == 1}
+            {include file="block/topic"}
+        {/if}
+        
+        {include file="block/link"}
+        
+        {include file="public/foot"}
+
+    </body>
+
+</html>

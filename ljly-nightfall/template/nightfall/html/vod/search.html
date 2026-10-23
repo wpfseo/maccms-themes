@@ -1,0 +1,2 @@
+{php}$nfPage='search';{/php}{include file="public/boot"}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell"><header class="page-title"><span class="eyebrow">SEARCH THE COLLECTION</span><h1>{$nf.heading|htmlspecialchars}</h1><p>试试更短的片名，或使用演员、导演姓名查找。</p></header><div class="film-grid">{maccms:vod num="24" paging="yes" type="all" order="desc" by="time"}{include file="public/card"}{/maccms:vod}</div>{include file="public/paging"}</main>{include file="public/footer"}</body></html>

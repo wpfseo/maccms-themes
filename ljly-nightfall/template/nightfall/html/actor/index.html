@@ -1,0 +1,21 @@
+{php}$nfPage='actorindex';{/php}{include file="public/boot"}
+{php}
+$nf['title']='演员库 - 按参演作品数量浏览演员 - '.$nf['c']['brand'];
+$nf['heading']='按演员找片';
+$nf['description']='收录本站参演作品达到 '.$nfStat['min'].' 部以上的演员共 '.number_format($nfStat['total']).' 位，可按作品数量分档浏览，进入演员主页查看全部参演作品、合作演员与擅长题材。';
+$nf['canonical']=\app\common\service\Nightfall::absolute($nfCanonical,$nc);
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<header class="page-title"><span class="eyebrow">CAST / 演员库</span><h1>按演员找片<span class="heading-dot">.</span></h1><p>本站共收录 {:number_format($nfStat['total'])} 位参演作品达到 {$nfStat.min} 部以上的演员，作品越多越靠前。点进演员主页，可以看到他的全部作品、常合作的演员和最常出现的题材。</p></header>
+
+<nav class="chip-nav" aria-label="按作品数量筛选">{volist name="nfTiers" id="t"}<a class="chip{if $nfTier eq $t.key} active{/if}" href="{$t.url}">{$t.label}（{:number_format($t['count'])}）</a>{/volist}</nav>
+
+{if !empty($nfTop)}<section class="section"><div class="section-head"><div><span class="eyebrow">MOST CREDITS</span><h2>代表作最多</h2></div></div>
+<div class="people-grid">{volist name="nfTop" id="p" key="pi"}<a class="people-cell" href="{$p.url}"><b>{$p.name|htmlspecialchars}</b><span>{$p.vod_count} 部</span></a>{/volist}</div></section>{/if}
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">ALL CAST</span><h2>{$nfTierLabel}</h2></div><span class="muted">共 {:number_format($nfTotal)} 位</span></div>
+<div class="people-grid">{volist name="nfList" id="p"}<a class="people-cell" href="{$p.url}"><b>{$p.name|htmlspecialchars}</b><span>{$p.vod_count} 部</span></a>{/volist}</div>
+{if empty($nfList)}<p class="empty-state">这个档位下暂时没有演员，换个档位看看。</p>{/if}</section>
+
+{if $nfPageMax gt 1}<nav class="pagination" aria-label="分页"><a href="{$nfUrlFirst}" rel="first">首页</a>{if $nfPageCur gt 1}<a href="{$nfUrlPrev}" rel="prev">上一页</a>{/if}{volist name="nfPageList" id="pg"}{if $pg.cur}<span aria-current="page">{$pg.n}</span>{else}<a href="{$pg.url}">{$pg.n}</a>{/if}{/volist}{if $nfPageCur lt $nfPageMax}<a href="{$nfUrlNext}" rel="next">下一页</a>{/if}<a href="{$nfUrlLast}">末页</a><span class="muted">第 {$nfPageCur} / {$nfPageMax} 页</span></nav>{/if}
+</main>{include file="public/footer"}</body></html>

@@ -1,0 +1,11 @@
+<?php
+// 搜索引擎推送配置（示例文件，使用时复制为 push.conf.php 并填入真实值）
+// baidu_token：百度搜索资源平台 -> 普通收录 -> API 提交
+// baidu_daily：百度每日配额（新站通常 10 条/天，可在平台查看）
+// indexnow_key：IndexNow 密钥，需与站点根目录下的 {key}.txt 内容一致
+return [
+    'baidu_token'   => 'YOUR_BAIDU_TOKEN',
+    'baidu_daily'   => 10,
+    'indexnow_key'  => 'YOUR_INDEXNOW_KEY',
+    'site'          => 'https://www.54086.com',
+];

@@ -1,0 +1,38 @@
+
+            <div class="card">
+                <div class="section-header">
+                    <div class="header-left">
+                        <h1><i class="fs24 icon-trophy-line right-5 iconfont"></i> 热榜推荐</h1>
+                    </div>
+                    <span class="more-link"><a href="{:mac_url('label/hot')}">查看完整榜单</a></span>
+                </div>
+                <div class="coverflow-wrapper" id="coverflowWrapper">
+                    <div class="coverflow-stage" id="coverflowStage">
+                        {maccms:vod num="5" order="desc" by="time" key="key" level="8"}
+                            <div class="coverflow-card" data-index="{$key}" data-id="h{$key}">
+                                <div class="coverflow-card-inner">
+                                    <div class="poster-area">
+                                        <div class="placeholder-bg"><img loading="lazy" decoding="async" src="{$vo.vod_pic|mac_url_img}" alt="{$vo.vod_name}"></div>
+                                        <div class="content">
+                                            <div class="rank">TOP {$key}</div>
+                                            <h3><a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" title="{$vo.vod_name}">{$vo.vod_name}</a></h3>
+                                            <div class="meta">{$vo.type.type_name}{if condition="$vo['vod_year'] gt 0"} · {$vo.vod_year}{/if}</div>
+                                            <div class="actions">
+                                                <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" class="btn-play" title="{$vo.vod_name}"><i class="icon-play-fill iconfont"></i> 播放</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {/maccms:vod}
+                    </div>
+                    <button class="coverflow-arrow prev" id="coverflowPrev">‹</button>
+                    <button class="coverflow-arrow next" id="coverflowNext">›</button>
+                    <div class="coverflow-dots" id="coverflowDots">
+                        {maccms:vod num="5" order="desc" by="time" key="key" level="8"}
+                            <button class="coverflow-dot active" data-index="{$key}"></button>
+                        {/maccms:vod}
+                    </div>
+                </div>
+            </div>

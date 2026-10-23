@@ -1,0 +1,130 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>确认订单 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-member-page">
+
+            <aside class="hl-member-sidebar hl-desktop-only">
+                <nav class="hl-member-nav">
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-user-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">个人中心</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-star-smile-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的收藏</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-play-circle-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">播放记录</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-file-list-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的订单</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false"}active{/if}" href="{{:url('user/buy')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-database-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">充值会员</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-settings-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">账户设置</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>️</span>
+                        <span class="hl-member-nav-text">安全中心</span>
+                    </a>
+                    <a class="hl-member-nav-link" href="{:url('user/logout')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-delete-bin-5-line right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">退出登录</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="hl-member-content">
+
+                <div class="hl-member-hero">
+                    <div class="hl-member-hero-left">
+                        <span class="hl-member-hero-badge">Submit Order</span>
+                        <h1 class="hl-member-hero-title">确认订单</h1>
+                        <p class="hl-member-hero-desc">请确认订单信息并选择支付方式</p>
+                    </div>
+                </div>
+
+                <div class="hl-member-panel">
+
+                    <div class="hl-order-confirm">
+
+                        <div class="hl-order-confirm-info">
+                            <div class="hl-order-confirm-item">
+                                <span class="hl-order-confirm-label">订单编号</span>
+                                <span class="hl-order-confirm-value">{$info.order_code}</span>
+                            </div>
+                            <div class="hl-order-confirm-item">
+                                <span class="hl-order-confirm-label">订单金额</span>
+                                <span class="hl-order-confirm-value hl-order-confirm-price">¥{$info.order_price}</span>
+                            </div>
+                            <div class="hl-order-confirm-item">
+                                <span class="hl-order-confirm-label">获得积分</span>
+                                <span class="hl-order-confirm-value hl-order-confirm-points">+{$info.order_points}</span>
+                            </div>
+                        </div>
+
+                        <form class="hl-pay-form" method="post" target="_blank" action="{:url('user/gopay')}">
+                            <input type="hidden" name="order_id" value="{$info.order_id}">
+                            <input type="hidden" name="order_code" value="{$info.order_code}">
+
+                            <div class="hl-form-group">
+                                <label class="hl-form-label">支付方式</label>
+                                <select class="hl-form-select" name="payment" id="payment">
+                                    <option value="">请选择支付方式</option>
+                                    {volist name="ext_list" id="vo"}
+                                        <option value="{$key}">{$vo}支付</option>
+                                    {/volist}
+                                </select>
+                            </div>
+
+                            <div class="hl-form-group" id="paytype_box" style="display:none;">
+                                <label class="hl-form-label">支付类型</label>
+                                <select class="hl-form-select" id="paytype" name="paytype"></select>
+                                <select id="paytypeSrc" style="display:none;">{maccms:foreach name=":explode(',',$config.codepay.type)"}<option value="{$vo}">{if condition="$vo==1"}支付宝二维码{elseif condition="$vo==2"/}QQ钱包二维码{elseif condition="$vo==3"/}微信二维码{/if}</option>{/maccms:foreach}</select>
+                                <select id="zhapaySrc" style="display:none;">{maccms:foreach name=":explode(',',$config.zhapay.type)"}<option value="{$vo}">{if condition="$vo==1"}微信{elseif condition="$vo==2"/}支付宝{/if}</option>{/maccms:foreach}</select>
+                            </div>
+
+                            <div class="hl-form-tip" id="payTip"></div>
+
+                            <button class="hl-auth-btn" type="submit" id="btnSubmit">确认支付</button>
+                        </form>
+
+                        <div class="hl-order-confirm-back">
+                            <a class="hl-order-back-btn" href="{:url('user/orders')}"> ← 返回订单列表</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_pay.js?v={$version}"></script>
+
+    </body>
+</html>

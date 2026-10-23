@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>请使用浏览器打开 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+        {include file="public/head"}
+        <div class="card">
+            <div class="site-tip">
+                <div class="site-tip-icon"><i class="icon-links-line iconfont"></i></div>
+                <h2>请使用浏览器打开</h2>
+                <p>当前页面在微信 / QQ 内可能无法正常访问，请点击右上角选择"在浏览器中打开"，或复制本站网址到浏览器访问。</p>
+                <div class="site-tip-actions">
+                    <button type="button" class="btn-primary" id="copySiteUrl"><i class="icon-links-line iconfont"></i> 复制本站网址</button>
+                    <a href="{$maccms.http_url}" class="btn-secondary" target="_blank" rel="noopener"><i class="icon-home-5-line iconfont"></i> 直接访问</a>
+                </div>
+                <p class="site-tip-muted">复制后在浏览器地址栏粘贴即可继续浏览本站</p>
+            </div>
+        </div>
+        {include file="public/foot"}
+
+        <script>
+            (function () {
+                var btn = document.getElementById('copySiteUrl');
+                if (!btn) return;
+                var url = '{$maccms.http_url}';
+                function done() {
+                    if (window.toastAlert) toastAlert('网址已复制，快去浏览器打开吧');
+                }
+                function fallback() {
+                    var ta = document.createElement('textarea');
+                    ta.value = url;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        done();
+                    } catch (e) {
+                        window.prompt('请手动复制网址', url);
+                    }
+                    document.body.removeChild(ta);
+                }
+                btn.addEventListener('click', function () {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(url).then(done).catch(fallback);
+                    } else {
+                        fallback();
+                    }
+                });
+            })();
+        </script>
+
+    </body>
+</html>

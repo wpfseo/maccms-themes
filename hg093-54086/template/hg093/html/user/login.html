@@ -1,0 +1,87 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+
+        {php}$user_config = $GLOBALS['config']['user'];{/php}
+
+        <title>会员登录 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-auth-page">
+            <div class="hl-auth-wrapper">
+
+                <div class="hl-auth-visual hl-desktop-only">
+                    <div class="hl-auth-visual-overlay">
+                        <div class="hl-auth-visual-inner">
+                            <span class="hl-auth-visual-icon"><i class="fs56 icon-aliens-line iconfont"></i></span>
+                            <h1 class="hl-auth-visual-title">开始你的影视旅程</h1>
+                            <p class="hl-auth-visual-desc">收藏影片、同步播放记录、管理会员权益，都在这里。</p>
+                            <div class="hl-auth-visual-features">
+                                <span class="hl-auth-visual-feature"><i class="fs16 icon-shijian right-5 iconfont"></i>播放记录</span>
+                                <span class="hl-auth-visual-feature"><i class="fs16 icon-star-smile-line right-5 iconfont"></i>我的收藏</span>
+                                <span class="hl-auth-visual-feature"><i class="fs16 icon-vip-diamond-line right-5 iconfont"></i>会员权益</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hl-auth-card">
+                    <div class="hl-auth-header">
+                        <span class="hl-auth-badge">欢迎回来</span>
+                        <h2 class="hl-auth-title">会员登录</h2>
+                        <p class="hl-auth-desc">使用你的账号登录{$conch_theme.site_name|mac_default=$maccms.site_name}</p>
+                    </div>
+
+                    <form class="hl-auth-form js-auth-form" method="post" action="{:url('user/login')}" data-redirect="{:url('user/index')}">
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">账号</label>
+                            <input class="hl-form-input" type="text" name="user_name" autocomplete="username" placeholder="用户名或邮箱">
+                        </div>
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">密码</label>
+                            <input class="hl-form-input" type="password" name="user_pwd" autocomplete="current-password" placeholder="请输入密码">
+                        </div>
+
+                        {if condition="$user_config.login_verify eq 1"}
+                            <div class="hl-form-group">
+                                <label class="hl-form-label">图形验证码</label>
+                                <div class="hl-form-captcha-row">
+                                    <input class="hl-form-input hl-form-input-captcha" type="text" name="verify" maxlength="6" autocomplete="off" placeholder="验证码">
+                                    <img class="hl-form-captcha-img js-captcha" src="{$maccms.path}index.php/verify/index.html" alt="验证码" data-captcha>
+                                </div>
+                            </div>
+                        {/if}
+
+                        <div class="hl-form-tip hl-auth-tip"></div>
+
+                        <button class="hl-auth-btn" type="submit">立即登录</button>
+                    </form>
+
+                    <div class="hl-auth-footer">
+                        <a class="hl-auth-link" href="{:url('user/reg')}">没有账号？立即注册 →</a>
+                        <a class="hl-auth-link hl-auth-link-muted" href="{:url('user/findpass_msg')}">忘记密码？</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_login.js?v={$version}"></script>
+
+    </body>
+</html>

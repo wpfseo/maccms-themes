@@ -1,0 +1,27 @@
+
+<div class="triple-carousel">
+    <div class="triple-track" id="track">
+        {maccms:vod num="10" type="'.$obj['type_id'].'" order="desc" by="time" key="key"}
+            <div class="triple-card" data-index="{$key}">
+                <div class="triple-card-inner">
+                    <div class="poster-area">
+                        <div class="bg-glow"></div>
+                        <img loading="lazy" decoding="async" src="{$vo.vod_pic|mac_url_img}" alt="{$vo.vod_name}">
+                        <div class="content">
+                            <span class="rank-badge"><i class="icon-star-smile-fill iconfont"></i> 9.2</span>
+                            <h3>{$vo.vod_name}</h3>
+                            <div class="meta">剧情 / 犯罪 · {$vo.vod_year}</div>
+                            <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" class="btn-play" title="{$vo.vod_name}"><i class="icon-play-fill iconfont"></i> 立即观看</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/maccms:vod}
+    </div>
+
+    <div class="carousel-bubbles" id="bubbles">
+        {maccms:vod num="5" order="desc" by="time" key="key"}
+            <button class="carousel-bubble {if condition="$key == 0"}active{/if}" data-index="{$key}"></button>
+        {/maccms:vod}
+    </div>
+</div>

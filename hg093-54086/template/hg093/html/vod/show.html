@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        {include file="public/include"}
+
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        {include file="block/filter"}
+
+        <div class="card">
+            <div class="filter-title-row">
+                <h1><i class="fs20 icon-video-line right-5 iconfont"></i>{$obj.type_name}片库</h1>
+                {maccms:vod num="24" paging="yes" pageurl="vod/show" type="current" order="desc" by="time_add"}{/maccms:vod}
+
+            </div>
+            <div class="sort-row">
+                <span class="result-count">共 {$__PAGING__.record_total} 部 - 第 {$__PAGING__.page_current}&nbsp;/&nbsp;{$__PAGING__.page_total} 页</span>
+                <a href="{:mac_url_type($obj)}" class="reset-link"><i class="fs14 icon-shangjiantou right-5 iconfont"></i> 收起筛选</a>
+            </div>
+
+            <div class="movie-grid">
+
+                {maccms:vod num="24" paging="yes" pageurl="vod/show" type="current" order="desc" by="time_add"}
+                    {include file="block/vodbox2"}
+                {/maccms:vod}
+            </div>
+
+            {include file="block/page"}
+        </div>
+
+        {include file="public/foot"}
+
+    </body>
+</html>

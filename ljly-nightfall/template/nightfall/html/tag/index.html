@@ -1,0 +1,13 @@
+{php}$nfPage='tagindex';{/php}{include file="public/boot"}
+{php}
+$nf['title']='题材标签大全 - 按题材找片 - '.$nf['c']['brand'];
+$nf['heading']='题材标签';
+$nf['description']='按题材标签浏览影视作品，收录 '.$nfTagTotal.' 个标签，每个标签至少 '.$nfTagMin.' 部同类作品，适合按口味找片。';
+$nf['keywords']=implode(',',array_filter(['题材标签','影视标签','按题材找片','标签大全',$nf['c']['brand']]));
+$nf['canonical']=\app\common\service\Nightfall::absolute(\app\common\service\Nightfall::genreUrl(),$nc);
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<header class="page-title"><span class="eyebrow">GENRE / 题材标签</span><h1>按题材找片<span class="heading-dot">.</span></h1><p>一共 {$nfTagTotal} 个题材标签，按作品数量从多到少排列。标签来自片库自带的题材与类型字段，点开标签即可看到该题材下最新收录的作品。</p></header>
+{volist name="nfBuckets" id="b"}{if !empty($b.items)}<section class="section"><div class="section-head"><div><span class="eyebrow">{$b.key|strtoupper}</span><h2>{$b.label}</h2></div><span class="muted">{:count($b['items'])} 个</span></div>
+<nav class="chip-nav" aria-label="{$b.label}">{volist name="b.items" id="t"}<a class="chip" href="{$t.url}">{$t.name|htmlspecialchars}（{:number_format($t['vod_count'])}）</a>{/volist}</nav></section>{/if}{/volist}
+</main>{include file="public/footer"}</body></html>

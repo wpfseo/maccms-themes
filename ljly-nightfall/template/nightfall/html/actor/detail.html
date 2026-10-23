@@ -1,0 +1,29 @@
+{php}$nfPage='actordetail';{/php}{include file="public/boot"}
+{php}
+$an=$nfActor['name'];
+$nf['title']=$an.'的全部作品（'.number_format($nfTotal).'部） - 演员 - '.$nf['c']['brand'];
+$nf['heading']=$an;
+$nf['description']=$an.'参演的 '.number_format($nfTotal).' 部影视作品，按收录时间排列，可查看年份与类型并直接进入在线播放页。';
+$nf['keywords']=implode(',',array_filter([$an,$an.'作品',$an.'演过什么',$an.'电影',$an.'电视剧',$nf['c']['brand']]));
+$nf['canonical']=\app\common\service\Nightfall::absolute($nfUrlFirst,$nc);
+if($nfPageNum>1){
+    $nf['title'].=' - 第'.$nfPageNum.'页';
+    $nf['canonical']=\app\common\service\Nightfall::absolute(\app\common\service\Nightfall::castUrl($nfActor['slug'],$nfPageNum),$nc);
+}
+$nf['schema']=['@context'=>'https://schema.org','@type'=>'Person','name'=>$an,'description'=>$an.'参演的影视作品共'.$nfTotal.'部','url'=>$nf['canonical']];
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<nav class="breadcrumbs"><a href="{$nfUrlIndex}">演员库</a><span>/</span><span>{$an|htmlspecialchars}</span></nav>
+<header class="page-title"><span class="eyebrow">CAST / 演员</span><h1>{$an|htmlspecialchars}<span class="heading-dot">.</span></h1><p>共收录 {:number_format($nfTotal)} 部参演作品，按入库时间从新到旧排列，含剧集与影片在线播放入口。</p></header>
+
+{if !empty($nfTypes)}<section class="section"><div class="section-head"><div><span class="eyebrow">BY GENRE</span><h2>擅长题材</h2></div></div><nav class="chip-nav" aria-label="按题材查看">{volist name="nfTypes" id="ty"}<a class="chip" href="{:mac_url_type($ty)}">{$ty.type_name|htmlspecialchars}（{$ty.c}）</a>{/volist}</nav></section>{/if}
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">FILMOGRAPHY</span><h2>全部作品</h2></div><span class="muted">共 {:number_format($nfTotal)} 部</span></div>
+<div class="film-grid">{volist name="nfRows" id="vo"}{include file="public/card"}{/volist}</div>
+{if empty($nfRows)}<p class="empty-state">暂无可用作品。</p>{/if}</section>
+
+{if $nfPageMax gt 1}<nav class="pagination" aria-label="分页"><a href="{$nfUrlFirst}" rel="first">首页</a>{if $nfPageCur gt 1}<a href="{$nfUrlPrev}" rel="prev">上一页</a>{/if}{volist name="nfPageList" id="pg"}{if $pg.cur}<span aria-current="page">{$pg.n}</span>{else}<a href="{$pg.url}">{$pg.n}</a>{/if}{/volist}{if $nfPageCur lt $nfPageMax}<a href="{$nfUrlNext}" rel="next">下一页</a>{/if}<a href="{$nfUrlLast}">末页</a><span class="muted">第 {$nfPageCur} / {$nfPageMax} 页</span></nav>{/if}
+
+{if !empty($nfMates)}<section class="section"><div class="section-head"><div><span class="eyebrow">CO-STARS</span><h2>常合作的演员</h2></div></div>
+<div class="people-grid">{volist name="nfMates" id="m"}<a class="people-cell" href="{$m.url}"><b>{$m.name|htmlspecialchars}</b><span>合作 {$m.c} 部</span></a>{/volist}</div></section>{/if}
+</main>{include file="public/footer"}</body></html>

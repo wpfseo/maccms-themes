@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>{include file="public/include"}<link rel="stylesheet" href="{$maccms.path_tpl}static/css/rankings.css?v=20261016c"></head>
+<body><div class="page list rankings-page">{include file="public/head"}<main class="main"><div class="content">
+    <section class="card rank-intro"><h1>{$rank_heading|htmlspecialchars}</h1><p>{$rank_intro|htmlspecialchars}</p></section>
+    <div class="rank-cat-grid">
+        {volist name="rank_cards" id="rank_card"}
+        <section class="rank-cat-section">
+            <div class="rank-cat-head"><h2><a href="{$rank_card.url}">{$rank_card.name|htmlspecialchars}</a></h2><a href="{$rank_card.url}">完整榜单</a></div>
+            <div class="rank-list">{volist name="rank_card.rows" id="rank_film" key="rank_number"}{include file="rank/row"}{/volist}</div>
+        </section>
+        {/volist}
+    </div>
+    {include file="rank/nav"}
+</div></main>{include file="public/foot"}</div></body></html>

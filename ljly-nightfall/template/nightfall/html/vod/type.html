@@ -1,0 +1,5 @@
+{php}$nfPage='type';{/php}{include file="public/boot"}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<header class="page-title"><span class="eyebrow">EXPLORE THE COLLECTION</span><h1>{$nf.heading|htmlspecialchars}<span class="heading-dot">.</span></h1><p>{$nf.description|htmlspecialchars}</p></header>
+{include file="vod/filters"}<div class="section-head"><h2>全部作品</h2><a class="text-link" href="{:mac_url_type($obj,[],'show')}">更多筛选 ↗</a></div>
+<div class="film-grid">{maccms:vod num="24" paging="yes" type="current" order="desc" by="time"}{include file="public/card"}{/maccms:vod}</div>{include file="public/paging"}</main>{include file="public/footer"}</body></html>

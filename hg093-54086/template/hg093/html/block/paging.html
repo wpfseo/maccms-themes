@@ -1,0 +1,10 @@
+
+{if condition="$__PAGING__.page_total gt 1"}
+    <div class="pagination">
+        <a href="javascript:void(0);" data-page="1" title="首页" class="page-btns">‹‹</a>
+        <a href="javascript:void(0);" data-page="{$__PAGING__.page_prev}" class="page-btns" title="上一页">‹</a>
+        <a class="page-btns" title="第{$__PAGING__.page_current}页">{$__PAGING__.page_current}/{$__PAGING__.page_total}</a>
+        <a href="javascript:void(0)" data-page="{$__PAGING__.page_next}" class="page-btns" title="下一页">›</a>
+        <a href="javascript:void(0)" data-page="{$__PAGING__.page_total}" title="尾页" class="page-btns">››</a>
+    </div>
+{/if}

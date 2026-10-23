@@ -1,0 +1,13 @@
+
+<div class="movie-card">
+    <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" class="movie-link" title="{$vo.vod_name}">
+        <div class="movie-poster">
+            <img loading="lazy" decoding="async" src="{$vo.vod_pic|mac_url_img}" alt="{$vo.vod_name}" class="poster-img">
+            <span class="ep-badge">{if condition="$vo.vod_remarks neq ''"}{$vo.vod_remarks}{elseif condition="$vo.vod_serial gt 0"}第{$vo.vod_serial}集{else /}已完结{/if}</span>
+            <div class="poster-info">
+                <h4>{$vo.vod_name}</h4>
+                <p class="meta">{$vo.vod_class}·{$vo.vod_year}</p>
+            </div>
+        </div>
+    </a>
+</div>

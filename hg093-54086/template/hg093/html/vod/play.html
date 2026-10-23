@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        {include file="public/include"}
+
+    </head>
+    <body>
+
+        {include file="public/head"}
+        
+        <div class="content-wrapper" data-continue-write data-vod-id="{$obj.vod_id}" data-vod-name="{$obj.vod_name}" data-sid="{$param.sid}" data-nid="{$param.nid}" data-episode="{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}">
+
+            <div class="player-block">
+                <div class="player-video">
+                    <div class="player-placeholder">
+                        {$player_data}{$player_js}
+                    </div>
+                </div>
+
+                <div class="line-switch">
+                    <span class="line-label"><i class="fs14 icon-repeat-2-fill right-5 iconfont"></i>线路选择</span>
+                    <div class="line-buttons">
+                        {maccms:foreach name="$obj.vod_play_list" id="vo" key="key"}
+                            <button class="line-btn {if $vo.player_info.from==$obj['vod_play_list'][$param['sid']]['player_info']['from']}active{/if}" data-line="{$key}" data-name="{$vo.player_info.show}">{$vo.player_info.show}</button>
+                        {/maccms:foreach}
+                    </div>
+                </div>
+
+                <style>
+                    {if $conch_theme.site_comment == 1}.danmu-nav-btns { display: inline-flex;}{else/}.danmu-nav-btns { display: none;}{/if}
+                </style>
+
+                <div class="episode-nav">
+                    <a href="{$obj.player_info.link_pre}" class="ep-nav-btn hl-sxbtn {if$param.nid==1}disabled{/if}">◀ 上<b class="hl-desktop-only">一</b>集</a>
+                    <a href="{$obj.player_info.link_next}" class="ep-nav-btn hl-sxbtn {if$param.nid==$obj['vod_play_list'][$param['sid']]['url_count']}disabled{/if}">下<b class="hl-desktop-only">一</b>集 ▶</a>
+                </div>
+                <div class="player-info">
+                    <h1>{$obj.vod_name|mac_filter_html}{if condition="$obj['vod_play_list'][$param['sid']]['url_count'] gt 1 && ($obj['type_id_1'] neq 2 || $obj['vod_total'] gt 1)"} 第{$param.nid}集{/if} <a href="{:mac_url_vod_detail($obj)}" class="meta-row left-5" style="color:var(--text-primary);text-decoration:none;">详情</a></h1>
+
+                    <div class="desc-wrapper">
+                        <div class="desc-text collapsed" id="descText">
+                            <div id="descInner">
+                                {$obj.vod_content|mac_filter_html|mac_default='暂无简介'}
+                            </div>
+                        </div>
+                        <div class="desc-toggle-row">
+                            <button class="desc-toggle" id="descToggle">展开全部 ▼</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="sidebar-block">
+                <div class="side-list">
+                    <div class="tab-bar">
+                        <button class="tab-btn active" data-tab="episodes"><i class="fs14 icon-macbook-line right-5 iconfont"></i>选集</button>
+                        {if $conch_theme.site_comment == 1}
+                            <button class="tab-btn" data-tab="discuss"><i class="fs14 icon-question-answer-line right-5 iconfont"></i>讨论</button>
+                        {/if}
+                        {if $conch_theme.site_feedback == 1}
+                            <button class="tab-btn" data-tab="feedback"><i class="fs14 icon-message-3-line right-5 iconfont"></i>反馈</button>
+                        {/if}
+                    </div>
+
+                    <div class="side-card tab-list tab-panel active" id="panel-episodes">
+
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                            <span style="font-weight:700;font-size:14px;">线路 · <span id="currentLineTitle">{$obj['vod_play_list'][$param['sid']]['player_info']['show']}</span></span>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <span style="font-size:11px;color:var(--text-muted);">当前：第{$param.nid}集</span>
+                                <button class="sort-toggle-small" id="epSortToggle">倒序</button>
+                            </div>
+                        </div>
+
+                        {maccms:foreach name="$obj.vod_play_list" id="vo" key="key"}
+                            <div id="playEpList{$key}" class="play-episode-content" style="display:{if $vo.player_info.from==$obj['vod_play_list'][$param['sid']]['player_info']['from']}block{else}none{/if};">
+
+                                {if count($vo.urls) > 50}
+                                    <div class="group-tab-wrap fenzu">
+                                        <div class="fenzu-inner">
+                                            {maccms:foreach name=":array_chunk($vo.urls,50)" id="vo2" key="gkey"}
+                                                <span class="play-group-tab {if $gkey == 0}active{/if}" data-group="{$gkey}" data-line="{$key}" style="padding:2px 12px;border-radius:12px;border:1px solid var(--border-light);background:var(--bg-card);color:var(--text-muted);font-size:11px;cursor:pointer;transition:all 0.2s;">{$vo2[0]['nid']}-{$vo2[count($vo2)-1]['nid']}集</span>
+                                            {/maccms:foreach}
+                                        </div>
+                                    </div>
+                                {else}
+                                    <div class="group-tab-wrap" style="display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+                                    </div>
+                                {/if}
+
+                                <div class="episode-grid" data-line="{$key}">
+                                    {if count($vo.urls) > 50}
+                                        {maccms:foreach name=":array_chunk($vo.urls,50)" id="vo2" key="gkey"}
+                                            {maccms:foreach name="$vo2" id="vo3"}
+                                                <a href="{:mac_url_vod_play($obj,['sid'=>$vo.sid,'nid'=>$vo3.nid])}"
+                                                    class="ep-btn {if $param.sid==$vo.sid&&$param.nid==$vo3.nid}active{/if}"
+                                                    data-ep="{$vo3.nid}"
+                                                    data-group="{$gkey}"
+                                                    data-sid="{$vo.sid}"
+                                                    data-nid="{$vo3.nid}">
+                                                    {$vo3.nid}
+                                                </a>
+                                            {/maccms:foreach}
+                                        {/maccms:foreach}
+                                    {else}
+                                        {maccms:foreach name="$vo.urls" id="vo2"}
+                                            <a href="{:mac_url_vod_play($obj,['sid'=>$vo.sid,'nid'=>$vo2.nid])}"
+                                                class="ep-btn {if $param.sid==$vo.sid&&$param.nid==$vo2.nid}active{/if}"
+                                                data-ep="{$vo2.nid}"
+                                                data-sid="{$vo.sid}"
+                                                data-nid="{$vo2.nid}">
+                                                {$vo2.nid}
+                                            </a>
+                                        {/maccms:foreach}
+                                    {/if}
+                                </div>
+                            </div>
+                        {/maccms:foreach}
+
+                    </div>
+
+                    {if $conch_theme.site_comment == 1}
+                        <div class="side-card tab-panel" id="panel-discuss">
+
+                            {if condition="$comment.status eq 1"}
+                                <div class="mac_comment refresh" data-id="{$obj.vod_id}" data-mid="{$maccms.mid}" data-login="{$comment.login}" data-verify="{$comment.verify}"></div>
+
+                            {else}
+                                <div class="card taolun" id="pinglun">
+                                    <div class="comment-closed">
+                                        <i class="fs20 icon-guanbipinglun iconfont"></i>
+                                        评论已关闭
+                                    </div>
+                                </div>
+                            {/if}
+                        </div>
+                    {/if}
+                    {if $conch_theme.site_feedback == 1}
+                        <div class="side-card tab-panel" id="panel-feedback">
+                            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;display: grid;grid-template-columns: repeat(4, 1fr);">
+                                <a href="#" class="fb-type active" data-text="功能建议">功能建议</a>
+                                <a href="#" class="fb-type" data-text="BUG反馈">BUG反馈</a>
+                                <a href="#" class="fb-type" data-text="播放不了">播放不了</a>
+                                <a href="#" class="fb-type" data-text="卡顿">卡顿</a>
+                                <a href="#" class="fb-type" data-text="画质差">画质差</a>
+                                <a href="#" class="fb-type" data-text="字幕问题">字幕问题</a>
+                            </div>
+
+                            <input type="hidden" id="fbVodName" value="{$obj.vod_name}">
+                            <input type="hidden" id="fbEpisode" value="{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}">
+                            <input type="hidden" id="fbLine" value="{$obj['vod_play_list'][$param['sid']]['player_info']['show']}">
+
+                            <form class="gbook_form" id="feedbackForm">
+                                <textarea class="gbook_content" id="fbContent" name="gbook_content" placeholder="请选择问题类型或直接输入描述..." style="min-height:150px;margin: 15px auto;"></textarea>
+
+                                <div style="display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap;">
+                                    <input type="text" name="verify" placeholder="验证码" class="verify" style="flex:1;padding:6px 10px;border:1px solid #ddd;border-radius:4px;font-size:13px;min-width:80px;outline:none;">
+                                    <img class="comm-code" src="{:mac_url('verify/index')}" onClick="this.src='{:mac_url('verify/index')}?v='+Math.random()" style="height:32px;cursor:pointer;border-radius:4px;">
+                                    <input type="button" class="gbook_submit submit_btn" style="padding:8px 20px;border:none;border-radius:20px;background:var(--accent);color:#fff;cursor:pointer;font-size:13px;" value="提交">
+                                </div>
+                            </form>
+
+                            <div id="fbMessage" style="display:none;margin-top:8px;padding:8px 12px;border-radius:4px;font-size:13px;"></div>
+                        </div>
+                    {/if}
+                </div>
+
+                <div class="discovery-section">
+                    <div class="discovery-header">
+                        <div class="discovery-icon">✨</div>
+                        <div><div class="discovery-title">继续发现</div><p class="discovery-desc">按演员、导演和类型继续找片</p></div>
+                    </div>
+                    <div class="discovery-buttons" style="display: grid;border-radius: 0 0 10px 10px;padding: 8px;min-height: 0;height: 93px;scrollbar-width: thin !important;scrollbar-color: var(--accent) transparent !important;overflow-y: auto !important;">
+                        {maccms:foreach name=":explode(',',$obj.vod_class)" id="vo2" key="key2"}
+                            <a href="{:mac_url_type($obj.type.type_id,['id'=>$obj['type_id'],'class'=>$vo2],'show')}" class="discovery-btn">
+                                <span class="btn-icon"><i class="fs14 icon-send-plane-line right-5 iconfont"></i></span>{$vo2}</a>
+                        {/maccms:foreach}
+                        {maccms:foreach name=":explode(',',$obj.vod_director)" id="vo2" key="key2"}
+                            <a href="{:mac_url_vod_search(['director'=>$vo2])}" class="discovery-btn">{$vo2}作品</a>
+                        {/maccms:foreach}
+                        {maccms:foreach name=":explode(',',$obj.vod_actor)" id="vo2" key="key2"}
+                            <a href="{:mac_url_vod_search(['actor'=>$vo2])}" class="discovery-btn">{$vo2}作品</a>
+                        {/maccms:foreach}
+                        {if condition="$obj.vod_tag"}
+                            {maccms:foreach name=":explode(',',$obj.vod_tag)" id="vo2" key="key2"}
+                                <a href="{:mac_url_vod_search(['tag'=>$vo2])}" class="discovery-btn"><span class="btn-icon"><i class="fs14 icon-pushpin-line right-5 iconfont"></i></span>{$vo2}</a>
+                        {/maccms:foreach}{/if}
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <div class="card xihuan" style="position:relative;z-index:1;">
+            <div class="section-header"><h2><i class="fs24 icon-hearts-line right-5 iconfont"></i> 猜你喜欢</h2><a href="#" class="more-link">查看更多</a></div>
+            <div class="movie-grid">
+                {maccms:vod num="6" type="current" not="'.$obj['vod_id'].'" order="desc" by="hits_day"}
+                    {include file="block/vodbox2"}
+                {/maccms:vod}
+            </div>
+        </div>
+
+        {include file="public/foot"}
+
+        <span style="display: none" class="mac_hits hits" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}{$obj.art_id}{$obj.topic_id}" data-type="hits"></span>
+        <span style="display: none" class="mac_hits hits_day" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}{$obj.art_id}{$obj.topic_id}" data-type="hits_day"></span>
+        <span style="display: none" class="mac_hits hits_week" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}{$obj.art_id}{$obj.topic_id}" data-type="hits_week"></span>
+        <span style="display: none" class="mac_hits hits_month" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}{$obj.art_id}{$obj.topic_id}" data-type="hits_month"></span>
+        <span style="display: none" class="mac_history_set" data-name="{$obj.vod_name}" data-link="{:mac_url_vod_play($obj,['sid'=>$param['sid'],'nid'=>$param['nid']])}" data-pic="{$obj.vod_pic|mac_url_img}" data-part="{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}">
+        </span>
+        <span style="display:none" class="mac_ulog_set" data-mid="1" data-id="{$obj.vod_id}" data-pic="{$obj.vod_pic|mac_url_img}"  data-sid="{$param.sid}" data-nid="{$param.nid}" data-part="{$obj['vod_play_list'][$param['sid']]['urls'][$param['nid']]['name']}" data-type="4"></span>
+
+    </body>
+</html>

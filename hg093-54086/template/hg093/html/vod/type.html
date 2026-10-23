@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        {include file="public/include"}
+
+    </head>
+    <body>
+
+        {if $conch_theme.vod_type_slider_1 == 1}
+            {include file="block/t-hero-slider"}
+        {/if}
+        
+        {include file="public/head"}
+        
+        {if $conch_theme.vod_type_slider_2 == 1}
+            {include file="block/t-slider"}
+        {/if}
+        
+        <div class="card">
+            <div class="filter-title-row">
+                <h1><i class="fs20 icon-video-line right-5 iconfont"></i>{$obj.type_name}片库</h1>
+                {maccms:vod num="24" paging="yes" pageurl="vod/type" type="current" order="desc" by="time_add"}{/maccms:vod}
+                <div class="sort-link">
+                    <a {if condition="($param['by'] eq 'time_add' || $param['by'] eq '') && ($param['order'] eq 'desc' || $param['order'] eq '')"} class="active"{/if} href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'desc','by'=>'time_add' ],'show')}">最新入库</a>
+                    <a {if condition="$param['by'] eq 'time_add' && $param['order'] eq 'asc'"} class="active"{/if} href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'asc','by'=>'time_add' ],'show')}">最早入库</a>
+                    <a {if condition="$param['by'] eq 'year' && $param['order'] eq 'desc'"} class="active"{/if} href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'desc','by'=>'year' ],'show')}">年份从新到旧</a>
+                    <a {if condition="$param['by'] eq 'year' && $param['order'] eq 'asc'"} class="active"{/if} href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'asc','by'=>'year' ],'show')}">年份从旧到新</a>
+                    <a {if condition="$param['by'] eq 'score' && $param['order'] eq 'desc'"} class="active"{/if} href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'desc','by'=>'score' ],'show')}">评分从高到低</a>
+                    <a {if condition="$param['by'] eq 'score' && $param['order'] eq 'asc'"} class="active"{/if} href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'asc','by'=>'score' ],'show')}">评分从低到高</a>
+                </div>
+
+            </div>
+
+            <div class="sort-row">
+                <span class="result-count">共 {$__PAGING__.record_total} 部 - 第 {$__PAGING__.page_current}&nbsp;/&nbsp;{$__PAGING__.page_total} 页</span>
+                <a href="{:mac_url_type($obj,[],'show')}" class="reset-link"><i class="fs14 icon-xiajiantou right-5 iconfont"></i> 展开筛选</a>
+            </div>
+
+            <div class="movie-grid">
+
+                {maccms:vod num="24" paging="yes" pageurl="vod/type" type="current" order="desc" by="time_add"}
+                    {include file="block/vodbox2"}
+                {/maccms:vod}
+            </div>
+
+            {include file="block/page"}
+        </div>
+
+        {include file="public/foot"}
+
+    </body>
+</html>

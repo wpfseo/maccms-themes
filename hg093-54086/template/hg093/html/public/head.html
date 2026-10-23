@@ -1,0 +1,153 @@
+
+<div class="wpnav-drifting-shapes-backdrop" aria-hidden="true">
+    <span class="wpnav-drift-shape shape-01 wpnav-drift-shape--a"></span>
+    <span class="wpnav-drift-shape shape-02 wpnav-drift-shape--b"></span>
+    <span class="wpnav-drift-shape shape-03 wpnav-drift-shape--c"></span>
+    <span class="wpnav-drift-shape shape-04 wpnav-drift-shape--a"></span>
+    <span class="wpnav-drift-shape shape-05 wpnav-drift-shape--b"></span>
+    <span class="wpnav-drift-shape shape-06 wpnav-drift-shape--c"></span>
+    <span class="wpnav-drift-shape shape-07 wpnav-drift-shape--a"></span>
+    <span class="wpnav-drift-shape shape-08 wpnav-drift-shape--b"></span>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+{if $maccms.mid==6}
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="brand-name">会员中心</span>
+            <button class="sidebar-close" id="sidebarClose">✕</button>
+        </div>
+
+        <div class="sidebar-search">
+            <form action="{:mac_url('vod/search')}" id="search" name="search" method="get" accept-charset="UTF-8" style="display: flex; width: 100%; height: 100%; align-items: center;">
+                <input type="text" class="sidebar-search-input" placeholder="搜索影片、剧集..." name="wd" id="wd" value="{$param.wd}">
+                <button class="sidebar-search-btn" type="submit"><i class="icon-search-2-line iconfont"></i></button>
+            </form>
+        </div>
+
+        <a class="sidebar-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+            <span class="icon"><i class="icon-user-3-fill iconfont"></i></span> 个人中心
+        </a>
+        <a class="sidebar-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+            <span class="icon"><i class="icon-star-smile-fill iconfont"></i></span> 我的收藏
+        </a>
+        <a class="sidebar-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+            <span class="icon"><i class="icon-play-circle-fill iconfont"></i></span> 播放记录
+        </a>
+        <a class="sidebar-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+            <span class="icon"><i class="icon-file-list-2-fill iconfont"></i></span> 我的订单
+        </a>
+        <a class="sidebar-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false || strpos($_SERVER['REQUEST_URI'], 'user/upgrade') !== false"}active{/if}" href="{:url('user/buy')}">
+            <span class="icon"><i class="icon-database-2-fill iconfont"></i></span> 充值会员
+        </a>
+        <a class="sidebar-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+            <span class="icon"><i class="icon-settings-3-fill iconfont"></i></span> 账户设置
+        </a>
+        <a class="sidebar-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+            <span class="icon"><i class="icon-shield-check-fill iconfont"></i></span> 安全中心
+        </a>
+        <a class="sidebar-link" href="{:url('user/logout')}">
+            <span class="icon"><i class="icon-delete-bin-5-line iconfont"></i></span> 退出登录
+        </a>
+    </div>
+{else}
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            {if $conch_theme.site_logo_txt == 1}
+                <span class="brand-logo"><img src="{:mac_url_img($conch_theme['site_logo'])}" alt="{$conch_theme.site_name|mac_default=$maccms.site_name}"></span>
+            {else/}
+                <span class="brand-name">{$conch_theme.site_name|mac_default=$maccms.site_name}</span>
+            {/if}
+            <button class="sidebar-close" id="sidebarClose">✕</button>
+        </div>
+
+        <div class="sidebar-search">
+            <form action="{:mac_url('vod/search')}" id="search" name="search" method="get" accept-charset="UTF-8" style="display: flex; width: 100%; height: 100%; align-items: center;">
+                <input type="text" class="sidebar-search-input" placeholder="搜索影片、剧集..." name="wd" id="wd" value="{$param.wd}">
+                <button class="sidebar-search-btn" type="submit"><i class="icon-search-2-line iconfont"></i></button>
+            </form>
+        </div>
+
+        <a href="/" class="sidebar-link {if $maccms.aid==1} active{/if}" data-page="home">
+            <span class="icon"><i class="icon-home-5-line iconfont"></i></span> 首页
+        </a>
+        {maccms:type ids="'.$conch_theme['nav_top'].'" num="7" order="asc" by="sort" id="vo" key="key" mid="1"}
+            <a href="{:mac_url_type($vo)}" class="sidebar-link {if $GLOBALS.type_id==$vo.type_id||$GLOBALS.type_pid==$vo.type_id} active{/if}" data-page="short">
+                <span class="icon"><i class="{if $key==1} icon-movie-2-line{elseif $key==2/} icon-slideshow-3-line{elseif $key==3/} icon-magic-line{elseif $key==4} icon-bilibili-fill{else/} icon-live-line{/if} iconfont"></i></span> {$vo.type_name}
+            </a>
+        {/maccms:type}
+        {if $conch_theme.nav_top_name_1}
+            <a href="{$conch_theme.nav_top_url_1}" class="sidebar-link" data-page="short"><span class="icon"><i class="icon-calendar-line iconfont"></i></span>{$conch_theme.nav_top_name_1}</a>
+        {/if}
+        {if $conch_theme.nav_top_name_2}
+            <a href="{$conch_theme.nav_top_url_2}" class="sidebar-link" target="_blank" data-page="short"><span class="icon"><i class="icon-send-plane-line iconfont"></i></span>{$conch_theme.nav_top_name_2}</a>
+        {/if}
+        {if $conch_theme.index_topic == 1}
+            <a href="{:mac_url_topic_index()}" class="sidebar-link {if $maccms.mid==3}active{/if}" data-page="short"><span class="icon"><i class="icon-bookmark-3-line iconfont"></i></span> 专题</a>
+        {/if}
+    </div>
+{/if}
+<nav class="navbar">
+    <div class="brand">
+        
+        {if $conch_theme.site_logo_txt == 1}
+            <a href="/" class="brand-logo"><img src="{:mac_url_img($conch_theme['site_logo'])}" alt="{$conch_theme.site_name|mac_default=$maccms.site_name}" width="88" height="30"></a>
+        {else}
+            <span class="brand-icon"></span>
+            <span class="brand-name"><a href="/">{$conch_theme.site_name|mac_default=$maccms.site_name}</a></span>
+        {/if}
+        {if $conch_theme.logo_txt}
+            <span class="brand-tag">{$conch_theme.logo_txt}</span>
+        {/if}
+        
+    </div>
+    <div class="nav-left">
+        <div class="nav-links">
+            <a href="/" class="{if $maccms.aid==1} active{/if}" data-page="home">首页</a>
+            {maccms:type ids="'.$conch_theme['nav_top'].'" num="7" order="asc" by="sort" id="vo" key="key"}
+                <a href="{:mac_url_type($vo)}" {if $GLOBALS.type_id==$vo.type_id||$GLOBALS.type_pid==$vo.type_id}class="active"{/if} data-page="short">{$vo.type_name}</a>
+            {/maccms:type}
+            {if $conch_theme.nav_top_name_1}
+                <a href="{$conch_theme.nav_top_url_1}" {if condition="$maccms.aid eq 9991"}class="active"{/if} data-page="short">{$conch_theme.nav_top_name_1}</a>
+            {/if}
+            {if $conch_theme.nav_top_name_2}
+                <a href="{$conch_theme.nav_top_url_2}" target="_blank" data-page="short">{$conch_theme.nav_top_name_2}</a>
+            {/if}
+            {if $conch_theme.index_topic == 1}
+                <a href="{:mac_url_topic_index()}" {if $maccms.mid==3}class="active"{/if} data-page="short">专题</a>
+            {/if}
+        </div>
+    </div>
+    <div class="nav-right">
+
+        <div class="nav-search">
+            <form action="{:mac_url('vod/search')}" id="search" name="search" method="get" accept-charset="UTF-8" style="display: flex; width: 100%; height: 100%; align-items: center;">
+                <input type="text" class="nav-search-input" placeholder="搜你想看..." name="wd" id="wd" value="" autocomplete="off">
+                <button class="nav-search-btn" type="submit">
+                    <i class="icon-search-2-line iconfont"></i>
+                </button>
+            </form>
+        </div>
+        <button class="menu-toggle-btn" id="menuToggle"><i class="icon-bar-chart-horizontal-fill iconfont"></i></button>
+        <button class="theme-toggle-btn" id="themeToggle"><i class="icon-moon-line iconfont"></i></button>
+        {if $conch_theme.site_user == 1}
+            <div class="menu-toggle-btn hl-login-wrap" style="display: block !important;">
+
+                {if condition="$GLOBALS['user']['user_id']" gt 0}
+                    <a class="hl-user-avatar" href="{:mac_url('user/index')}" title="会员中心">
+                        {if $GLOBALS['user']['user_avatar']}
+                            <img src="{$GLOBALS['user']['user_avatar']}" alt="{$user.user_name}">
+                        {else}
+                            <img src="{:mac_get_user_portrait($user.user_id)}" alt="{$user.user_name}">
+                        {/if}
+                    </a>
+                {else}
+                    <a href="javascript:;" data-open-login class="register-link refresh-btn" title="登录">
+                        <i class="icon-user-3-line iconfont"></i>
+                    </a>
+                {/if}
+            </div>
+        {/if}
+    </div>
+</nav>

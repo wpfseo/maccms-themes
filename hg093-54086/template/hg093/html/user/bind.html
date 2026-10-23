@@ -1,0 +1,136 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>安全中心 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-member-page">
+
+            <aside class="hl-member-sidebar hl-desktop-only">
+                <nav class="hl-member-nav">
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-user-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">个人中心</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-star-smile-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的收藏</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-play-circle-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">播放记录</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-file-list-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的订单</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false"}active{/if}" href="{{:url('user/buy')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-database-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">充值会员</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-settings-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">账户设置</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>️</span>
+                        <span class="hl-member-nav-text">安全中心</span>
+                    </a>
+                    <a class="hl-member-nav-link" href="{:url('user/logout')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-delete-bin-5-line right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">退出登录</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="hl-member-content">
+
+                <div class="hl-member-hero">
+                    <div class="hl-member-hero-left">
+                        <span class="hl-member-hero-badge">Security</span>
+                        <h1 class="hl-member-hero-title">安全中心</h1>
+                        <p class="hl-member-hero-desc">绑定邮箱后，可以用邮箱找回密码，也能提升账户安全。</p>
+                    </div>
+                    <a class="hl-member-hero-btn" href="{:url('user/info')}">账户设置</a>
+                </div>
+
+                <div class="hl-member-bind-layout">
+
+                    <form class="hl-member-panel hl-member-code-form"
+                        data-send-url="{:url('user/bindmsg')}"
+                        data-save-url="{:url('user/bind')}"
+                        data-success-url="{:url('user/info')}">
+
+                        <div class="hl-panel-head">
+                            <h2 class="hl-panel-title">邮箱验证</h2>
+                        </div>
+
+                        <input type="hidden" name="ac" value="email">
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">邮箱地址</label>
+                            <input class="hl-form-input" type="email" name="to" value="{$obj.user_email}" placeholder="name@example.com">
+                        </div>
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">验证码</label>
+                            <div class="hl-form-code-row">
+                                <input class="hl-form-input hl-form-input-code" type="text" name="code" maxlength="8" placeholder="输入验证码">
+                                <button class="hl-form-code-btn" type="button" data-send-code>发送验证码</button>
+                            </div>
+                        </div>
+
+                        <div class="hl-form-tip" data-code-tip></div>
+
+                        <div class="hl-form-submit-row">
+                            <button class="hl-form-submit-btn" type="submit">保存绑定</button>
+                            <a class="hl-form-back-btn" href="{:url('user/info')}">返回</a>
+                        </div>
+                    </form>
+
+                    <aside class="hl-member-side-panel">
+                        <div class="hl-member-panel">
+                            <div class="hl-panel-head">
+                                <h2 class="hl-panel-title"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>安全提示</h2>
+                            </div>
+                            <div class="hl-info-list">
+                                <div class="hl-info-item">
+                                    <span class="hl-info-label">当前邮箱</span>
+                                    <b class="hl-info-value">{$obj.user_email|mac_default='未绑定'}</b>
+                                </div>
+                                <div class="hl-info-item">
+                                    <span class="hl-info-label">用户名</span>
+                                    <b class="hl-info-value">{$obj.user_name}</b>
+                                </div>
+                                <div class="hl-info-item">
+                                    <span class="hl-info-label">状态</span>
+                                    <b class="hl-info-value hl-info-value-warning">等待验证</b>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                </div>
+
+            </section>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_bind.js?v={$version}"></script>
+
+    </body>
+</html>

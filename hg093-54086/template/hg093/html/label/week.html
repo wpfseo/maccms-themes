@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        {include file="public/include"}
+        <title>{$conch_theme.week_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        <meta name="keywords" content="{$conch_theme.week_key|mac_default=$maccms.site_keywords}" />
+        <meta name="description" content="{$conch_theme.week_des|mac_default=$maccms.site_description}" />
+
+        {assign name="$maccms.aid" value="9991" /}
+    </head>
+    <body>
+        
+        {include file="public/head"}
+        {include file="block/weekbox"}
+        {include file="public/foot"}
+        <script>
+        window.filterAll = function () {
+            var activeDay = document.querySelector('#calendarGrid .calendar-day.active');
+            var dayNum = activeDay ? parseInt(activeDay.dataset.day) : (new Date().getDay() || 7);
+            var activeCategory = document.querySelector('#calendarTabs .active');
+            var category = activeCategory ? activeCategory.dataset.category : 'all';
+            var groups = document.querySelectorAll('#calendarGroupList .week-group');
+            var items = document.querySelectorAll('#calendarGroupList .calendar-movie-item');
+            groups.forEach(function (group) {
+                group.style.display = parseInt(group.dataset.day) === dayNum ? 'block' : 'none';
+            });
+            items.forEach(function (item) {
+                var parent = item.closest('.week-group');
+                if (parent && parent.style.display === 'block') {
+                    item.style.display = (category === 'all' || item.dataset.category == category) ? 'flex' : 'none';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        };
+        document.addEventListener('DOMContentLoaded', function () {
+            window.filterAll();
+        });
+        </script>
+    </body>
+</html>

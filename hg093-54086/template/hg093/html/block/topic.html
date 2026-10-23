@@ -1,0 +1,33 @@
+
+{maccms:topic num="1"}
+    <section class="zt-special-section">
+        <div class="section-header">
+            <div class="header-left r-link">
+                <h2><i class="fs24 icon-bookmark-3-line right-5 iconfont"></i> 专题推荐</h2>
+                <span class="more-link"><a href="{:mac_url_topic_index()}">全部专题</a></span>
+            </div>
+            <div class="header-actions">
+                <button class="rail-header-arrow prev" data-rail="ztRail">‹</button>
+                <button class="rail-header-arrow next" data-rail="ztRail">›</button>
+            </div>
+        </div>
+
+        <div class="movie-rail-wrapper">
+            <div class="movie-rail-scroll zt-scroll" id="ztRail">
+                {maccms:topic num="10" order="desc" by="time"}
+                    <div class="zt-rail-card">
+                        <a href="{:mac_url_topic_detail($vo)}" class="zt-card-link" title="{$vo.topic_name}">
+                            <div class="zt-poster">
+                                <img loading="lazy" decoding="async" src="{$vo.topic_pic|mac_url_img}" alt="{$vo.topic_name}">
+                                <div class="zt-badge">{$vo.topic_rel_vod|explode=',',###|count}部影片</div>
+                            </div>
+                            <div class="zt-title-wrap">
+                                <span class="zt-name">{$vo.topic_name}</span>
+                            </div>
+                        </a>
+                    </div>
+                {/maccms:topic}
+            </div>
+        </div>
+    </section>
+{/maccms:topic}

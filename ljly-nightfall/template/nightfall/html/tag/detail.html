@@ -1,0 +1,28 @@
+{php}$nfPage='tagdetail';{/php}{include file="public/boot"}
+{php}
+$tn=$nfTag['name'];
+$nf['title']=$tn.'影片大全（'.number_format($nfTotal).'部） - 按题材找片 - '.$nf['c']['brand'];
+$nf['heading']=$tn.'影片';
+$nf['description']='本站收录的 '.$nfTotal.' 部'.$tn.'题材影视作品，可按入库时间浏览，含剧集与影片在线播放入口。';
+$nf['keywords']=implode(',',array_filter([$tn,$tn.'影片',$tn.'电影',$tn.'电视剧',$tn.'推荐',$nf['c']['brand']]));
+$nf['canonical']=\app\common\service\Nightfall::absolute($nfUrlFirst,$nc);
+if($nfPageNum>1){
+    $nf['title'].=' - 第'.$nfPageNum.'页';
+    $nf['canonical']=\app\common\service\Nightfall::absolute(\app\common\service\Nightfall::genreUrl($nfTag['slug'],$nfPageNum),$nc);
+}
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<nav class="breadcrumbs"><a href="{$nfUrlIndex}">题材标签</a><span>/</span><span>{$tn|htmlspecialchars}</span></nav>
+<header class="page-title"><span class="eyebrow">GENRE / 题材</span><h1>{$tn|htmlspecialchars}<span class="heading-dot">.</span></h1><p>共 {:number_format($nfTotal)} 部{$tn|htmlspecialchars}题材作品，按入库时间从新到旧排列。</p></header>
+
+{if !empty($nfTypes)}<section class="section"><div class="section-head"><div><span class="eyebrow">BY TYPE</span><h2>分布在哪些分类</h2></div></div><nav class="chip-nav" aria-label="按分类查看">{volist name="nfTypes" id="ty"}<a class="chip" href="{:mac_url_type($ty)}">{$ty.type_name|htmlspecialchars}（{$ty.c}）</a>{/volist}</nav></section>{/if}
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">LATEST IN GENRE</span><h2>最新收录</h2></div><span class="muted">共 {:number_format($nfTotal)} 部</span></div>
+<div class="film-grid">{volist name="nfRows" id="vo"}{include file="public/card"}{/volist}</div>
+{if empty($nfRows)}<p class="empty-state">暂无可用作品。</p>{/if}</section>
+
+{if $nfPageMax gt 1}<nav class="pagination" aria-label="分页"><a href="{$nfUrlFirst}" rel="first">首页</a>{if $nfPageCur gt 1}<a href="{$nfUrlPrev}" rel="prev">上一页</a>{/if}{volist name="nfPageList" id="pg"}{if $pg.cur}<span aria-current="page">{$pg.n}</span>{else}<a href="{$pg.url}">{$pg.n}</a>{/if}{/volist}{if $nfPageCur lt $nfPageMax}<a href="{$nfUrlNext}" rel="next">下一页</a>{/if}<a href="{$nfUrlLast}">末页</a><span class="muted">第 {$nfPageCur} / {$nfPageMax} 页</span></nav>{/if}
+
+{if !empty($nfRelated)}<section class="section"><div class="section-head"><div><span class="eyebrow">RELATED GENRES</span><h2>相关题材</h2></div></div>
+<nav class="chip-nav" aria-label="相关题材">{volist name="nfRelated" id="r"}<a class="chip" href="{$r.url}">{$r.name|htmlspecialchars}（{:number_format($r['c'])}）</a>{/volist}</nav></section>{/if}
+</main>{include file="public/footer"}</body></html>

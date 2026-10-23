@@ -1,0 +1,35 @@
+
+{maccms:type num="7" ids="'.$conch_theme['index_type'].'" order="asc" by="sort" id="vo1" flag="vod" key="key"}
+    <section>
+        <div class="section-header">
+            <div class="header-left">
+                <h2><i class="fs24 {if $key==1} icon-movie-2-line{elseif $key==2/} icon-slideshow-3-line{elseif $key==3/} icon-magic-line{elseif $key==4} icon-bilibili-fill{else/} icon-live-line{/if} right-5 iconfont"></i> {$vo1.type_name}</h2>
+                <span class="more-link"><a href="{:mac_url_type($vo1,[],'show')}">查看更多</a></span>
+            </div>
+            <div class="header-actions">
+                <button class="rail-header-arrow prev" data-rail="koreanRail{$key}">‹</button>
+                <button class="rail-header-arrow next" data-rail="koreanRail{$key}">›</button>
+            </div>
+        </div>
+        <div class="movie-rail-wrapper">
+            <div class="movie-rail-scroll" id="koreanRail{$key}">
+                {maccms:vod num="18" type="'.$vo1['type_id'].'" order="desc" by="time" key="key1"}
+                    <div class="movie-rail-card">
+                        <div class="movie-poster-card" data-id="k{$vo.type_id}{$key1}">
+                            <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" title="{$vo.vod_name}">
+                                <div class="poster-img">
+                                    <img loading="lazy" decoding="async" src="{$vo.vod_pic|mac_url_img}" alt="{$vo.vod_name}">
+                                    <div class="info"><h4>{$vo.vod_name}</h4><div class="meta">{$vo.vod_year}·{if condition="$vo.vod_remarks neq ''"}{$vo.vod_remarks}{elseif condition="$vo.vod_serial gt 0"}第{$vo.vod_serial}集{else /}已完结{/if}</div></div>
+                                </div>
+                            </a>
+                            <div class="card-actions">
+                                <button class="favorite-btn" data-id="k{$vo.type_id}{$key1}"> 收藏</button>
+                                <a href="{:mac_url_vod_play($vo)}" class="play-btn-sm">播放</a>
+                            </div>
+                        </div>
+                    </div>
+                {/maccms:vod}
+            </div>
+        </div>
+    </section>
+{/maccms:type}

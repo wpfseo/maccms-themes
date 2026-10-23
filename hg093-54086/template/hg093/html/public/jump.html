@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>系统提示 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+        {include file="public/head"}
+        <div class="card">
+            <div class="site-tip">
+                <div class="site-tip-icon"><i class="fs36 icon-information-line iconfont"></i></div>
+                <h2>系统提示</h2>
+                <p>{$msg}</p>
+                <p>页面将在 <b class="site-tip-wait" id="wait">{$wait}</b> 秒后自动跳转</p>
+                <div class="site-tip-actions">
+                    <a class="btn-primary" id="href" href="{$url}"><i class="icon-play-circle-line iconfont"></i> 立即跳转</a>
+                </div>
+            </div>
+        </div>
+        {include file="public/foot"}
+    </body>
+</html>

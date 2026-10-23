@@ -1,0 +1,29 @@
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+{maccms:foreach name="list" id="vo"}
+    <div class="comment-item">
+        <div class="comment-header">
+            <div class="avatar">{if condition="$vo.comment_name"}{$vo.comment_name|substr=0,1}{else}用{/if}</div>
+            <strong style="font-size:14px;">{$vo.comment_name}</strong>
+            <span style="font-size:11px;color:var(--text-muted);">{$vo.comment_time|date='Y-m-d H:i:s',###}</span>
+        </div>
+        <p class="comment-body">{$vo.comment_content|mac_em_replace}</p>
+    </div>
+{/maccms:foreach}
+
+{if condition="$total > $limit"}
+    <div class="comment-paging" style="margin-top:14px;text-align:center;">
+        {$page|mac_page}
+    </div>
+{/if}
+
+{if condition="$total == 0"}
+    <div style="text-align:center;padding:30px;color:var(--text-muted);font-size:13px;">暂无评论，快来抢沙发~</div>
+{/if}

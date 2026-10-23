@@ -1,0 +1,62 @@
+{php}
+// Use CMS URL builders so backend route changes remain authoritative.
+$seoAid = (int)($maccms['aid'] ?? 0);
+$seoParam = isset($param) && is_array($param) ? $param : [];
+$seoObj = isset($obj) && is_array($obj) ? $obj : [];
+$seoPage = max(1, (int)($seoParam['page'] ?? 1));
+$seoPath = isset($rank_meta) ? $rank_meta['path'] : '';
+$seoNoindex = isset($rank_meta) && !empty($rank_meta['noindex']);
+switch ($seoAid) {
+    case 1:
+        $seoPath = $seoPage === 1 ? '/' : mac_url('index/index', ['page' => $seoPage]);
+        break;
+    case 11:
+        $seoPath = mac_url_type($seoObj, ['page' => $seoPage]);
+        break;
+    case 12:
+        $seoKeys = array_flip(['area', 'by', 'class', 'lang', 'letter', 'level', 'order', 'page', 'state', 'tag', 'year']);
+        $seoPath = mac_url_type($seoObj, array_intersect_key($seoParam, $seoKeys), 'show');
+        // Sorting does not create a new topic. Keep useful area/year/category pages indexable.
+        $seoNoindex = !empty($seoParam['by']) || !empty($seoParam['order']);
+        break;
+    case 13:
+        $seoKeys = array_flip(['wd', 'actor', 'area', 'by', 'class', 'director', 'lang', 'letter', 'level', 'order', 'page', 'state', 'tag', 'year']);
+        $seoPath = mac_url('vod/search', array_intersect_key($seoParam, $seoKeys));
+        $seoNoindex = true;
+        break;
+    case 14:
+        $seoPath = mac_url_vod_detail($seoObj);
+        break;
+    case 15:
+        // Keep each episode and line distinct; never canonicalize every episode to episode one.
+        $seoPath = mac_url_vod_play($seoObj, ['sid' => max(1, (int)($seoParam['sid'] ?? 1)), 'nid' => max(1, (int)($seoParam['nid'] ?? 1))]);
+        break;
+    case 21:
+        $seoPath = mac_url_type($seoObj, ['page' => $seoPage]);
+        break;
+    case 24:
+        $seoPath = mac_url_art_detail($seoObj, ['page' => $seoPage]);
+        break;
+    case 30:
+        $seoPath = mac_url_topic_index(['page' => $seoPage]);
+        break;
+    case 34:
+        $seoPath = mac_url_topic_detail($seoObj);
+        if ($seoPage > 1) {
+            $seoPath .= (strpos($seoPath, '?') === false ? '?' : '&') . 'page=' . $seoPage;
+        }
+        break;
+}
+if ($seoPath !== '') {
+    $seoHost = trim((string)($maccms['site_url'] ?? 'www.54086.com'), '/');
+    $seoHost = preg_replace('~^https?://~i', '', $seoHost);
+    $seoOrigin = 'https://' . $seoHost;
+    $seoCanonical = preg_match('~^https?://~i', $seoPath) ? $seoPath : $seoOrigin . '/' . ltrim($seoPath, '/');
+    $seoCanonical = htmlspecialchars($seoCanonical, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    echo '<link rel="canonical" href="' . $seoCanonical . '" />' . "\n";
+    echo '<meta property="og:url" content="' . $seoCanonical . '" />' . "\n";
+}
+if ($seoNoindex) {
+    echo '<meta name="robots" content="noindex,follow" />' . "\n";
+}
+{/php}

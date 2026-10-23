@@ -1,0 +1,122 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>开通VIP - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-member-page">
+
+            <aside class="hl-member-sidebar hl-desktop-only">
+                <nav class="hl-member-nav">
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-user-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">个人中心</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-star-smile-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的收藏</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-play-circle-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">播放记录</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-file-list-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的订单</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false || strpos($_SERVER['REQUEST_URI'], 'user/upgrade') !== false"}active{/if}" href="{{:url('user/buy')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-database-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">充值会员</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-settings-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">账户设置</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>️</span>
+                        <span class="hl-member-nav-text">安全中心</span>
+                    </a>
+                    <a class="hl-member-nav-link" href="{:url('user/logout')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-delete-bin-5-line right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">退出登录</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="hl-member-content">
+
+                <div class="hl-member-hero">
+                    <div class="hl-member-hero-left">
+                        <span class="hl-member-hero-badge"><i class="fs12 icon-vip-diamond-line right-5 iconfont"></i>VIP</span>
+                        <h1 class="hl-member-hero-title">开通会员</h1>
+                        <p class="hl-member-hero-desc">
+                            当前会员组：<strong>{$obj.group.group_name|mac_default='普通会员'}</strong>，
+                            可用积分：<strong>{$obj.user_points|mac_default='0'}</strong>
+                        </p>
+                    </div>
+                    <div class="hl-member-hero-actions">
+                        <a class="hl-member-hero-btn hl-member-hero-btn-primary right-5" href="{{:url('user/buy')}">
+                            <i class="fs16 icon-database-2-line right-5 iconfont"></i> 充值积分
+                        </a>
+                        <a class="hl-member-hero-btn hl-member-hero-btn-secondary" href="{:url('user/orders')}">
+                            <i class="fs16 icon-file-list-2-line right-5 iconfont"></i> 订单记录
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hl-vip-grid">
+                    {volist name="group_list" id="vo"}
+                        {if condition="$vo.group_id gt 2 && $vo.group_status eq 1"}
+                            <div class="hl-vip-card vip-card">
+                                <div class="hl-vip-card-header">
+                                    <h2 class="hl-vip-card-title">{$vo.group_name}</h2>
+                                    <p class="hl-vip-card-desc">购买后可按后台会员组权限观看对应内容。</p>
+                                </div>
+                                <div class="hl-vip-prices">
+                                    <button class="hl-vip-btn js-upgrade" data-group="{$vo.group_id}" data-long="day">
+                                        <span class="hl-vip-btn-label">日卡</span>
+                                        <span class="hl-vip-btn-price"><strong>{$vo.group_points_day}</strong> 积分</span>
+                                    </button>
+                                    <button class="hl-vip-btn js-upgrade" data-group="{$vo.group_id}" data-long="week">
+                                        <span class="hl-vip-btn-label">周卡</span>
+                                        <span class="hl-vip-btn-price"><strong>{$vo.group_points_week}</strong> 积分</span>
+                                    </button>
+                                    <button class="hl-vip-btn hl-vip-btn-hot js-upgrade" data-group="{$vo.group_id}" data-long="month">
+                                        <span class="hl-vip-btn-badge"> 推荐</span>
+                                        <span class="hl-vip-btn-label">月卡</span>
+                                        <span class="hl-vip-btn-price"><strong>{$vo.group_points_month}</strong> 积分</span>
+                                    </button>
+                                    <button class="hl-vip-btn js-upgrade" data-group="{$vo.group_id}" data-long="year">
+                                        <span class="hl-vip-btn-label">年卡</span>
+                                        <span class="hl-vip-btn-price"><strong>{$vo.group_points_year}</strong> 积分</span>
+                                    </button>
+                                </div>
+                            </div>
+                        {/if}
+                    {/volist}
+                </div>
+
+                <div class="hl-form-tip js-vip-tip"></div>
+
+            </section>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_upgrade.js?v={$version}"></script>
+
+    </body>
+</html>

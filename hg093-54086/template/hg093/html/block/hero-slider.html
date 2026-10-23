@@ -1,0 +1,26 @@
+
+<div class="hero-slider" id="heroSlider" data-autoplay="5000">
+    <div class="hero-slider-stage" id="heroSliderStage">
+        {maccms:vod num="10" order="desc" by="time" key="key" level="9"}
+            <div class="hero-slide" data-index="{$key}">
+                <div class="hero-slide-bg">
+                    <img src="{$vo.vod_pic_slide|mac_url_img}" alt="{$vo.vod_name}">
+                    <div class="hero-slide-mask"></div>
+                    <div class="hero-slide-mask-b"></div>
+                </div>
+                <div class="hero-slide-content">
+                    <span class="hero-slide-badge">TOP {$key}</span>
+                    <h3 class="hero-slide-title"><a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}">{$vo.vod_name}</a></h3>
+                    <p class="hero-slide-meta">{if condition="$vo.vod_year neq ''"}{$vo.vod_year}{/if}{if condition="$vo.vod_area neq ''"} · {$vo.vod_area}{/if}{if condition="$vo.vod_remarks neq ''"} · {$vo.vod_remarks}{elseif condition="$vo.vod_serial gt 0"} · 更新至{$vo.vod_serial}集{else /} · 全片{/if}</p>
+                    <div class="hero-slide-actions">
+                        <a href="{:mac_url_vod_play($vo)}" class="hero-btn-play" title="{$vo.vod_name}"><i class="icon-play-fill iconfont"></i> 立即播放</a>
+                        <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" class="hero-btn-detail" title="{$vo.vod_name}"><i class="icon-info-line iconfont"></i> 查看详情</a>
+                    </div>
+                </div>
+            </div>
+        {/maccms:vod}
+    </div>
+    <button class="hero-slider-arrow prev" id="heroSliderPrev" aria-label="上一张"><i class="fs24 icon-zuo right-5 top-1 iconfont"></i></button>
+    <button class="hero-slider-arrow next" id="heroSliderNext" aria-label="下一张"><i class="fs24 icon-you left-3 top-1 iconfont"></i></button>
+    <div class="hero-slider-dots" id="heroSliderDots"></div>
+</div>

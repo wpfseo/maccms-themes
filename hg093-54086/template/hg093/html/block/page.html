@@ -1,0 +1,12 @@
+
+{if condition="$__PAGING__.page_total gt 1"}
+    <div class="pagination">
+        <a href="{$__PAGING__.page_url|mac_url_page=$__PAGING__.page_prev}" class="page-btn" title="上一页">‹‹</a>
+
+        {maccms:foreach name="$__PAGING__.page_num" id="num"}
+            <a href="{$__PAGING__.page_url|mac_url_page=$num}" class="page-btn {if condition="$__PAGING__['page_current'] eq $num"}active{/if}" title="第{$num}页">{$num}</a>
+        {/maccms:foreach}
+
+        <a href="{$__PAGING__.page_url|mac_url_page=$__PAGING__.page_next}" class="page-btn" title="下一页">››</a>
+    </div>
+{/if}

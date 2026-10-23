@@ -1,0 +1,5 @@
+{php}
+$nfPage=isset($nfPage)?$nfPage:'home';
+$nf=\app\common\service\Nightfall::meta($nfPage,$maccms,isset($obj)?$obj:[],isset($param)?$param:[],isset($nfExtra)?$nfExtra:[]);
+$nc=$nf['c'];
+{/php}

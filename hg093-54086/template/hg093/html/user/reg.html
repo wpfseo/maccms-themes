@@ -1,0 +1,86 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>会员注册 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-auth-page">
+            <div class="hl-auth-wrapper hl-auth-wrapper-narrow">
+                <div class="hl-auth-card">
+                    <div class="hl-auth-header">
+                        <h1 class="hl-auth-title">注册账号</h1>
+                        <p class="hl-auth-desc">创建账号后可收藏喜欢的影片，解锁更多精彩内容</p>
+                    </div>
+
+                    <form class="hl-auth-form" method="post" action="{:url('user/reg')}" data-redirect="{:url('user/index')}">
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">用户名</label>
+                            <input class="hl-form-input" type="text" name="user_name" autocomplete="username" placeholder="仅支持字母和数字">
+                        </div>
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">密码</label>
+                            <input class="hl-form-input" type="password" name="user_pwd" autocomplete="new-password" placeholder="请输入密码">
+                        </div>
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">确认密码</label>
+                            <input class="hl-form-input" type="password" name="user_pwd2" autocomplete="new-password" placeholder="请再次输入密码">
+                        </div>
+
+                        {if condition="$user_config.reg_phone_sms eq 1 || $user_config.reg_email_sms eq 1"}
+                            <div class="hl-form-group">
+                                <label class="hl-form-label">{if condition="$user_config.reg_phone_sms eq 1"}手机号{else /}邮箱{/if}</label>
+                                <input class="hl-form-input" type="text" name="to" autocomplete="off" placeholder="用于接收注册验证码">
+                            </div>
+                            <div class="hl-form-group">
+                                <label class="hl-form-label">验证码</label>
+                                <div class="hl-form-code-row">
+                                    <input class="hl-form-input hl-form-input-code" type="text" name="code" autocomplete="off" placeholder="请输入验证码">
+                                    <button class="hl-form-code-btn" type="button">获取验证码</button>
+                                </div>
+                            </div>
+                        {/if}
+
+                        {if condition="$user_config.reg_verify eq 1"}
+                            <div class="hl-form-group">
+                                <label class="hl-form-label">图形验证码</label>
+                                <div class="hl-form-captcha-row">
+                                    <input class="hl-form-input hl-form-input-captcha" type="text" name="verify" maxlength="6" autocomplete="off" placeholder="验证码">
+                                    <img class="hl-form-captcha-img" src="{$maccms.path}index.php/verify/index.html" alt="验证码" data-captcha>
+                                </div>
+                            </div>
+                        {/if}
+
+                        <button class="hl-auth-btn" type="submit">立即注册</button>
+
+                        <div class="hl-form-tip" id="regTip"></div>
+                    </form>
+
+                    <div class="hl-auth-footer">
+                        <span>已有账号？</span>
+                        <a class="hl-auth-link" href="{:url('user/login')}">去登录 →</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_reg.js?v={$version}"></script>
+
+    </body>
+</html>

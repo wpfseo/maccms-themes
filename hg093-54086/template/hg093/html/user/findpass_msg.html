@@ -1,0 +1,78 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>邮箱找回密码 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-auth-page">
+            <div class="hl-auth-wrapper hl-auth-wrapper-narrow">
+                <div class="hl-auth-card">
+
+                    <div class="hl-auth-header">
+                        <span class="hl-auth-badge">Password Reset</span>
+                        <h2 class="hl-auth-title">邮箱找回密码</h2>
+                        <p class="hl-auth-desc">输入已绑定的邮箱，收到验证码后就可以重置密码。</p>
+                    </div>
+
+                    <form class="hl-auth-form hl-code-form"
+                        data-send-url="{:url('user/findpass_msg')}"
+                        data-save-url="{:url('user/findpass_reset')}"
+                        data-success-url="{:url('user/login')}">
+
+                        <input type="hidden" name="ac" value="email">
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">绑定邮箱</label>
+                            <input class="hl-form-input" type="email" name="user_email" placeholder="name@example.com">
+                        </div>
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">邮箱验证码</label>
+                            <div class="hl-form-code-row">
+                                <input class="hl-form-input hl-form-input-code" type="text" name="code" maxlength="8" placeholder="输入 6 位验证码">
+                                <button class="hl-form-code-btn" type="button" data-send-code>发送验证码</button>
+                            </div>
+                        </div>
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">新密码</label>
+                            <input class="hl-form-input" type="password" name="user_pwd" placeholder="至少 6 位">
+                        </div>
+
+                        <div class="hl-form-group">
+                            <label class="hl-form-label">确认新密码</label>
+                            <input class="hl-form-input" type="password" name="user_pwd2" placeholder="再输入一次">
+                        </div>
+
+                        <div class="hl-form-tip" data-code-tip></div>
+
+                        <button class="hl-auth-btn" type="submit">重置密码</button>
+                    </form>
+
+                    <div class="hl-auth-footer">
+                        <a class="hl-auth-link" href="{:url('user/login')}">想起密码？去登录 →</a>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_findpass_msg.js?v={$version}"></script>
+
+    </body>
+</html>

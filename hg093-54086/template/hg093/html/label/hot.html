@@ -1,0 +1,133 @@
+{php}header('Location: /rank.html', true, 301); exit;{/php}
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-19
+**************************************************
+-->
+<html lang="zh-CN">
+    <head>
+        {include file="public/include"}
+        <title>{$conch_theme.rank_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        <meta name="keywords" content="{$conch_theme.rank_key|mac_default=$maccms.site_keywords}" />
+        <meta name="description" content="{$conch_theme.rank_des|mac_default=$maccms.site_description}" />
+        
+        <link rel="stylesheet" href="//at.alicdn.com/t/c/font_5221418_ees62c1u94m.css?v={$version}">
+        {assign name="$maccms.aid" value="9992" /}
+
+    </head>
+    <body>
+        <div class="page list">
+            {include file="public/head"}
+            <div class="main">
+                <div class="content">
+                    <div class="module">
+                        <div class="rank-period-bar">
+                            <div class="rank-period-btn active" data-period="day"><span><i class="fs24 icon-zuixin right-5 iconfont"></i>最近更新</span></div>
+                            <div class="rank-period-btn" data-period="month"><span><i class="fs24 icon-paihangbang right-5 iconfont"></i>热门排行</span></div>
+                            <div class="rank-period-btn" data-period="all"><span><i class="fs24 icon-paihangbang2 right-5 iconfont"></i>评分总榜</span></div>
+                        </div>
+                        <div class="rank-period active" data-period-panel="day">
+                            <div class="rank-cat-grid">
+                                {maccms:type num="20" order="asc" by="sort" ids="'.$conch_theme['rank_type'].'" flag="vod" id="conch"}
+                                <div class="rank-cat-section">
+                                    <div class="rank-cat-head">
+                                        <h3>{$conch.type_name}</h3>
+                                        <a href="{:mac_url_type($conch,[],'show')}">更多</a>
+                                    </div>
+                                    <div class="rank-list">
+                                        {maccms:vod num="'.$conch_theme['rank_num'].'" type="'.$conch['type_id'].'" order="desc" by="time" key="key"}
+                                        <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" class="rank-row" title="{$vo.vod_name}-{if condition="$vo.vod_remarks neq ''"}{$vo.vod_remarks}{elseif condition="$vo.vod_serial gt 0"}第{$vo.vod_serial}集{else /}已完结{/if}">
+                                            <span class="rank-no">{$key}</span>
+                                            <div class="rank-poster"><img loading="lazy" decoding="async" src="{$vo.vod_pic|mac_url_img}" alt="{$vo.vod_name}" referrerpolicy="no-referrer"></div>
+                                            <div class="rank-info">
+                                                <h4>{$vo.vod_name}</h4>
+                                                <p>{$vo.vod_year} / {$vo.vod_area} / {$vo.vod_class}</p>
+                                            </div>
+                                            <span class="rank-badge">{if condition="$vo.vod_remarks neq ''"}{$vo.vod_remarks}{elseif condition="$vo.vod_serial gt 0"}第{$vo.vod_serial}集{else /}已完结{/if}</span>
+                                        </a>
+                                        {/maccms:vod}
+                                    </div>
+                                </div>
+                                {/maccms:type}
+                            </div>
+                        </div>
+                        <div class="rank-period" data-period-panel="month">
+                            <div class="rank-cat-grid">
+                                {maccms:type num="20" order="asc" by="sort" ids="'.$conch_theme['rank_type'].'" flag="vod" id="conch"}
+                                <div class="rank-cat-section">
+                                    <div class="rank-cat-head">
+                                        <h3>{$conch.type_name}</h3>
+                                        <a href="{:mac_url_type($conch,[],'show')}">更多</a>
+                                    </div>
+                                    <div class="rank-list">
+                                        {maccms:vod num="'.$conch_theme['rank_num'].'" type="'.$conch['type_id'].'" order="desc" by="hits" key="key"}
+                                        <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" class="rank-row" title="{$vo.vod_name}-{if condition="$vo.vod_remarks neq ''"}{$vo.vod_remarks}{elseif condition="$vo.vod_serial gt 0"}第{$vo.vod_serial}集{else /}已完结{/if}">
+                                            <span class="rank-no">{$key}</span>
+                                            <div class="rank-poster"><img loading="lazy" decoding="async" src="{$vo.vod_pic|mac_url_img}" alt="{$vo.vod_name}" referrerpolicy="no-referrer"></div>
+                                            <div class="rank-info">
+                                                <h4>{$vo.vod_name}</h4>
+                                                <p>{$vo.vod_year} / {$vo.vod_area} / {$vo.vod_class}</p>
+                                            </div>
+                                            <span class="rank-badgedu">{$vo.vod_hits} <i class="icon-huomiao iconfont"></i></span>
+                                        </a>
+                                        {/maccms:vod}
+                                    </div>
+                                </div>
+                                {/maccms:type}
+                            </div>
+                        </div>
+                        <div class="rank-period" data-period-panel="all">
+                            <div class="rank-cat-grid">
+                                {maccms:type num="20" order="asc" by="sort" ids="'.$conch_theme['rank_type'].'" flag="vod" id="conch"}
+                                <div class="rank-cat-section">
+                                    <div class="rank-cat-head">
+                                        <h3>{$conch.type_name}</h3>
+                                        <a href="{:mac_url_type($conch,[],'show')}">更多</a>
+                                    </div>
+                                    <div class="rank-list">
+                                        {maccms:vod num="'.$conch_theme['rank_num'].'" type="'.$conch['type_id'].'" order="desc" by="score" key="key"}
+                                        <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}" class="rank-row" title="{$vo.vod_name}-{if condition="$vo.vod_remarks neq ''"}{$vo.vod_remarks}{elseif condition="$vo.vod_serial gt 0"}第{$vo.vod_serial}集{else /}已完结{/if}">
+                                            <span class="rank-no">{$key}</span>
+                                            <div class="rank-poster"><img loading="lazy" decoding="async" src="{$vo.vod_pic|mac_url_img}" alt="{$vo.vod_name}" referrerpolicy="no-referrer"></div>
+                                            <div class="rank-info">
+                                                <h4>{$vo.vod_name}</h4>
+                                                <p>{$vo.vod_year} / {$vo.vod_area} / {$vo.vod_class}</p>
+                                            </div>
+                                            <span class="rank-badgedu">{$vo.vod_score}°C</span>
+                                        </a>
+                                        {/maccms:vod}
+                                    </div>
+                                </div>
+                                {/maccms:type}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                (function () {
+                    var btns = document.querySelectorAll('.rank-period-btn');
+                    var panels = document.querySelectorAll('.rank-period');
+                    btns.forEach(function (btn) {
+                        btn.addEventListener('click', function () {
+                            var p = this.getAttribute('data-period');
+                            btns.forEach(function (b) { b.classList.remove('active'); });
+                            panels.forEach(function (panel) { panel.classList.remove('active'); });
+                            this.classList.add('active');
+                            var target = document.querySelector('.rank-period[data-period-panel="' + p + '"]');
+                            if (target) {
+                                target.classList.add('active');
+                                void target.offsetWidth;
+                            }
+                        });
+                    });
+                })();
+            </script>
+            {include file="public/foot"}
+        </div>
+    </body>
+</html>

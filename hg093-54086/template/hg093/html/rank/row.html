@@ -1,0 +1,10 @@
+<div class="rank-row">
+    <span class="rank-no">{$rank_number}</span>
+    <a class="rank-poster" href="{$rank_film.url}" tabindex="-1" aria-hidden="true"><img loading="lazy" decoding="async" src="{$rank_film.vod_pic|mac_url_img}" alt="" referrerpolicy="no-referrer"></a>
+    <div class="rank-info">
+        <h3><a href="{$rank_film.url}">{$rank_film.vod_name|htmlspecialchars}</a></h3>
+        <p>{if $rank_film.vod_year}{$rank_film.vod_year|htmlspecialchars} · {/if}{$rank_film.vod_area|htmlspecialchars} · {$rank_film.type_name|htmlspecialchars}</p>
+        {if !empty($rank_film.reason)}<p class="rank-reason">{$rank_film.reason|htmlspecialchars}</p>{/if}
+    </div>
+    <a class="rank-badge" href="{$rank_film.url}">查看详情</a>
+</div>

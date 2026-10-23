@@ -1,0 +1,11 @@
+<a class="skip" href="#main">跳到主要内容</a>
+<header class="site-header"><div class="shell header-inner">
+<a class="brand" href="{$maccms.path}"><span class="brand-mark" aria-hidden="true">N</span>{if $nc.logo}<img src="{$nc.logo|htmlspecialchars}" alt="{$nc.brand|htmlspecialchars}">{else}<span>{$nc.brand|htmlspecialchars}<small>NIGHTFALL / CINEMA</small></span>{/if}</a>
+<button class="menu-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="展开导航">☰</button>
+<nav id="site-nav" class="site-nav" aria-label="主导航"><a href="{$maccms.path}">发现</a>
+{if $nc.nav}{volist name="nc.nav" id="nav"}<a href="{$nav.url|htmlspecialchars}">{$nav.name|htmlspecialchars}</a>{/volist}{else}
+{maccms:type num="6" ids="parent" order="asc" by="sort" mid="1"}<a href="{:mac_url_type($vo)}">{$vo.type_name|htmlspecialchars}</a>{/maccms:type}
+{/if}
+<a href="{:url('index/nightbrowse/index')}">浏览</a><a href="/cast.html">演员</a><a href="/director.html">导演</a><a href="/genre.html">题材</a>{if $nc.show_rankings}<a href="/rank.html">排行榜</a>{/if}{if $nc.show_topics}<a href="{:mac_url('topic/index')}">专题</a>{/if}</nav>
+<form class="search" action="{:mac_url('vod/search')}" method="get" role="search"><label class="sr-only" for="site-search">搜索影片</label><input id="site-search" name="wd" type="search" maxlength="80" placeholder="片名 / 演员 / 导演" required><button aria-label="搜索">⌕</button></form>
+</div></header>

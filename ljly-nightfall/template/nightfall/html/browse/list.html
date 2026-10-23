@@ -1,0 +1,13 @@
+{php}$nfPage='browse';{/php}{include file="public/boot"}{php}
+$nf['title']=$nfHeading.' - '.$nf['c']['brand'];
+$nf['heading']=$nfHeading;
+$nf['description']=$nfDesc;
+$nf['canonical']=$nfCanonical;
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<header class="page-title"><span class="eyebrow">BROWSE / LIST</span><h1>{$nfHeading|htmlspecialchars}<span class="heading-dot">.</span></h1><p>{$nfDesc|htmlspecialchars}</p></header>
+<nav class="breadcrumbs"><a href="{:url('index/nightbrowse/index')}">浏览全部影片</a><span>/</span><span>{$nfHeading|htmlspecialchars}</span></nav>
+<div class="film-grid">{volist name="nfRows" id="vo"}{include file="public/card"}{/volist}</div>
+{if empty($nfRows)}<p class="empty-state">这个条件下暂时没有影片，换个字母或状态试试。</p>{/if}
+{if $nfPageMax gt 1}<nav class="pagination" aria-label="分页"><a href="{$nfUrlFirst}" rel="first">首页</a>{if $nfPageCur gt 1}<a href="{$nfUrlPrev}" rel="prev">上一页</a>{/if}{volist name="nfPageList" id="pg"}{if $pg.cur}<span aria-current="page">{$pg.n}</span>{else}<a href="{$pg.url}">{$pg.n}</a>{/if}{/volist}{if $nfPageCur lt $nfPageMax}<a href="{$nfUrlNext}" rel="next">下一页</a>{/if}<a href="{$nfUrlLast}">末页</a><span class="muted">第 {$nfPageCur} / {$nfPageMax} 页</span></nav>{/if}
+</main>{include file="public/footer"}</body></html>

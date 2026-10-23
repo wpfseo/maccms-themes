@@ -1,0 +1,78 @@
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<div class="hl-login" id="loginModal">
+    <div class="hl-login-overlay" data-close-login></div>
+    <div class="hl-login-wrapper">
+
+        <div class="hl-login-card">
+
+            <button class="hl-login-close" data-close-login>✕</button>
+
+            <div class="hl-login-header">
+                <span class="hl-auth-badge">{$conch_theme.site_name|mac_default=$maccms.site_name}</span>
+                <h2 class="hl-login-title">欢迎回来</h2>
+                <p class="hl-login-desc">登录后继续你的影视之旅</p>
+            </div>
+
+            <form class="hl-login-form mac_login_form" method="post" id="fm" action="{:url('user/login')}">
+
+                <div class="hl-form-group">
+                    <label class="hl-form-label">账号</label>
+                    <input class="hl-form-input mac_u_name" type="text" name="user_name" placeholder="输入手机号或登录账号">
+                </div>
+
+                <div class="hl-form-group">
+                    <label class="hl-form-label">密码</label>
+                    <input class="hl-form-input mac_u_pwd" type="password" name="user_pwd" placeholder="输入您的登录密码">
+                </div>
+
+                {if condition="$GLOBALS['config']['user']['login_verify'] eq 1"}
+                    <div class="hl-form-group">
+                        <label class="hl-form-label">验证码</label>
+                        <div class="hl-form-captcha-row">
+                            <input class="hl-form-input hl-form-input-captcha mac_u_verify" type="text" name="verify" placeholder="输入验证码">
+                            <img class="hl-form-captcha-img mac_verify_img" src="{:url('verify/index')}" data-captcha alt="单击刷新">
+                        </div>
+                    </div>
+                {/if}
+
+                <button class="hl-login-btn login_form_submit" type="button">立即登录</button>
+            </form>
+
+            <div class="hl-login-footer">
+                <a class="hl-login-link" href="{:url('user/findpass')}">忘记密码？</a>
+                <a class="hl-login-link hl-login-link-reg" href="{:url('user/reg')}">
+                    还没有账号？<span class="hl-login-highlight">注册账号 →</span>
+                </a>
+            </div>
+
+            {if $GLOBALS['config']['connect']['qq']['status']==1 || $GLOBALS['config']['connect']['weixin']['status']==1}
+                <div class="hl-login-oauth">
+                    <div class="hl-login-oauth-divider">
+                        <span>其他登录方式</span>
+                    </div>
+                    <div class="hl-login-oauth-buttons">
+                        {if condition="$GLOBALS['config']['connect']['weixin']['status'] eq 1"}
+                            <a class="hl-login-oauth-btn hl-login-oauth-wechat" href="{:url('user/oauth')}?type=weixin">
+                                <span class="hl-login-oauth-icon"></span> 微信
+                            </a>
+                        {/if}
+                        {if condition="$GLOBALS['config']['connect']['qq']['status'] eq 1"}
+                            <a class="hl-login-oauth-btn hl-login-oauth-qq" href="{:url('user/oauth')}?type=qq">
+                                <span class="hl-login-oauth-icon"></span> QQ
+                            </a>
+                        {/if}
+                    </div>
+                </div>
+            {/if}
+
+        </div>
+    </div>
+</div>

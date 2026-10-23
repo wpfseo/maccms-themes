@@ -1,0 +1,13 @@
+<div class="card rank-navigation">
+    {if $rank_active}<h2 class="rank-list-title">按分类、题材、演员找更多片单</h2>{/if}
+    {volist name="rank_groups" id="rank_group"}
+    <div class="filter-row">
+        <span class="filter-name">{$rank_group.name|htmlspecialchars}</span>
+        <div class="filter-scroll">
+            {volist name="rank_group.boards" id="rank_link"}
+            <a class="filter-tag {if $rank_active==$rank_link.slug}active{/if}" href="/rank/{$rank_link.slug}.html">{$rank_link.name|htmlspecialchars}</a>
+            {/volist}
+        </div>
+    </div>
+    {/volist}
+</div>

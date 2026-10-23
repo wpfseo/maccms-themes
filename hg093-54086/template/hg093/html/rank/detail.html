@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>{include file="public/include"}<link rel="stylesheet" href="{$maccms.path_tpl}static/css/rankings.css?v=20261016c"></head>
+<body><div class="page list rankings-page">{include file="public/head"}<main class="main"><div class="content">
+    <section class="card rank-intro">
+        <nav class="rank-breadcrumb" aria-label="当前位置"><a href="/">首页</a> / <a href="/rank.html">排行榜</a> / {$rank_board.name|htmlspecialchars}</nav>
+        <h1>{$rank_heading|htmlspecialchars}</h1><p>{$rank_intro|htmlspecialchars}</p>
+        <p class="rank-note">共 {$rank_rows|count} 部 · 数据更新：{$rank_updated}</p>
+    </section>
+    <nav class="rank-period-bar" aria-label="榜单排序">{volist name="rank_tabs" id="rank_tab"}<a href="{$rank_tab.url}" class="rank-period-btn {if $rank_tab.active}active{/if}"><span>{$rank_tab.name}</span></a>{/volist}</nav>
+    <section class="rank-cat-section rank-detail-list" id="rank-films"><h2 class="rank-list-title">{$rank_board.name|htmlspecialchars}片单</h2><div class="rank-list">{volist name="rank_rows" id="rank_film" key="rank_number"}{include file="rank/row"}{/volist}</div></section>
+    {if !empty($rank_guides)}
+    <section class="card rank-guide" id="rank-guide"><h2>{$rank_board.guide_title|htmlspecialchars}</h2><div class="rank-guide-grid">
+        {volist name="rank_guides" id="guide"}
+        <article class="rank-guide-card"><h3>{$guide.title|htmlspecialchars}</h3><p>{$guide.text|htmlspecialchars}</p><div class="rank-guide-links">{volist name="guide.films" id="guide_film"}<a href="{$guide_film.url}">{$guide_film.vod_name|htmlspecialchars}</a>{/volist}</div></article>
+        {/volist}
+    </div></section>
+    {/if}
+    {include file="rank/nav"}
+    <section class="card rank-related"><h2>相关榜单</h2><div class="filter-scroll">{volist name="rank_related" id="related"}<a class="filter-tag" href="/rank/{$related.slug}.html">{$related.name|htmlspecialchars}</a>{/volist}<a class="filter-tag" href="/rank.html">全部排行榜</a></div></section>
+    <details class="card rank-method"><summary>榜单说明与排序依据</summary><p>{$rank_rule|htmlspecialchars}</p></details>
+</div></main>{include file="public/foot"}</div></body></html>

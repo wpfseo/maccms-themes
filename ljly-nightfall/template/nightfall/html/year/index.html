@@ -1,0 +1,16 @@
+{php}$nfPage='yearindex';{/php}{include file="public/boot"}
+{php}
+$nf['title']='年份片单 - 按年份找电影电视剧（'.$nfYearTotal.'个年份） - '.$nf['c']['brand'];
+$nf['heading']='年份片单';
+$nf['description']='按上映年份浏览影视作品，进入某一年还能继续按题材细分，例如「2026 年动作片」。';
+$nf['keywords']=implode(',',array_filter(['年份片单','按年份找片','年度影片','最新电影',$nf['c']['brand']]));
+$nf['canonical']=\app\common\service\Nightfall::absolute($nfUrlIndex,$nf['c']);
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<nav class="breadcrumbs"><a href="/">首页</a><span>/</span><span>年份片单</span></nav>
+<header class="page-title"><span class="eyebrow">BY YEAR</span><h1>年份片单<span class="heading-dot">.</span></h1><p>按年份浏览站内影视作品，进入某一年后还能继续按题材细分。</p></header>
+<section class="section"><div class="section-head"><div><span class="eyebrow">PICK A YEAR</span><h2>选择年份</h2></div><span class="muted">共 {$nfYearTotal} 个年份</span></div>
+<div class="letter-grid">{volist name="nfYears" id="y"}<a class="letter-cell" href="{$y.url}"><b>{$y.year}</b><span>{$y.count}</span></a>{/volist}</div></section>
+<section class="section"><div class="section-head"><div><span class="eyebrow">MORE</span><h2>其他维度</h2></div></div>
+<nav class="chip-nav"><a class="chip" href="/genre.html">题材标签</a><a class="chip" href="/combo.html">标签组合</a><a class="chip" href="/series.html">系列片单</a><a class="chip" href="/duanju.html">短剧频道</a><a class="chip" href="/sports.html">体育赛事</a><a class="chip" href="/rank.html">排行榜</a></nav></section>
+</main>{include file="public/footer"}</body></html>

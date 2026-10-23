@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+<html lang="zh-CN">
+    <head>
+        {include file="public/include"}
+
+    </head>
+
+    <body>
+        {if $conch_theme.vod_detail_open == 1}
+        {include file="public/head"}
+
+        <div class="card" data-continue-detail data-vod-id="{$obj.vod_id}">
+            <div class="detail-hero">
+                <div class="detail-poster">
+                    <div class="poster-bg">
+                        <img src="{:mac_url_img($obj.vod_pic)}" alt="{$obj.vod_name}" class="poster-img">
+                    </div>
+                </div>
+                <div class="detail-info">
+                    <h1>{$obj.vod_name}</h1>
+                    <div class="meta-row">
+                        {if condition="$obj['vod_year'] gt 0"}<a href="{:mac_url_type($obj.type,['year'=>$obj.vod_year],'show')}" title="{$obj.vod_year}"><span>{$obj.vod_year}</span></a>{/if}
+                        {if condition="$obj['vod_area'] neq ''"}<a href="{:mac_url_type($obj.type,['area'=>$obj.vod_area],'show')}" title="{$obj.vod_area}"><span>{$obj.vod_area}</span></a>{/if}
+                        {if condition="$obj['vod_lang'] neq ''"}<a href="{:mac_url_type($obj.type,['lang'=>$obj.vod_lang],'show')}" title="{$obj.vod_lang}"><span>{$obj.vod_lang}</span></a>{/if}
+                        {if condition="$obj.vod_sub neq ''"}<span>{$obj.vod_sub}</span>{/if}
+                    </div>
+                    <div class="meta-row meta-row-mt">
+                        <a href="{$obj.type|mac_url_type}" title="{$obj.type.type_name}"><span>{$obj.type.type_name}</span></a>
+                        {if !empty($obj.vod_class)}
+                            {maccms:foreach name=":explode(',',$obj.vod_class)"}
+                                <a href="{:mac_url_type($obj.type,['class'=>$vo],show)}" title="{$vo}"><span>{$vo}</span></a>
+                            {/maccms:foreach}
+                        {/if}
+                    </div>
+
+                    <div class="desc-wrapper">
+                        <div class="desc-text collapsed" id="descText">
+                            <div id="descInner">
+                                {$obj.vod_content|mac_filter_html|mac_default='暂无简介'}
+                            </div>
+                        </div>
+                        <div class="desc-toggle-row">
+                            <button class="desc-toggle" id="descToggle">展开全部 ▼</button>
+                        </div>
+                    </div>
+
+                    <div class="staff-row">
+                        <span><strong>导演：</strong>{$obj.vod_director|mac_default='未知'}</span>
+                        <span><strong>主演：</strong>{$obj.vod_actor|mac_default='未知'}</span>
+                    </div>
+
+                    <div class="action-buttons">
+                        {if condition="$obj.vod_copyright eq 1 && $GLOBALS['config']['app']['copyright_status'] eq 1 "}
+                            <span class="btn-primary">{$GLOBALS['config']['app']['copyright_notice']|mac_default='应版权方要求！本片相关资源已关闭'}</span>
+                        {else}
+                            {if condition="$obj.vod_play_from neq '' and $obj.vod_play_from neq 'no'"}
+                                <a href="{:mac_url_vod_play($obj,'first')}" class="btn-primary" id="firstPlayBtn"><i class="fs18 icon-play-fill iconfont" title="播放{$obj.vod_name}"></i>立即播放</a>
+                            {else /}
+                                <a class="btn-primary" style="background-color:#7a9097;" data-report-name="{$obj.vod_name}" data-report-id="{$obj.vod_id}" title="我想看{$obj.vod_name}"><i class="fs18 icon-leaf-fill iconfont"></i>我想看</a>
+                            {/if}
+                        {/if}
+
+                        <a href="javascript:;" class="mac_ulog btn-secondary hl-detail-fav" data-type="2" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}" data-fav="{if $is_fav}1{else}0{/if}" title="{if $is_fav}已收藏{else}收藏{/if}"><i class="{if $is_fav}icon-hearts-fill{else}icon-hearts-line{/if} iconfont"></i>{if $is_fav}已收藏{else}收藏{/if}</a>
+
+                        <a href="javascript:void(0)" class="btn-secondary hl-detail-share"><i class="icon-links-line iconfont"></i>分享</a>
+                    </div>
+
+                    <div class="stats-grid">
+                        {if condition="$obj.vod_copyright eq 1 && $GLOBALS['config']['app']['copyright_status'] eq 1 "}
+                            <a class="stat-card" title="暂无资源">
+                                <div class="stat-vals"><i class="fs20 icon-play-circle-line right-5 iconfont" style="color: #db8f72;"></i>暂无资源</div>
+                            </a>
+                        {else}
+                            <a class="stat-card continue-card" id="continueStatCard" style="cursor:pointer;" title="{$obj.vod_remarks}">
+                                <div class="stat-vals"><i class="fs20 icon-play-circle-line right-5 iconfont" style="color: #db8f72;"></i><span id="continueStatText">{$obj.vod_remarks}</span></div>
+                            </a>
+                        {/if}
+                        <a class="stat-card" title="豆瓣总评分">
+                            <div class="stat-val"><i style="color: #f9db67;" class="fs20 icon-star-smile-fill right-5 iconfont"></i>{$obj.vod_douban_score}<span class="stat-label left-5">总评分</span></div>
+                        </a>
+                        <a class="stat-card" title="{$obj.vod_hits}人观看">
+                            <div class="stat-val"><i class="fs20 icon-eye-line right-5 iconfont" style="color: #9e87bf;"></i>{$obj.vod_hits}<span class="stat-label left-5">人观看</span></div>
+                        </a>
+                        <a class="stat-card" href="#pinglun" title="评论">
+                            <div class="stat-val"><i class="fs20 icon-discuss-fill right-5 iconfont" style="color:#4fb947;"></i><em class="mac_total">0</em><span class="stat-label left-5">条评论</span></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {if condition="$obj.vod_copyright eq 1 && $GLOBALS['config']['app']['copyright_status'] eq 1 "}
+
+            <div class="card taolun" id="pinglun">
+                <div class="comment-closed">
+                    {$GLOBALS['config']['app']['copyright_notice']|mac_default='应版权方要求！本片相关资源已关闭'}
+                </div>
+            </div>
+        {else}
+
+            {if condition="$obj.vod_play_from neq '' and $obj.vod_play_from neq 'no'"}
+                <div class="card">
+                    <div class="section-header">
+                        <h2><i class="fs24 icon-live-line right-5 iconfont"></i>播放列表</h2>
+                        <button class="sort-toggle" id="sortToggle">倒序</button>
+                    </div>
+
+                    <div class="line-tabs" id="lineTabs">
+                        {maccms:foreach name="$obj.vod_play_list" id="vo" by="sort"}
+                            <a href="javascript:;" class="line-tab {if $key == 0}active{/if}" data-line="{$key}" data-target="#epList{$key}" title="{$vo.player_info.show}"> {$vo.player_info.show}（{$vo.urls|count}）</a>
+                        {/maccms:foreach}
+                    </div>
+
+                    {maccms:foreach name="$obj.vod_play_list" id="vo" by="sort"}
+                        <div id="epList{$key}" class="episode-line-content" {if $key != 0}style="display:none;"{/if}>
+                            <div class="episode-header">
+                                <span class="episode-current-line">当前线路：<strong class="episode-line-name">{$vo.player_info.show}</strong></span>
+                                {if count($vo.urls) > 50}
+                                    <div class="episode-group-tabs-wrapper">
+                                        <div class="episode-group-tabs">
+                                            {maccms:foreach name=":array_chunk($vo.urls,50)" id="vo2" key="gkey"}
+                                                <span class="group-tab {if $gkey == 0}active{/if}" data-group="{$gkey}" data-line="{$key}">{$vo2[0]['nid']}-{$vo2[count($vo2)-1]['nid']}集</span>
+                                            {/maccms:foreach}
+                                        </div>
+                                    </div>
+                                {/if}
+                            </div>
+
+                            <div class="episode-scroll" data-line="{$key}">
+                                {if count($vo.urls) > 50}
+                                    {maccms:foreach name=":array_chunk($vo.urls,50)" id="vo2" key="gkey"}
+                                        {maccms:foreach name="$vo2" id="vo3"}
+                                            <a href="{:mac_url_vod_play($obj,['sid'=>$vo.sid,'nid'=>$vo3.nid])}"
+                                                class="ep-chip {if $vo3.nid == $param.nid}active{/if}"
+                                                data-line="{$key}"
+                                                data-sid="{$vo.sid}"
+                                                data-nid="{$vo3.nid}"
+                                                data-group="{$gkey}"
+                                                {if $gkey != 0}style="display:none;"{/if} title="第{$vo3.nid}集">
+                                                第{$vo3.nid}集
+                                            </a>
+                                        {/maccms:foreach}
+                                    {/maccms:foreach}
+                                {else}
+                                    {maccms:foreach name="$vo.urls" id="vo2"}
+                                        <a href="{:mac_url_vod_play($obj,['sid'=>$vo.sid,'nid'=>$vo2.nid])}"
+                                            class="ep-chip {if $vo2.nid == $param.nid}active{/if}"
+                                            data-line="{$key}"
+                                            data-sid="{$vo.sid}"
+                                            data-nid="{$vo2.nid}" title="第{$vo2.nid}集">
+                                            第{$vo2.nid}集
+                                        </a>
+                                    {/maccms:foreach}
+                                {/if}
+                            </div>
+                        </div>
+                    {/maccms:foreach}
+                </div>
+            {else /}
+            {/if}
+
+            {if $conch_theme.site_comment == 1}
+                {if condition="$GLOBALS['config']['comment']['status'] eq 1"}
+                    <div class="card taolun" id="pinglun">
+                        <div class="section-header">
+                            <h2><i class="fs24 icon-discuss-line right-5 iconfont"></i>剧情讨论</h2>
+                            <a class="more-link" title="友善发言，文明交流"><i class="icon-seedling-fill right-5 iconfont"></i>友善发言，文明交流</a>
+
+                        </div>
+
+                        <div class="mac_comment refresh" data-id="{$obj.vod_id}" data-mid="{$maccms.mid}" data-login="{$comment.login}" data-verify="{$comment.verify}"></div>
+
+                    </div>
+                {else}
+                    <div class="card taolun" id="pinglun">
+                        <div class="comment-closed">
+                            <i class="fs20 icon-guanbipinglun iconfont"></i>
+                            评论已关闭
+                        </div>
+                    </div>
+                {/if}
+            {/if}
+        {/if}
+
+        <div class="card xihuan" style="position:relative;z-index:1;">
+            <div class="section-header"><h2><i class="fs24 icon-hearts-line right-5 iconfont"></i> 猜你喜欢</h2><a href="{:mac_url_type($obj,[],'show')}" class="more-link" title="猜你喜欢">查看更多</a></div>
+            <div class="movie-grid">
+                {maccms:vod num="6" type="current" not="'.$obj['vod_id'].'" order="desc" by="score"}
+                    {include file="block/vodbox2"}
+                {/maccms:vod}
+            </div>
+        </div>
+
+        {include file="public/foot"}
+
+        <span class="mac_ulog_set hide" alt="浏览记录" data-type="1" data-mid="{$maccms.mid}" data-id="{$obj.vod_id}" data-sid="{$param.sid}" data-nid="{$param.nid}"></span>
+        <span class="mac_history_set hide" alt="历史记录" data-name="[{$obj.type.type_name}]{$obj.vod_name}" data-pic="{$obj.vod_pic|mac_url_img}"></span>
+        
+        {else}
+        <script>window.location.href = "{:mac_url_vod_play($obj,'first')}";</script>
+        {/if}
+    </body>
+</html>

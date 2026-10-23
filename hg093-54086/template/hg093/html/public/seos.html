@@ -1,0 +1,150 @@
+{if isset($rank_meta)}
+<title>{$rank_meta.title|htmlspecialchars} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$rank_meta.keywords|htmlspecialchars}" />
+<meta name="description" content="{$rank_meta.description|htmlspecialchars}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$rank_meta.title|htmlspecialchars} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$rank_meta.description|htmlspecialchars}" />
+{if $rank_meta.image}<meta property="og:image" content="{$rank_meta.image|mac_url_img}" />{/if}
+{elseif$maccms.aid==1} <!-- 首页 -->
+
+<title>{$conch_theme.site_name|mac_default=$maccms.site_name}{$conch_theme.site_title}</title>
+<meta name="keywords" content="{$conch_theme.site_key|mac_default=$maccms.site_keywords}" />
+<meta name="description" content="{$conch_theme.site_des|mac_default=$maccms.site_description}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$conch_theme.site_name|mac_default=$maccms.site_name}{$conch_theme.site_title}" />
+<meta property="og:description" content="{$conch_theme.site_des|mac_default=$maccms.site_description}" />
+
+{elseif$maccms.aid==11} <!-- 视频分类-指定ID  -->
+
+{if condition="count(array_intersect([$obj['type_id'], $obj['type_id_1']], explode(',', $conch_theme['type_id']))) > 0"}
+<title>{$conch_theme.type_title_1} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.type_key_1|mac_default=$obj.type_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.type_des_1|mac_default=$obj.type_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$conch_theme.type_title_1} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$conch_theme.type_des_1|mac_default=$obj.type_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+{else} <!-- 视频分类-默认 -->
+<title>{$conch_theme.type_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.type_key|mac_default=$obj.type_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.type_des|mac_default=$obj.type_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$conch_theme.type_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$conch_theme.type_des|mac_default=$obj.type_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+{/if}
+
+{elseif$maccms.aid==12} <!-- 视频筛选-指定ID  -->
+
+{if condition="count(array_intersect([$obj['type_id'], $obj['type_id_1']], explode(',', $conch_theme['show_id']))) > 0"}
+<title>{$conch_theme.show_title_1} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.show_key_1|mac_default=$obj.type_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.show_des_1|mac_default=$obj.type_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$conch_theme.show_title_1} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$conch_theme.show_des_1|mac_default=$obj.type_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+{else} <!-- 视频筛选-默认 -->
+<title>{$conch_theme.show_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.show_key|mac_default=$obj.type_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.show_des|mac_default=$obj.type_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$conch_theme.show_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$conch_theme.show_des|mac_default=$obj.type_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+{/if}
+
+{elseif$maccms.aid==13} <!-- 视频搜索 -->
+
+<title>{$conch_theme.search_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.search_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.search_des},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$conch_theme.search_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$conch_theme.search_des},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+
+{elseif$maccms.aid==14} <!-- 视频详情-指定ID -->
+
+{if condition="count(array_intersect([$obj['type_id'], $obj['type_id_1']], explode(',', $conch_theme['detail_id']))) > 0"}
+<title>{$conch_theme.detail_title_1} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.detail_key_1},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.detail_des_1} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="{if condition="$obj['type_id_1'] eq 2 && $obj['vod_total'] lt 2"}video.movie{elseif condition="$obj['type_id_1'] eq 1 || $obj['type_id_1'] eq 3 || $obj['type_id_1'] eq 4 || $obj['type_id_1'] eq 5 || $obj['type_id_1'] eq 20 || ($obj['type_id_1'] eq 2 && $obj['vod_total'] gt 1)"}video.tv_show{else}video.other{/if}" />
+<meta property="og:title" content="{$obj.vod_name|mac_filter_html} - {$obj.type.type_name|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$obj.vod_blurb|mac_filter_html|mac_default=$obj.vod_name|mac_filter_html}" />
+<meta property="og:image" content="{:mac_url_img($obj.vod_pic)}" />
+<meta property="og:image:alt" content="{$obj.vod_name|mac_filter_html}" />
+{else} <!-- 视频详情-默认 -->
+<title>{$conch_theme.detail_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.detail_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.detail_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="{if condition="$obj['type_id_1'] eq 2 && $obj['vod_total'] lt 2"}video.movie{elseif condition="$obj['type_id_1'] eq 1 || $obj['type_id_1'] eq 3 || $obj['type_id_1'] eq 4 || $obj['type_id_1'] eq 5 || $obj['type_id_1'] eq 20 || ($obj['type_id_1'] eq 2 && $obj['vod_total'] gt 1)"}video.tv_show{else}video.other{/if}" />
+<meta property="og:title" content="{$obj.vod_name|mac_filter_html} - {$obj.type.type_name|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$obj.vod_blurb|mac_filter_html|mac_default=$obj.vod_name|mac_filter_html}" />
+<meta property="og:image" content="{:mac_url_img($obj.vod_pic)}" />
+<meta property="og:image:alt" content="{$obj.vod_name|mac_filter_html}" />
+{/if}
+
+{elseif$maccms.aid==15}<!-- 视频播放-指定ID -->
+
+{if condition="count(array_intersect([$obj['type_id'], $obj['type_id_1']], explode(',', $conch_theme['play_id']))) > 0"}
+<title>{$conch_theme.play_title_1}{if condition="$obj['vod_play_list'][$param['sid']]['url_count'] gt 1 && ($obj['type_id_1'] neq 2 || $obj['vod_total'] gt 1)"} - 第{$param.nid}集{/if} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.play_key_1},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.play_des_1} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="{if condition="$obj['type_id_1'] eq 2 && $obj['vod_total'] lt 2"}video.movie{elseif condition="$obj['type_id_1'] eq 1 || $obj['type_id_1'] eq 2 || $obj['type_id_1'] eq 3 || $obj['type_id_1'] eq 4 || $obj['type_id_1'] eq 5 || $obj['type_id_1'] eq 20"}video.episode{else}video.other{/if}" />
+<meta property="og:title" content="{$obj.vod_name|mac_filter_html}{if condition="$obj['vod_play_list'][$param['sid']]['url_count'] gt 1 && ($obj['type_id_1'] neq 2 || $obj['vod_total'] gt 1)"} 第{$param.nid}集{/if} - {$obj.type.type_name|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$obj.vod_blurb|mac_filter_html|mac_default=$obj.vod_name|mac_filter_html}" />
+<meta property="og:image" content="{:mac_url_img($obj.vod_pic)}" />
+<meta property="og:image:alt" content="{$obj.vod_name|mac_filter_html}" />
+{else} <!-- 视频播放-默认 -->
+<title>{$conch_theme.play_title}{if condition="$obj['vod_play_list'][$param['sid']]['url_count'] gt 1 && ($obj['type_id_1'] neq 2 || $obj['vod_total'] gt 1)"} - 第{$param.nid}集{/if} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.play_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.play_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="{if condition="$obj['type_id_1'] eq 2 && $obj['vod_total'] lt 2"}video.movie{elseif condition="$obj['type_id_1'] eq 1 || $obj['type_id_1'] eq 2 || $obj['type_id_1'] eq 3 || $obj['type_id_1'] eq 4 || $obj['type_id_1'] eq 5 || $obj['type_id_1'] eq 20"}video.episode{else}video.other{/if}" />
+<meta property="og:title" content="{$obj.vod_name|mac_filter_html}{if condition="$obj['vod_play_list'][$param['sid']]['url_count'] gt 1 && ($obj['type_id_1'] neq 2 || $obj['vod_total'] gt 1)"} 第{$param.nid}集{/if} - {$obj.type.type_name|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$obj.vod_blurb|mac_filter_html|mac_default=$obj.vod_name|mac_filter_html}" />
+<meta property="og:image" content="{:mac_url_img($obj.vod_pic)}" />
+<meta property="og:image:alt" content="{$obj.vod_name|mac_filter_html}" />
+{/if}
+
+{elseif$maccms.aid==21} <!-- 文章分类 -->
+
+<title>{$conch_theme.art_type_title|mac_default=$obj.type_title|mac_filter_html}-第{$param['page']}页 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.art_type_key|mac_default=$obj.type_key|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.art_type_des|mac_default=$obj.type_des|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$conch_theme.art_type_title|mac_default=$obj.type_title|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$conch_theme.art_type_des|mac_default=$obj.type_des|mac_filter_html}" />
+
+{elseif$maccms.aid==24} <!-- 文章详情 -->
+
+<title>{$obj.art_name|mac_filter_html|mac_default='404'}{$conch_theme.art_detail_title|mac_default=$obj.type.type_name|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$obj.art_tag|mac_default=$obj.type.type_name|mac_filter_html},{$conch_theme.art_detail_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.art_detail_des},{$obj.art_blurb},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{$obj.art_name|mac_filter_html} - {$obj.type.type_name|mac_filter_html} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$obj.art_blurb|mac_filter_html|mac_default=$obj.art_name|mac_filter_html}" />
+<meta property="og:image" content="{:mac_url_img($obj.art_pic)}" />
+<meta property="og:image:alt" content="{$obj.art_name|mac_filter_html}" />
+
+{elseif$maccms.aid==30} <!-- 专题首页 -->
+
+<title>{$conch_theme.topic_title}{if condition="$param['page'] gt 1"} - 第{$param.page}页{/if} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$conch_theme.topic_key},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$conch_theme.topic_des} {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$conch_theme.topic_title} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$conch_theme.topic_des}" />
+
+{elseif$maccms.aid==34} <!-- 专题详情 -->
+
+<title>{$obj.topic_title|mac_default=$obj.topic_name|mac_filter_html}{if condition="$param['page'] gt 1"} - 第{$param.page}页{/if} - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+<meta name="keywords" content="{$obj.topic_key|mac_default=$conch_theme.topicd_key|mac_filter_html},{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta name="description" content="{$obj.topic_des|mac_default=$obj.topic_blurb|mac_filter_html}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{$obj.topic_title|mac_default=$obj.topic_name} - {$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:description" content="{$obj.topic_des|mac_default=$obj.topic_blurb|mac_filter_html}" />
+<meta property="og:image" content="{:mac_url_img($obj.topic_pic)}" />
+<meta property="og:image:alt" content="{$obj.topic_name|mac_filter_html}" />
+
+{/if}
+<meta property="og:site_name" content="{$conch_theme.site_name|mac_default=$maccms.site_name}" />
+<meta property="og:locale" content="zh_CN" />
+{include file="public/seo_metadata"}

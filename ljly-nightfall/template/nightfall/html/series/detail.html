@@ -1,0 +1,24 @@
+{php}$nfPage='seriesdetail';{/php}{include file="public/boot"}
+{php}
+$sn=$nfSeries['name'];$n=$nfTotal;$tn=$nfSeries['type_name']?$nfSeries['type_name']:'';
+$nf['title']=$sn.'系列合集（'.$n.'部） - 系列片单 - '.$nf['c']['brand'];
+$nf['heading']=$sn.' 系列';
+$nf['description']='「'.$sn.'」相关的 '.$n.' 部作品合集'.($tn!==''?'，类型为'.$tn:'').'，按年份从早到晚排列，可直接进入播放页。';
+$nf['keywords']=implode(',',array_filter([$sn,$sn.'系列',$sn.'全集',$sn.'有几部',$nf['c']['brand']]));
+$nf['canonical']=\app\common\service\Nightfall::absolute($nfUrlFirst,$nf['c']);
+if($nfPageNum>1){
+    $nf['title'].=' - 第'.$nfPageNum.'页';
+    $nf['canonical']=\app\common\service\Nightfall::absolute(\app\common\service\Nightfall::seriesUrl($nfSeries['slug'],$nfPageNum),$nf['c']);
+}
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<nav class="breadcrumbs"><a href="/">首页</a><span>/</span><a href="{$nfUrlIndex}">系列片单</a><span>/</span><span>{$sn|htmlspecialchars}</span></nav>
+<header class="page-title"><span class="eyebrow">SERIES{$tn ? ' / '.$tn : ''}</span><h1>{$sn|htmlspecialchars}<span class="heading-dot">.</span></h1>
+<p>共 {:number_format($nfTotal)} 部同名作品，按年份从早到晚排列。</p></header>
+<section class="section"><div class="section-head"><div><span class="eyebrow">ALL IN SERIES</span><h2>系列作品</h2></div><span class="muted">共 {:number_format($nfTotal)} 部</span></div>
+<div class="film-grid">{volist name="nfRows" id="vo"}{include file="public/card"}{/volist}</div>
+{if empty($nfRows)}<p class="empty-state">暂无可用作品。</p>{/if}</section>
+{if $nfPageMax gt 1}<nav class="pagination" aria-label="分页"><a href="{$nfUrlFirst}" rel="first">首页</a>{if $nfPageCur gt 1}<a href="{$nfUrlPrev}" rel="prev">上一页</a>{/if}{volist name="nfPageList" id="pg"}{if $pg.cur}<span aria-current="page">{$pg.n}</span>{else}<a href="{$pg.url}">{$pg.n}</a>{/if}{/volist}{if $nfPageCur lt $nfPageMax}<a href="{$nfUrlNext}" rel="next">下一页</a>{/if}<a href="{$nfUrlLast}">末页</a><span class="muted">第 {$nfPageCur} / {$nfPageMax} 页</span></nav>{/if}
+{if !empty($nfRelated)}<section class="section"><div class="section-head"><div><span class="eyebrow">MORE SERIES</span><h2>同类型系列</h2></div></div>
+<nav class="chip-nav" aria-label="同类型系列">{volist name="nfRelated" id="r"}<a class="chip" href="{$r.url}">{$r.name|htmlspecialchars}（{$r.vod_count}）</a>{/volist}</nav></section>{/if}
+</main>{include file="public/footer"}</body></html>

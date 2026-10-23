@@ -1,0 +1,74 @@
+{php}include $_SERVER['DOCUMENT_ROOT'] . $maccms['path_tpl'] . 'admin/theme.php';{/php}
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+<link rel="shortcut icon" href="{$conch_theme.site_favicon}" type="image/png" />
+<link rel="preload" href="{$conch_theme.site_logo}" as="image">
+{include file="public/seos"}
+
+<link rel="stylesheet" href="{$maccms.path_tpl}static/css/hl-font.css">
+<link rel="stylesheet" href="{$maccms.path_tpl}static/css/hl-style.css">
+<link rel="stylesheet" href="{$maccms.path_tpl}static/css/hl-user.css">
+<link rel="stylesheet" href="{$maccms.path_tpl}static/css/hl-emoji.css">
+<link rel="stylesheet" href="{$maccms.path_tpl}static/css/addon.css">
+
+<script>(function(){var t=localStorage.getItem('hl_theme');document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:('{$conch_theme.theme_style}'==='light'?'light':'dark'))})();</script>
+
+
+
+<script type="text/javascript" src="{$maccms.path}static/js/jquery.js"></script>
+<script type="text/javascript" src="{$maccms.path}static/js/home.js"></script>
+
+<script type="text/javascript">
+    var maccms = {
+        path: '__ROOT__',
+        tpl: '{$maccms.path_tpl}',
+        mid: "{$maccms['mid']}",
+        url: "{$maccms['site_url']}",
+        wapurl: "{$maccms['site_wapurl']}",
+        mob_status: "{$maccms['mob_status']}"
+    };
+    var conch_theme = {
+        theme: '{$conch_theme.license_verified}',
+        theme_style: '{$conch_theme.theme_style}',
+        dumu: '{$conch_theme.site_dumu}',
+        suggest: '{$conch_theme.search_suggest}',
+        comment: '{$conch_theme.site_comment}',
+        hlname: '{$conch_theme.site_name}'
+    };
+</script>
+
+
+<style>
+    :root {
+        --gradient: linear-gradient({$conch_theme.theme_color});
+        --login: url("{$conch_theme.site_bg}") center/cover no-repeat;
+    }
+    [data-theme="light"] {
+        --gradient: linear-gradient({$conch_theme.theme_color});
+        --login: url("{$conch_theme.site_bg1}") center/cover no-repeat;
+    }
+    img[loading="lazy"] {
+        background-color: var(--bg-card, #111827);
+        background-image: url("{$conch_theme.site_load}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<div class="global-modal-overlay" id="globalModal">
+    <div class="global-modal-box">
+        <div class="global-modal-header">
+            <span class="global-modal-icon" id="globalModalIcon"></span>
+            <div class="global-modal-title" id="globalModalTitle">提示</div>
+        </div>
+        <div class="global-modal-message" id="globalModalMessage">消息内容</div>
+        <div class="global-modal-buttons" id="globalModalButtons">
+            <button class="global-modal-btn global-modal-btn-secondary" id="globalModalCancel">取消</button>
+            <button class="global-modal-btn global-modal-btn-primary" id="globalModalConfirm">确定</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="card week">
+    <div class="section-header">
+        <h2><i class="fs24 icon-calendar-line right-5 iconfont"></i> 追剧日历</h2>
+        <span class="more-link"><a href="{:mac_url('label/week')}">查看完整日历</a></span>
+    </div>
+    <div class="calendar-scroll-wrapper">
+        <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+    <div class="calendar-group-tabs" id="calendarTabs">
+        <button class="active" data-category="all">全部</button>
+        {maccms:type num="8" order="asc" by="sort" ids="parent" flag="vod"}
+            <button data-category="{$vo.type_id}">{$vo.type_name}</button>
+        {/maccms:type}
+    </div>
+    <div class="calendar-group-list" id="calendarGroupList">
+
+        {php}
+            $date = date("w");
+            if($date == 0){
+                $date = 7;
+            }
+            $week = array('一','二','三','四','五','六','日');
+            $isWeekPage = strpos($_SERVER['REQUEST_URI'], '/label/week') !== false;
+            $num = $isWeekPage ? 0 : 18;
+        {/php}
+
+        {volist name="week" id="week" key="key"}
+            <div class="week-group" data-day="{$key}" data-loaded="{if $key eq $date}true{else}false{/if}" style="display:{if $key eq $date}block{else}none{/if};">
+                {if $key eq $date}
+                {maccms:vod weekday="'.$week.'" num="'.$num.'" type="all" order="desc" by="time"}
+                    <a href="{if $conch_theme.vod_detail_open == 1}{:mac_url_vod_detail($vo)}{else}{:mac_url_vod_play($vo,'first')}{/if}"
+                        class="calendar-movie-item"
+                        data-category="{$vo.type_id_1}"
+                        style="display:flex;" title="{$vo.vod_name}">
+                        <div class="poster">
+                            <img loading="lazy" decoding="async" src="{$vo.vod_pic|mac_url_img}" alt="{$vo.vod_name}">
+                        </div>
+                        <div class="info">
+                            <h4>{$vo.vod_name}</h4>
+                            <p>{if condition="$vo.vod_remarks neq ''"}{$vo.vod_remarks}{elseif condition="$vo.vod_serial gt 0"}第{$vo.vod_serial}集{else /}已完结{/if}</p>
+                        </div>
+                    </a>
+                {/maccms:vod}
+                {/if}
+            </div>
+        {/volist}
+    </div>
+</div>
+

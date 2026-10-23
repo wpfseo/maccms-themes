@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        {include file="public/include"}
+
+    </head>
+    <body>
+        {include file="public/head"}
+
+        <div class="special-index-intro">
+            <h1>全部专题</h1>
+            <div class="desc">精心整理各类影视专题合集，按题材、年份、系列进行聚合，快速找到你想看的系列作品。</div>
+        </div>
+
+        <section class="zt-special-section">
+            <div class="movie-rail-wrapper">
+                <div class="movie-rail-topic zt-scroll">
+                    {maccms:topic num="20" paging="yes" pageurl="topic/index" order="desc" by="time" id="vo"}
+                        <div class="zt-rail-cards">
+                            <a href="{:mac_url_topic_detail($vo)}" class="zt-card-link">
+                                <div class="zt-poster">
+                                    <img loading="lazy" decoding="async" src="{$vo.topic_pic|mac_url_img}" alt="{$vo.topic_name}">
+                                    <div class="zt-badge">{$vo.topic_rel_vod|explode=',',###|count}部影片</div>
+                                </div>
+                                <div class="zt-title-wrap">
+                                    <span class="zt-name">{$vo.topic_name}</span>
+                                    <div class="desc">{$vo.topic_blurb|mac_filter_html|mac_default=$vo.topic_des|mac_filter_html}</div>
+                                </div>
+                            </a>
+                        </div>
+                    {/maccms:topic}
+                </div>
+            </div>
+        </section>
+        {include file="block/page"}
+
+        {include file="public/foot"}
+    </body>
+</html>

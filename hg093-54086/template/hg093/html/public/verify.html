@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>安全验证 - {$maccms.site_name}</title>
+    {include file="public/include"}
+    <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.5.1/layer.min.js"></script>
+</head>
+<body>
+{include file="public/head"}
+<div class="card">
+    <div class="site-tip">
+        <div class="site-tip-icon"><i class="fs36 icon-shield-check-fill iconfont"></i></div>
+        <h2>安全验证</h2>
+        <p>访问此数据需要输入验证码</p>
+        <form class="site-verify-form" action="" method="post">
+            <input type="text" name="verify" class="site-verify-input" autocomplete="off" placeholder="请输入验证码">
+            <img class="site-verify-img" src="{$maccms.path}index.php/verify/index.html?type=search" onclick="this.src='{$maccms.path}index.php/verify/index.html?type=search&r='+Math.random()" alt="验证码，点击刷新" style="height:38px;border-radius:6px;cursor:pointer;">
+            <button type="button" class="btn-primary verify_submit" data-type="search"><i class="icon-checkbox-circle-line iconfont"></i> 提交验证</button>
+        </form>
+    </div>
+</div>
+{include file="public/foot"}
+<script>
+$(document).on('ajaxComplete', function(e, xhr, options) {
+    if (options.url && options.url.indexOf('verify_check') > -1) {
+        try {
+            var res = JSON.parse(xhr.responseText);
+            if (res.code != 1) {
+                var img = document.querySelector('.site-verify-img');
+                if (img) img.src = img.src.split('?')[0] + '?type=search&r=' + Math.random();
+            }
+        } catch(err) {}
+    }
+});
+</script>
+</body>
+</html>

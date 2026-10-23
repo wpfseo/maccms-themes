@@ -1,0 +1,19 @@
+{php}$nfPage='comboindex';{/php}{include file="public/boot"}
+{php}
+$n=$nfComboTotal;
+$nf['title']='标签组合 - 两个题材交叉找片（'.$n.'组） - '.$nf['c']['brand'];
+$nf['heading']='标签组合';
+$nf['description']='把两个题材叠在一起找片，例如剧情+爱情、动作+犯罪。每组至少 '.$nfComboMin.' 部作品才会单独成页，当前共 '.$n.' 组。';
+$nf['keywords']=implode(',',array_filter(['标签组合','题材组合','交叉标签','按题材找片',$nf['c']['brand']]));
+$nf['canonical']=\app\common\service\Nightfall::absolute(\app\common\service\Nightfall::comboUrl(),$nf['c']);
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<nav class="breadcrumbs"><a href="/">首页</a><span>/</span><span>标签组合</span></nav>
+<header class="page-title"><span class="eyebrow">COMBO TAGS</span><h1>标签组合<span class="heading-dot">.</span></h1><p>两个题材叠在一起找片，比如「剧情 + 爱情」「动作 + 犯罪」。每组收录 {$nfComboMin} 部以上作品才单独成页，当前共 {$nfComboTotal} 组。</p></header>
+
+{volist name="nfGroups" id="g"}<section class="section"><div class="section-head"><div><span class="eyebrow">WITH</span><h2>{$g.name|htmlspecialchars} + …</h2></div><a class="text-link" href="{$g.url}">只看{$g.name|htmlspecialchars} ↗</a></div>
+<nav class="chip-nav" aria-label="组合">{volist name="g.items" id="it"}<a class="chip" href="{$it.url}">{$it.label|htmlspecialchars}（{:number_format($it['count'])}）</a>{/volist}</nav></section>{/volist}
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">MORE</span><h2>换个方式找片</h2></div></div>
+<nav class="chip-nav"><a class="chip" href="/genre.html">题材标签</a><a class="chip" href="/cast.html">演员库</a><a class="chip" href="/director.html">导演库</a><a class="chip" href="/year.html">年份片单</a><a class="chip" href="/series.html">系列片单</a><a class="chip" href="/rank.html">排行榜</a></nav></section>
+</main>{include file="public/footer"}</body></html>

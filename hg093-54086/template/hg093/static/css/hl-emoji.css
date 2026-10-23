@@ -1,0 +1,639 @@
+/*
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+*/
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+.comment-header .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 50%;
+    background: var(--accent);
+}
+.comment-header strong {
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+}
+.comment-header .comment-time {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+.comment-header .gw_action {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-left: auto;
+}
+.comment-header .gw_action a {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    cursor: pointer;
+}
+.comment-header .gw_action a:hover {
+    color: var(--accent);
+}
+.comment-body {
+    margin: 4px 0 8px 42px;
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.7;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.comment-body img {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+}
+.gw_action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
+    padding-left: 42px;
+    margin-top: 2px;
+}
+.gw_action a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+.gw_action a:hover {
+    color: var(--accent);
+}
+.gw_action a.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.gw_action a.disabled:hover {
+    color: var(--text-secondary);
+}
+.gw_action .iconfont {
+    font-size: 14px;
+}
+.gw_action .digg_num {
+    margin-left: 2px;
+    font-style: normal;
+}
+.sub-comment {
+    margin-left: 42px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--bg-elevated);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+}
+.sub-comment .comment-header {
+    margin-bottom: 2px;
+}
+.sub-comment .comment-header .avatar {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+}
+.sub-comment .comment-body {
+    margin-left: 36px;
+    font-size: 13px;
+}
+.sub-comment .gw_action {
+    gap: 10px;
+    padding-left: 6px;
+}
+.sub-comment .gw_action a {
+    font-size: 12px;
+}
+.comment-empty {
+    padding: 60px 0;
+    text-align: center;
+    color: var(--text-muted);
+}
+.comment-empty .iconfont {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 72px;
+}
+.comment-empty p {
+    margin: 4px 0;
+}
+.pages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 16px 0 4px;
+}
+.pages a,
+.pages span {
+    padding: 4px 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+.pages a:hover {
+    color: var(--accent);
+    background: var(--bg-elevated);
+}
+.pages .active {
+    color: #fff;
+    background: var(--accent);
+}
+.pages .disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.comment-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+.comment-input-row input {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 16px;
+    color: var(--text-primary);
+    font-size: 13px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    outline: none;
+}
+.comment-input-row input:focus {
+    border-color: var(--accent);
+}
+.comment-editor {
+    flex: 1;
+    overflow-y: auto;
+    min-width: 120px;
+    padding: 8px 16px;
+    min-height: 38px;
+    max-height: 120px;
+    color: var(--text-primary);
+    font-size: 13px;
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 1.4;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    outline: none;
+}
+.comment-editor:focus {
+    border-color: var(--accent);
+}
+.comment-editor:empty::before {
+    content: attr(data-placeholder);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+.comment-editor img.emoji-img {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+}
+.emoji-picker {
+    position: relative;
+    display: inline-block;
+}
+.emoji-btn {
+    padding: 6px 12px;
+    font-size: 18px;
+    line-height: 1;
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    background: var(--bg-card);
+    transition: all 0.3s;
+    cursor: pointer;
+    user-select: none;
+}
+.emoji-btn:hover {
+    border-color: var(--accent);
+    background: var(--bg-elevated);
+}
+.emoji-box,
+.reply-emoji-box {
+    display: none;
+    position: fixed;
+    overflow-y: auto;
+    z-index: 1000;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    padding: 10px;
+    width: 340px;
+    max-height: 200px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    background: var(--poster-em);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+    pointer-events: auto;
+}
+.emoji-box.active,
+.reply-emoji-box.active {
+    display: grid;
+}
+.emoji-box span,
+.reply-emoji-box span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 4px;
+    min-height: 38px;
+    border-radius: 6px;
+    transition: background 0.15s;
+    cursor: pointer;
+    user-select: none;
+}
+.emoji-box span:hover,
+.reply-emoji-box span:hover {
+    background: var(--bg-elevated);
+}
+.emoji-box span img,
+.reply-emoji-box span img {
+    display: block;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    pointer-events: none;
+}
+.emoji-box::-webkit-scrollbar,
+.reply-emoji-box::-webkit-scrollbar {
+    width: 4px;
+}
+.emoji-box::-webkit-scrollbar-track,
+.reply-emoji-box::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+.emoji-box::-webkit-scrollbar-thumb,
+.reply-emoji-box::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+.emoji-box::-webkit-scrollbar-thumb:hover,
+.reply-emoji-box::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-end);
+}
+.emoji-box,
+.reply-emoji-box {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+}
+#verifyWrapper {
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+#verifyWrapper input.yanzheng {
+    flex: none;
+    width: 80px;
+    padding: 10px 12px;
+    color: var(--text-primary);
+    font-size: 13px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    outline: none;
+}
+#verifyWrapper input.yanzheng:focus {
+    border-color: var(--accent);
+}
+#verifyWrapper img.yanzhengtu {
+    height: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-primarys,
+#submitBtn {
+    display: inline-block;
+    flex: none;
+    padding: 8px 20px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+    background: var(--accent);
+    border: none;
+    border-radius: 20px;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+.btn-primarys:hover,
+#submitBtn:hover {
+    background: var(--gradient-end);
+}
+.btn-primarys:disabled,
+#submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.comment-reply-wrapper {
+    padding-left: 8px;
+    margin-top: 10px;
+}
+.comment-reply-wrapper .comment-input-row {
+    margin-top: 0;
+}
+.reply-editor {
+    flex: 1;
+    overflow-y: auto;
+    min-width: 220px;
+    padding: 8px 16px;
+    min-height: 38px;
+    max-height: 100px;
+    color: var(--text-primary);
+    font-size: 13px;
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 1.4;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    outline: none;
+}
+.reply-editor:focus {
+    border-color: var(--accent);
+}
+.reply-editor:empty::before {
+    content: attr(data-placeholder);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+.reply-editor img.emoji-img {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+.reply-verify-wrapper {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.reply-verify-wrapper input {
+    flex: none;
+    width: 80px;
+}
+.reply-verify-wrapper img {
+    height: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#panel-discuss .comment-tl {
+    overflow-y: auto !important;
+    max-height: 380px !important;
+}
+#panel-discuss .comment-empty {
+    overflow-y: auto !important;
+    min-height: 380px !important;
+}
+#panel-discuss .taolun {
+    padding: calc(50%) 0 calc(50%);
+    margin-top: 0;
+}
+.comment-tl {
+    overflow-y: auto !important;
+    max-height: 455px !important;
+    padding: 5px !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--accent) transparent !important;
+}
+.comment-tl::-webkit-scrollbar {
+    width: 2px !important;
+}
+.comment-tl::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+.comment-tl::-webkit-scrollbar-thumb {
+    background: var(--accent) !important;
+    border-radius: 10px !important;
+}
+.comment-input-row {
+    flex-shrink: 0 !important;
+}
+.comment-closed {
+    padding: 30px 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 18px;
+}
+#panel-discuss .yanzheng {
+    flex: none !important;
+    width: 60px !important;
+    padding: 8px 6px !important;
+    margin-left: 55px;
+    min-width: 100px !important;
+    font-size: 12px !important;
+}
+#panel-discuss .yanzheng-1 {
+    flex: none !important;
+    width: 60px !important;
+    padding: 8px 6px !important;
+    margin-left: 52px;
+    min-width: 80px !important;
+    font-size: 12px !important;
+}
+#panel-discuss .yanzhengtu {
+    height: 30px !important;
+    width: auto !important;
+}
+#panel-discuss .yanzhengtu-1 {
+    height: 28px !important;
+    width: 80px !important;
+}
+#panel-discuss .reply-submit-btn {
+    flex: none !important;
+    padding: 2px 10px !important;
+}
+#panel-discuss .reply-verify-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex: 1 !important;
+}
+#panel-discuss #verifyWrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex: 1 !important;
+}
+#panel-discuss #submitBtn {
+    flex: none !important;
+    padding: 6px 14px !important;
+    font-size: 12px !important;
+}
+.comment-body img[alt="表情"],
+.comment-body .emoji-img {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+}
+.comment_reply.hf {
+    color: var(--text-secondary);
+}
+.comment_reply.qxhf {
+    color: var(--gradient-end);
+    font-weight: 600;
+}
+@media (max-width: 768px) {
+    .comment-tl {
+        overflow-y: auto !important;
+        max-height: 255px !important;
+    }
+    #panel-discuss .comment-tl {
+        overflow-y: auto !important;
+        max-height: 255px !important;
+    }
+    #panel-discuss .comment-empty {
+        overflow-y: auto !important;
+        min-height: 255px !important;
+    }
+    #panel-discuss .taolun {
+        padding: calc(33%) 0 calc(33%);
+        margin-top: 5%;
+    }
+    .comment-body {
+        margin-left: 0;
+    }
+    .gw_action {
+        padding-left: 0;
+    }
+    .sub-comment {
+        margin-left: 0;
+    }
+    .sub-comment .comment-body {
+        margin-left: 0;
+    }
+    .sub-comment .gw_action {
+        padding-left: 0;
+    }
+    .emoji-box,
+    .reply-emoji-box {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 3px;
+        width: 290px;
+        max-height: 170px;
+        padding: 8px;
+    }
+    .emoji-box span img,
+    .reply-emoji-box span img {
+        width: 24px;
+        height: 24px;
+    }
+    .emoji-box span,
+    .reply-emoji-box span {
+        min-height: 32px;
+        padding: 4px 2px;
+    }
+    #verifyWrapper input.yanzheng {
+        width: 60px;
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+    #verifyWrapper img.yanzhengtu {
+        height: 30px;
+    }
+    .btn-primarys,
+    #submitBtn {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+    .yanzheng {
+        flex: none !important;
+        width: 60px !important;
+        padding: 8px 6px !important;
+        margin-left: 56px;
+        min-width: 95px !important;
+        font-size: 12px !important;
+    }
+    .yanzheng-1 {
+        flex: none !important;
+        width: 60px !important;
+        padding: 8px 6px !important;
+        margin-left: 56px;
+        min-width: 80px !important;
+        font-size: 12px !important;
+    }
+    .yanzhengtu {
+        height: 30px !important;
+        width: auto !important;
+    }
+    .yanzhengtu-1 {
+        height: 28px !important;
+        width: 75px !important;
+    }
+    .reply-submit-btn {
+        flex: none !important;
+        padding: 6px 14px !important;
+    }
+    .reply-verify-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        flex: 1 !important;
+    }
+    #verifyWrapper {
+        display: flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        flex: 1 !important;
+    }
+    #submitBtn {
+        flex: none !important;
+        padding: 6px 14px !important;
+        font-size: 12px !important;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .emoji-box,
+    .reply-emoji-box {
+        background: var(--bg-card);
+        border-color: var(--border-light);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    }
+    .emoji-box span:hover,
+    .reply-emoji-box span:hover {
+        background: var(--bg-elevated);
+    }
+}
+.taolun {
+    position: relative;
+    z-index: 10;
+    filter: none !important;
+    transform: none !important;
+}
+.xihuan {
+    position: relative;
+    z-index: 1;
+    filter: none !important;
+    transform: none !important;
+}

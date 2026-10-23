@@ -1,0 +1,28 @@
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+*.swp
+
+# maccms 运行时
+runtime/
+application/data/backup/
+application/data/update/
+*.log
+
+# 站点配置与密钥（绝不入库）
+application/database.php
+application/extra/*.php
+tools/push.conf.php
+*.pem
+*.key
+
+# 模板备份与冗余压缩包
+*.codex-bak-*
+*.bak
+theme_cache.php1
+*.rar
+*.zip
+
+# Python 缓存
+__pycache__/
+*.pyc

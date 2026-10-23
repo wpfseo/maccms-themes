@@ -1,0 +1,61 @@
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+{include file="public/notice"}
+{if $conch_theme.nav_down_open == 1}
+    <nav class="bottom-nav">
+        <a href="/" class="nav-item {if $maccms.aid==1} active{/if}"><i class="icon-home-5-line iconfont"></i><span>首页</span></a>
+        {maccms:type ids="'.$conch_theme['nav_down_type'].'" num="3" order="asc" id="vo" key="key" mid="1"}
+            <a href="{:mac_url_type($vo)}" class="nav-item  {if $GLOBALS.type_id==$vo.type_id||$GLOBALS.type_pid==$vo.type_id}active{/if}"><i class="{if $key==1} icon-movie-2-line{elseif $key==2/} icon-slideshow-3-line{elseif $key==3/} icon-magic-line{elseif $key==4} icon-bilibili-fill{else/} icon-live-line{/if} iconfont"></i><span>{$vo.type_name}</span></a>
+        {/maccms:type}
+        {if $conch_theme.nav_down_name_1}
+            <a href="{$conch_theme.nav_down_url_1}" class="nav-item {if $maccms.aid==13} active{/if}"><i class="{$conch_theme.nav_down_icon_1} iconfont"></i><span>{$conch_theme.nav_down_name_1}</span></a>
+        {/if}
+        {if $conch_theme.nav_down_name_2}
+            <a href="{$conch_theme.nav_down_url_2}" class="nav-item {if $maccms.aid==7} active{/if}"><i class="{$conch_theme.nav_down_icon_2} iconfont"></i><span>{$conch_theme.nav_down_name_2}</span></a>
+        {/if}
+        {if $conch_theme.site_user == 1}
+            {if $conch_theme.nav_down_user == 1}
+                <a href="{:mac_url('user/index')}" class="nav-item {if $maccms.aid==6} active{/if}"><i class="icon-user-smile-line iconfont"></i><span>会员</span></a>
+        {/if}{/if}
+
+    </nav>
+{/if}
+
+<div id="toast" class="toast-message"></div>
+<div class="footer-note">{$conch_theme.site_foot}{$conch_theme.site_contact}</div>
+
+<div class="friend-rss">
+		<p>
+			<a href="{:mac_url('rss/index')}" target="_blank">RSS订阅</a> - 
+			<a href="{:mac_url('rss/baidu')}" target="_blank">百度蜘蛛</a> - 
+			<a href="{:mac_url('rss/google')}" target="_blank">谷歌地图</a> - 
+			<a href="{:mac_url('rss/sm')}" target="_blank">神马爬虫</a> - 
+			<a href="{:mac_url('rss/sogou')}" target="_blank">搜狗蜘蛛</a> - 
+			<a href="{:mac_url('rss/so')}" target="_blank">奇虎地图</a> - 
+			<a href="{:mac_url('rss/bing')}" target="_blank">必应爬虫</a>
+		</p>
+</div>
+
+<div class="hl-backtop" title="返回顶部">
+<span class="icon"><i class="icon-fanhuidingbu iconfont"></i></span>
+</div>
+
+{if $conch_theme.site_user == 1}
+    {include file="user/ajax_login"}
+{/if}
+
+<script type="text/javascript" src="{$maccms.path_tpl}static/js/hl-base.js?v={:time()}" defer></script>
+<script type="text/javascript" src="{$maccms.path_tpl}static/js/hl-theme.js?v={:time()}"></script>
+<script type="text/javascript" src="{$maccms.path_tpl}static/js/hl-addon.js?v={:time()}" defer></script>
+<script type="text/javascript" src="{$maccms.path_tpl}static/js/hl-login.js?v={:time()}" defer></script>
+
+{if $conch_theme.site_language == 2}
+<script type="text/javascript" src="{$maccms.path_tpl}static/js/language.js?v={:time()}"></script>
+{/if}

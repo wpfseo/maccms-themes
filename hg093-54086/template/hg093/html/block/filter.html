@@ -1,0 +1,125 @@
+
+{if $obj.childids||$obj.parent.childids}
+    <div class="card">
+        <div class="filter-title-row">
+            <h2><i class="fs20 icon-equalizer-line right-5 iconfont"></i>筛选条件</h2>
+            <a href="{:mac_url_type($obj,[],'show')}" class="reset-link"><i class="fs12 icon-flag-2-line right-5 iconfont"></i>重置筛选</a>
+        </div>
+
+        {if condition="$obj['type_id'] == 2 || $obj['type_id'] == 3 || $obj['type_id'] == 5 || $obj['type_pid'] == 2 || $obj['type_pid'] == 3 || $obj['type_pid'] == 5"}
+            <div class="filter-row">
+                <span class="filter-name">类型</span>
+                <div class="filter-scroll">
+                    {maccms:type ids="2,3,5" order="asc" by="sort" id="voType" key="typeKey"}
+                        <a href="{:mac_url_type($voType,[],'show')}" class="filter-tag {if condition="$voType['type_id'] == $obj['type_id'] || $voType['type_id'] == $obj['type_pid']"}active{/if}">{if condition="$voType['type_id'] == 3"}剧集{else /}{$voType.type_name}{/if}</a>
+                    {/maccms:type}
+                </div>
+            </div>
+        {/if}
+
+        {if $conch_theme.vod_show_year == 1}
+            {if !empty($obj.type_extend.year||$obj.parent.type_extend.year)}
+                <div class="filter-row">
+                    <span class="filter-name">年份</span>
+                    <div class="filter-scroll">
+                        <a class="filter-tag {if condition="$param['year'] eq ''"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>'','score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">全部</a>
+                        {empty name="$obj.type_extend.year"}
+                            {maccms:foreach name=":explode(',',$obj.parent.type_extend.year)" id="yearOption" key="yearKey"}
+                                <a class="filter-tag {if condition="$param['year'] eq $yearOption"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$yearOption,'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">{$yearOption}</a>
+                            {/maccms:foreach}
+                        {else /}
+                            {maccms:foreach name=":explode(',',$obj.type_extend.year)" id="yearOption" key="yearKey"}
+                                <a class="filter-tag {if condition="$param['year'] eq $yearOption"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$yearOption,'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">{$yearOption}</a>
+                            {/maccms:foreach}
+                        {/empty}
+                    </div>
+                </div>
+            {/if}
+        {/if}
+
+        {if $conch_theme.vod_show_score == 1}
+        <div class="filter-row">
+                <span class="filter-name">评分</span>
+                <div class="filter-scroll">
+                    <a class="filter-tag {if condition="$param['score'] eq 0"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>'','level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">全部</a>
+                    <a class="filter-tag {if condition="$param['score'] eq 6"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>6,'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">6分以上</a>
+                    <a class="filter-tag {if condition="$param['score'] eq 7"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>7,'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">7分以上</a>
+                    <a class="filter-tag {if condition="$param['score'] eq 8"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>8,'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">8分以上</a>
+                    <a class="filter-tag {if condition="$param['score'] eq 9"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>9,'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">9分以上</a>
+                </div>
+        </div>
+        {/if}
+
+        <div class="filter-row">
+            <span class="filter-name">排序</span>
+            <div class="filter-scroll">
+                <a class="filter-tag {if condition="($param['by'] eq 'time_add' || $param['by'] eq '') && ($param['order'] eq 'desc' || $param['order'] eq '')"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'desc','by'=>'time_add' ],'show')}">最新入库</a>
+                <a class="filter-tag {if condition="$param['by'] eq 'time_add' && $param['order'] eq 'asc'"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'asc','by'=>'time_add' ],'show')}">最早入库</a>
+                <a class="filter-tag {if condition="$param['by'] eq 'year' && $param['order'] eq 'desc'"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'desc','by'=>'year' ],'show')}">年份从新到旧</a>
+                <a class="filter-tag {if condition="$param['by'] eq 'year' && $param['order'] eq 'asc'"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'asc','by'=>'year' ],'show')}">年份从旧到新</a>
+                <a class="filter-tag {if condition="$param['by'] eq 'score' && $param['order'] eq 'desc'"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'desc','by'=>'score' ],'show')}">评分从高到低</a>
+                <a class="filter-tag {if condition="$param['by'] eq 'score' && $param['order'] eq 'asc'"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>'asc','by'=>'score' ],'show')}">评分从低到高</a>
+            </div>
+        </div>
+
+        {if $conch_theme.vod_show_class == 1}
+            {if !empty($obj.type_extend.class||$obj.parent.type_extend.class)}
+                <div class="filter-row">
+                    <span class="filter-name">体裁</span>
+                    <div class="filter-scroll">
+                        <a class="filter-tag {if condition="$param['class'] eq ''"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>'','order'=>$param['order'],'by'=>$param['by'] ],'show')}">全部</a>
+                        {empty name="$obj.type_extend.class"}
+                            {maccms:foreach name=":explode(',',$obj.parent.type_extend.class)" id="classOption" key="classKey"}
+                                <a class="filter-tag {if condition="$param['class'] eq $classOption"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$classOption,'order'=>$param['order'],'by'=>$param['by'] ],'show')}">{$classOption}</a>
+                            {/maccms:foreach}
+                        {else /}
+                            {maccms:foreach name=":explode(',',$obj.type_extend.class)" id="classOption" key="classKey"}
+                                <a class="filter-tag {if condition="$param['class'] eq $classOption"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$classOption,'order'=>$param['order'],'by'=>$param['by'] ],'show')}">{$classOption}</a>
+                            {/maccms:foreach}
+                        {/empty}
+                    </div>
+                </div>
+            {/if}
+        {/if}
+
+        {if $conch_theme.vod_show_area == 1}
+            {if !empty($obj.type_extend.area||$obj.parent.type_extend.area)}
+                <div class="filter-row">
+                    <span class="filter-name">地区</span>
+                    <div class="filter-scroll">
+                        <a class="filter-tag {if condition="$param['area'] eq ''"}active{/if}" href="{:mac_url_type($obj,['area'=>'','lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">全部</a>
+                        {empty name="$obj.type_extend.area"}
+                            {maccms:foreach name=":explode(',',$obj.parent.type_extend.area)" id="areaOption" key="areaKey"}
+                                <a class="filter-tag {if condition="$param['area'] eq $areaOption"}active{/if}" href="{:mac_url_type($obj,['area'=>$areaOption,'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">{$areaOption}</a>
+                            {/maccms:foreach}
+                        {else /}
+                            {maccms:foreach name=":explode(',',$obj.type_extend.area)" id="areaOption" key="areaKey"}
+                                <a class="filter-tag {if condition="$param['area'] eq $areaOption"}active{/if}" href="{:mac_url_type($obj,['area'=>$areaOption,'lang'=>$param['lang'],'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">{$areaOption}</a>
+                            {/maccms:foreach}
+                        {/empty}
+                    </div>
+                </div>
+            {/if}
+        {/if}
+
+        {if $conch_theme.vod_show_lang == 1}
+        {if !empty($obj.type_extend.lang||$obj.parent.type_extend.lang)}
+                <div class="filter-row">
+                    <span class="filter-name">语言</span>
+                    <div class="filter-scroll">
+                        <a class="filter-tag {if condition="$param['lang'] eq ''"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>'','year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">全部</a>
+                        {empty name="$obj.type_extend.lang"}
+                            {maccms:foreach name=":explode(',',$obj.parent.type_extend.lang)" id="langOption" key="langKey"}
+                                <a class="filter-tag {if condition="$param['lang'] eq $langOption"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$langOption,'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">{$langOption}</a>
+                            {/maccms:foreach}
+                        {else /}
+                            {maccms:foreach name=":explode(',',$obj.type_extend.lang)" id="langOption" key="langKey"}
+                                <a class="filter-tag {if condition="$param['lang'] eq $langOption"}active{/if}" href="{:mac_url_type($obj,['area'=>$param['area'],'lang'=>$langOption,'year'=>$param['year'],'score'=>$param['score'],'level'=>$param['level'],'letter'=>$param['letter'],'state'=>$param['state'],'tag'=>$param['tag'],'class'=>$param['class'],'order'=>$param['order'],'by'=>$param['by'] ],'show')}">{$langOption}</a>
+                            {/maccms:foreach}
+                        {/empty}
+                    </div>
+                </div>
+        {/if}
+        {/if}
+    </div>
+{/if}

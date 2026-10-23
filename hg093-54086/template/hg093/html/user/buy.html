@@ -1,0 +1,153 @@
+<!doctype html>
+<!--
+**************************************************
+* 作者:          海螺主题
+* 海螺主题官网:    https://www.hailuo.cc
+* 版本:          HL093 极光 2.1.5
+* 最后更新:    2026-09-18
+**************************************************
+-->
+
+<html lang="zh-CN">
+    <head>
+        <title>充值中心 - {$conch_theme.site_name|mac_default=$maccms.site_name}</title>
+        {include file="public/include"}
+    </head>
+    <body>
+
+        {include file="public/head"}
+
+        <main class="hl-member-page">
+
+            <aside class="hl-member-sidebar hl-desktop-only">
+                <nav class="hl-member-nav">
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/index') !== false"}active{/if}" href="{:url('user/index')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-user-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">个人中心</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 2"}active{/if}" href="{:url('user/ulog')}?mid=1&type=2">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-star-smile-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的收藏</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="$param.type eq 4"}active{/if}" href="{:url('user/ulog')}?mid=1&type=4">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-play-circle-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">播放记录</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/orders') !== false || strpos($_SERVER['REQUEST_URI'], 'user/cards') !== false"}active{/if}" href="{:url('user/orders')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-file-list-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">我的订单</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/buy') !== false || strpos($_SERVER['REQUEST_URI'], 'user/pay') !== false"}active{/if}" href="{{:url('user/buy')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-database-2-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">充值会员</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/info') !== false"}active{/if}" href="{:url('user/info')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-settings-3-fill right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">账户设置</span>
+                    </a>
+                    <a class="hl-member-nav-link {if condition="strpos($_SERVER['REQUEST_URI'], 'user/bind') !== false"}active{/if}" href="{:url('user/bind')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-shield-check-fill right-5 iconfont"></i>️</span>
+                        <span class="hl-member-nav-text">安全中心</span>
+                    </a>
+                    <a class="hl-member-nav-link" href="{:url('user/logout')}">
+                        <span class="hl-member-nav-icon"><i class="fs18 icon-delete-bin-5-line right-5 iconfont"></i></span>
+                        <span class="hl-member-nav-text">退出登录</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <section class="hl-member-content">
+
+                <div class="hl-member-hero">
+                    <div class="hl-member-hero-left">
+                        <span class="hl-member-hero-badge">Recharge</span>
+                        <h1 class="hl-member-hero-title right-5">积分充值</h1>
+                        <p class="hl-member-hero-desc">在线充值或使用充值卡为账户增加积分</p>
+                    </div>
+                    <div class="hl-member-hero-actions">
+                        <a class="hl-member-hero-btn hl-member-hero-btn-primary right-5" href="{:url('user/upgrade')}">
+                            <i class="fs16 icon-vip-diamond-line right-5 iconfont"></i> 开通会员
+                        </a>
+                        <a class="hl-member-hero-btn hl-member-hero-btn-secondary" href="{:url('user/orders')}">
+                            <i class="fs16 icon-file-list-2-line right-5 iconfont"></i> 订单记录
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hl-member-panel">
+
+                    <div class="hl-member-tabs" id="payTabs">
+                        <a class="hl-member-tab active" data-tab="online"><i class="fs12 icon-macbook-line right-5 iconfont"></i>在线充值</a>
+                        <a class="hl-member-tab" data-tab="card"><i class="fs12 icon-bank-card-line right-5 iconfont"></i>卡密充值</a>
+                        <a class="hl-member-txt">当前积分：<span>{$obj.user_points|mac_default='0'}</span></a>
+                    </div>
+
+                    <div class="hl-tab-content active" id="tabOnline" style="display:block;">
+                        <form class="hl-pay-form" id="payForm" data-url="{:url('user/buy')}">
+                            <div class="hl-form-group">
+                                <label class="hl-form-label">充值金额（元）</label>
+                                <div class="hl-form-amount-row">
+                                    <span class="hl-form-amount-symbol">¥</span>
+                                    <input class="hl-form-input hl-form-input-amount" type="number" name="price" min="{$config.min|mac_default='1'}" step="1" value="{$config.min|mac_default='1'}" placeholder="请输入充值金额">
+                                </div>
+                            </div>
+
+                            <div class="hl-form-quick-amounts">
+                                <button class="hl-form-quick-btn" type="button" data-amount="10">10元</button>
+                                <button class="hl-form-quick-btn" type="button" data-amount="30">30元</button>
+                                <button class="hl-form-quick-btn" type="button" data-amount="50">50元</button>
+                                <button class="hl-form-quick-btn" type="button" data-amount="100">100元</button>
+                                <button class="hl-form-quick-btn" type="button" data-amount="200">200元</button>
+                            </div>
+
+                            <div class="hl-form-preview">
+                                预计获得 <strong id="previewPoints">{$config.min|mac_default='1'}</strong> 积分
+                            </div>
+
+                            <p class="hl-form-note">
+                                最低充值 <strong>{$config.min|mac_default='1'}</strong> 元，
+                                1 元 = <strong id="scaleRate">{$config.scale|mac_default='1'}</strong> 积分
+                            </p>
+
+                            <div class="hl-form-tip" id="payTip"></div>
+
+                            <button class="hl-auth-btn" type="submit" id="btnPay">立即充值</button>
+                        </form>
+                    </div>
+
+                    <div class="hl-tab-content" id="tabCard" style="display:none;">
+                        <form class="hl-pay-form" id="cardForm">
+                            <div class="hl-form-group">
+                                <label class="hl-form-label">充值卡号</label>
+                                <div class="hl-form-card-row">
+                                    <input class="hl-form-input hl-form-input-card" type="text" name="card_no" placeholder="请输入充值卡号">
+                                    {if condition="$GLOBALS['config']['pay']['card']['url'] neq ''"}
+                                        <a class="hl-form-card-btn" href="{$GLOBALS['config']['pay']['card']['url']}" target="_blank">购买卡密 →</a>
+                                    {/if}
+                                </div>
+                            </div>
+
+                            <div class="hl-form-group">
+                                <label class="hl-form-label">充值密码</label>
+                                <input class="hl-form-input" type="text" name="card_pwd" placeholder="请输入充值卡密码">
+                            </div>
+
+                            <p class="hl-form-note"> 请到卡密平台购买充值卡</p>
+
+                            <div class="hl-form-tip" id="cardTip"></div>
+
+                            <button class="hl-auth-btn" type="submit" id="btnCard">确认充值</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </section>
+        </main>
+
+        {include file="public/foot"}
+
+        <script type="text/javascript" src="{$maccms.path_tpl}static/js/user/user_buy.js?v={$version}"></script>
+
+    </body>
+</html>

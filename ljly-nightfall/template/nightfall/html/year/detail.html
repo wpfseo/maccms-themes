@@ -1,0 +1,37 @@
+{php}$nfPage='yeardetail';{/php}{include file="public/boot"}
+{php}
+$y=$nfYear;$tn=isset($nfType['type_name'])?$nfType['type_name']:'';$n=$nfTotal;
+if($tn!==''){
+    $nf['title']=$y.'年'.$tn.' - 年度片单（'.number_format($n).'部） - '.$nf['c']['brand'];
+    $nf['heading']=$y.' 年'.$tn;
+    $nf['description']=$y.'年上映与收录的'.$tn.'作品，共 '.number_format($n).' 部，按入库时间排列。';
+    $nf['keywords']=implode(',',array_filter([$y.$tn,$y.'年'.$tn,$y.'年'.$tn.'推荐',$tn,$nf['c']['brand']]));
+}else{
+    $nf['title']=$y.'年影片大全（'.number_format($n).'部） - 年份片单 - '.$nf['c']['brand'];
+    $nf['heading']=$y.' 年影片';
+    $nf['description']=$y.'年收录的全部影视作品，共 '.number_format($n).' 部，可继续按题材细分浏览。';
+    $nf['keywords']=implode(',',array_filter([$y.'年电影',$y.'年电视剧',$y.'年新片',$y.'影片',$nf['c']['brand']]));
+}
+$prevY=$nfPrevYear!==''?substr($nfPrevYear,6,4):'';
+$nextY=$nfNextYear!==''?substr($nfNextYear,6,4):'';
+$nf['canonical']=\app\common\service\Nightfall::absolute($nfUrlFirst,$nf['c']);
+if($nfPageNum>1){
+    $nf['title'].=' - 第'.$nfPageNum.'页';
+    $nf['canonical']=\app\common\service\Nightfall::absolute(\app\common\service\Nightfall::yearUrl($y,$nfTypeSlug,$nfPageNum),$nf['c']);
+}
+{/php}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<nav class="breadcrumbs"><a href="/">首页</a><span>/</span><a href="{$nfUrlIndex}">年份片单</a><span>/</span><span>{$y}{if $nfType} · {$nfType.type_name|htmlspecialchars}{/if}</span></nav>
+<header class="page-title"><span class="eyebrow">YEAR {$y}</span><h1>{$y} 年{$tn|htmlspecialchars}<span class="heading-dot">.</span></h1>
+<p>共 {:number_format($nfTotal)} 部作品，按入库时间从新到旧排列。</p>
+<p class="muted">{if $nfPrevYear}<a class="text-link" href="{$nfPrevYear}">← {$prevY} 年</a>{/if} {if $nfNextYear}<a class="text-link" href="{$nfNextYear}">{$nextY} 年 →</a>{/if}</p></header>
+
+{if !empty($nfTypes)}<section class="section"><div class="section-head"><div><span class="eyebrow">BY GENRE</span><h2>{$y} 年的题材分布</h2></div></div>
+<nav class="chip-nav" aria-label="按题材">{volist name="nfTypes" id="ty"}<a class="chip" href="{$ty.url}">{$ty.type_name|htmlspecialchars}（{:number_format($ty['c'])}）</a>{/volist}</nav></section>{/if}
+
+<section class="section"><div class="section-head"><div><span class="eyebrow">IN {$y}</span><h2>{$y} 年作品</h2></div><span class="muted">共 {:number_format($nfTotal)} 部</span></div>
+<div class="film-grid">{volist name="nfRows" id="vo"}{include file="public/card"}{/volist}</div>
+{if empty($nfRows)}<p class="empty-state">这一年还没有收录作品。</p>{/if}</section>
+
+{if $nfPageMax gt 1}<nav class="pagination" aria-label="分页"><a href="{$nfUrlFirst}" rel="first">首页</a>{if $nfPageCur gt 1}<a href="{$nfUrlPrev}" rel="prev">上一页</a>{/if}{volist name="nfPageList" id="pg"}{if $pg.cur}<span aria-current="page">{$pg.n}</span>{else}<a href="{$pg.url}">{$pg.n}</a>{/if}{/volist}{if $nfPageCur lt $nfPageMax}<a href="{$nfUrlNext}" rel="next">下一页</a>{/if}<a href="{$nfUrlLast}">末页</a><span class="muted">第 {$nfPageCur} / {$nfPageMax} 页</span></nav>{/if}
+</main>{include file="public/footer"}</body></html>

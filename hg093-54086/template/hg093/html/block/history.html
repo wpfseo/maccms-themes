@@ -1,0 +1,31 @@
+
+        <section class="card history watch-history-section" id="watchHistorySection" style="display:none;">
+            <div class="section-header">
+                <div class="header-left">
+                    <h2><i class="fs24 icon-shijian right-5 iconfont"></i>继续观看</h2>
+                </div>
+                {if condition="$GLOBALS['user']['user_id']" gt 0}
+                    <span class="more-link"><a href="{:mac_url('user/ulog')}?mid=1&type=4">更多记录 </a></span>
+                {else}
+                    <span class="more-link"><a href="javascript:void(0)" data-clear-history><i class="fs14 icon-delete-bin-5-line right-5 iconfont"></i>清空记录</a></span>
+                {/if}
+            </div>
+            <div class="watch-history-rail-wrapper">
+                <div class="watch-history-rail-scroll" id="watchHistoryScroll">
+
+                </div>
+            </div>
+        </section>
+
+        <div class="watch-notify" id="watchNotify" style="display:none;">
+            <div class="watch-notify-box">
+                <button class="watch-notify-close" data-watch-notify-close aria-label="关闭">&times;</button>
+                <div class="watch-notify-icon">&#9654;</div>
+                <div class="watch-notify-title">继续观看</div>
+                <div class="watch-notify-text" id="watchNotifyText"></div>
+                <div class="watch-notify-actions">
+                    <button class="watch-notify-btn watch-notify-btn-primary" data-watch-notify-go>去继续观看</button>
+                    <button class="watch-notify-btn watch-notify-btn-ghost" data-watch-notify-close>知道了</button>
+                </div>
+            </div>
+        </div>

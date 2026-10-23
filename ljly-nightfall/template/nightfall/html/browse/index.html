@@ -1,0 +1,20 @@
+{php}$nfPage='browse';{/php}{include file="public/boot"}
+<!doctype html><html lang="zh-CN" id="top"><head>{include file="public/head"}</head><body>{include file="public/header"}<main id="main" class="shell">
+<header class="page-title"><span class="eyebrow">BROWSE THE LIBRARY</span><h1>浏览全部影片<span class="heading-dot">.</span></h1><p>按片名首字母、完结状态和集数找到想看的那一部，当前共收录 {$nfStats.total} 部作品。</p></header>
+<section class="section"><div class="section-head"><div><span class="eyebrow">A–Z INDEX</span><h2>按首字母查找</h2></div></div>
+<div class="letter-grid">{volist name="nfLetters" id="lb"}<a class="letter-cell" href="{:url('index/nightbrowse/letter',['l'=>$lb.letter])}"><b>{$lb.letter}</b><span>{$lb.count}</span></a>{/volist}</div></section>
+<section class="section"><div class="section-head"><div><span class="eyebrow">COLLECTIONS</span><h2>按状态找片</h2></div></div>
+<div class="rank-board-grid">
+<a class="rank-board" href="{:url('index/nightbrowse/state',['s'=>1])}"><span class="eyebrow">FINISHED</span><h2>已完结</h2><p>{$nfStats.finished} 部已完结作品，可以一口气看完。</p><span class="text-link">浏览 ↗</span></a>
+<a class="rank-board" href="{:url('index/nightbrowse/state',['s'=>0])}"><span class="eyebrow">ONGOING</span><h2>连载中</h2><p>{$nfStats.serial} 部仍在更新，追更有得看。</p><span class="text-link">浏览 ↗</span></a>
+<a class="rank-board" href="{:url('index/nightactor/index')}"><span class="eyebrow">CAST</span><h2>演员库</h2><p>按参演作品数量浏览演员，进演员主页看全部作品与合作演员。</p><span class="text-link">浏览 ↗</span></a><a class="rank-board" href="{:url('index/nighttag/index')}"><span class="eyebrow">GENRE</span><h2>题材标签</h2><p>按题材标签找片，每个标签至少 100 部同类作品。</p><span class="text-link">浏览 ↗</span></a><a class="rank-board" href="{:url('index/nightbrowse/long')}"><span class="eyebrow">LONG FORM</span><h2>长篇与短剧全集</h2><p>40 集以上的长篇作品，按集数从多到少排列。</p><span class="text-link">浏览 ↗</span></a>
+<a class="rank-board" href="/duanju.html"><span class="eyebrow">SHORT DRAMA</span><h2>短剧频道</h2><p>竖屏短剧与反转爽剧合集，按子类与集数浏览。</p><span class="text-link">进入 ↗</span></a>
+<a class="rank-board" href="/sports.html"><span class="eyebrow">SPORTS</span><h2>体育赛事</h2><p>足球、篮球、台球、网球赛事录像与集锦。</p><span class="text-link">进入 ↗</span></a>
+<a class="rank-board" href="/jieshuo.html"><span class="eyebrow">COMMENTARY</span><h2>影视解说</h2><p>几十分钟看完一部电影，剧情速览合集。</p><span class="text-link">进入 ↗</span></a>
+<a class="rank-board" href="/combo.html"><span class="eyebrow">COMBO</span><h2>标签组合</h2><p>两个题材叠起来找片，如「剧情+爱情」。</p><span class="text-link">进入 ↗</span></a>
+<a class="rank-board" href="/year.html"><span class="eyebrow">BY YEAR</span><h2>年份片单</h2><p>按年份浏览，可再按题材细分到「2026 动作片」。</p><span class="text-link">进入 ↗</span></a>
+<a class="rank-board" href="/series.html"><span class="eyebrow">SERIES</span><h2>系列片单</h2><p>同名作品≥3部自动成系列，一次看完。</p><span class="text-link">进入 ↗</span></a>
+</div></section>
+{if !empty($nfNew)}<section class="section"><div class="section-head"><div><span class="eyebrow">LATEST IN</span><h2>新入库</h2></div></div><div class="film-grid">{volist name="nfNew" id="vo"}{include file="public/card"}{/volist}</div></section>{/if}
+{if !empty($nfLong)}<section class="section"><div class="section-head"><div><span class="eyebrow">LONG FORM</span><h2>集数最多</h2></div><a class="text-link" href="{:url('index/nightbrowse/long')}">查看全部 ↗</a></div><div class="film-grid">{volist name="nfLong" id="vo"}{include file="public/card"}{/volist}</div></section>{/if}
+</main>{include file="public/footer"}</body></html>

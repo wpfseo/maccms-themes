@@ -1,0 +1,10 @@
+<section class="section" id="episodes">
+{php}$nfSid = (isset($param['sid']) && intval($param['sid']) > 0) ? intval($param['sid']) : 1; $nfLines = isset($obj['vod_play_list']) ? $obj['vod_play_list'] : array(); $nfLineCount = count($nfLines);{/php}
+<div class="section-head"><div><span class="eyebrow">WATCH / PLAYLIST</span><h2>播放列表</h2></div><span class="muted">{if $nfLineCount > 1}共 {$nfLineCount} 条线路 · {/if}以实际可用为准</span></div>
+{if $nfLineCount > 0}
+<nav class="line-tabs" aria-label="播放线路">{volist name="obj.vod_play_list" id="line" key="lineKey"}<a class="line-tab{if $lineKey eq $nfSid} active{/if}" href="{:mac_url_vod_play($obj,['sid'=>$lineKey,'nid'=>1])}"{if $lineKey eq $nfSid} aria-current="true"{/if}><span class="line-tab-name">{$line.player_info.show|default=$line.from|htmlspecialchars}</span><span class="line-tab-count">{$line.urls|count}</span></a>{/volist}</nav>
+{volist name="obj.vod_play_list" id="line" key="lineKey"}{if $lineKey eq $nfSid}<div class="episode-panel"><div class="episode-grid">{volist name="line.urls" id="episode" key="episodeKey"}<a class="episode {if isset($param.sid) && $param.sid==$lineKey && $param.nid==$episodeKey}active{/if}" href="{:mac_url_vod_play($obj,['sid'=>$lineKey,'nid'=>$episodeKey])}" {if isset($param.sid) && $param.sid==$lineKey && $param.nid==$episodeKey}aria-current="true"{/if}>{$episode.name|htmlspecialchars}</a>{/volist}</div></div>{/if}{/volist}
+{else}
+<p class="empty-state">暂无可用播放线路，请稍后再来。</p>
+{/if}
+</section>
